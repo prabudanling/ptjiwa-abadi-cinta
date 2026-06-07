@@ -197,3 +197,100 @@ export const MONTHLY_REVENUE = [
   { month: 'Nov', perdagangan: 62, jasa: 42, konstruksi: 60, industri: 82, pertanian: 40 },
   { month: 'Des', perdagangan: 65, jasa: 45, konstruksi: 65, industri: 85, pertanian: 42 },
 ]
+
+// Public-facing data for landing page
+export const PUBLIC_INSIGHTS = [
+  {
+    id: '1',
+    category: 'Industri Sawit',
+    categoryColor: '#2D6A4F',
+    title: 'Masa Depan Industri Sawit Indonesia 2025',
+    excerpt: 'Analisis mendalam tentang tren, tantangan, dan peluang industri kelapa sawit di pasar global yang semakin kompetitif.',
+    date: '15 Desember 2024',
+    readTime: '8 menit',
+  },
+  {
+    id: '2',
+    category: 'Perizinan',
+    categoryColor: '#4A2D6A',
+    title: 'Digitalisasi Perizinan: Peluang & Tantangan',
+    excerpt: 'Bagaimana transformasi digital membentuk ulang proses perizinan bisnis di Indonesia dan apa yang perlu Anda persiapkan.',
+    date: '10 Desember 2024',
+    readTime: '6 menit',
+  },
+  {
+    id: '3',
+    category: 'Konsultasi',
+    categoryColor: '#1E3A5F',
+    title: 'Strategi Pertumbuhan Bisnis di Era AI',
+    excerpt: 'Memanfaatkan kecerdasan buatan untuk mendorong pertumbuhan bisnis yang berkelanjutan dan kompetitif.',
+    date: '5 Desember 2024',
+    readTime: '10 menit',
+  },
+]
+
+export const TRUST_LOGOS = [
+  'PT Maju Jaya',
+  'Bank Nasional',
+  'Grup Sawit Nusantara',
+  'Kementerian PUPR',
+  'Universitas Indonesia',
+]
+
+export const CAREERS = [
+  { title: 'Business Development Manager', location: 'Jakarta', type: 'Full-time' },
+  { title: 'Civil Engineer', location: 'Surabaya', type: 'Full-time' },
+  { title: 'CPO Trading Analyst', location: 'Jakarta', type: 'Full-time' },
+]
+
+// Public-facing services data (refined colors, no KBLI codes)
+export const PUBLIC_SERVICES = [
+  {
+    id: 'perdagangan',
+    name: 'Perdagangan',
+    subtitle: 'Marketplace & Trading',
+    icon: 'Package',
+    color: '#B8860B',
+    description: 'Ekspor, impor, dan distribusi komoditas strategis — perdagangan mesin, bahan baku sawit, dan produk industri.',
+  },
+  {
+    id: 'jasa',
+    name: 'Jasa & Konsultasi',
+    subtitle: 'Consulting & MICE',
+    icon: 'Briefcase',
+    color: '#1E3A5F',
+    description: 'Konsultasi manajemen, penyelenggaraan MICE, dan pelatihan profesional untuk pertumbuhan bisnis.',
+  },
+  {
+    id: 'konstruksi',
+    name: 'Konstruksi',
+    subtitle: 'Construction & Tender',
+    icon: 'Building2',
+    color: '#C75B39',
+    description: 'Tender proyek, konstruksi gedung & sipil, irigasi, jembatan — pembangunan infrastruktur terpercaya.',
+  },
+  {
+    id: 'industri',
+    name: 'Industri Sawit',
+    subtitle: 'Palm Oil & CPO Trading',
+    icon: 'Factory',
+    color: '#2D6A4F',
+    description: 'Trading CPO, minyak goreng, dan fraksinasi — industri hilir kelapa sawit terintegrasi.',
+  },
+  {
+    id: 'pertanian',
+    name: 'Pertanian & Perikanan',
+    subtitle: 'Agriculture & Fishery',
+    icon: 'Leaf',
+    color: '#1B7A6E',
+    description: 'Perkebunan sawit, kehutanan, perikanan — manajemen agrikultur terintegrasi & sertifikasi.',
+  },
+  {
+    id: 'perizinan',
+    name: 'Perizinan & Sertifikasi',
+    subtitle: 'Licensing & Certification',
+    icon: 'ShieldCheck',
+    color: '#4A2D6A',
+    description: 'Pengajuan izin usaha dan sertifikasi — legalitas di 5 bidang usaha untuk pihak ketiga.',
+  },
+]

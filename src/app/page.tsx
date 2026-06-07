@@ -13,7 +13,7 @@ import PertanianModule from '@/components/modules/PertanianModule'
 import PerizinanModule from '@/components/modules/PerizinanModule'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COMPANY } from '@/lib/company-data'
-import { Bell, Search, Menu } from 'lucide-react'
+import { Bell, Search, Menu, LogOut } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 
@@ -29,7 +29,7 @@ const viewComponents: Record<AppView, React.ComponentType> = {
 }
 
 export default function Home() {
-  const { currentView, sidebarOpen, setSidebarOpen } = useAppStore()
+  const { currentView, sidebarOpen, setSidebarOpen, setCurrentView } = useAppStore()
   const isLanding = currentView === 'landing'
   const CurrentComponent = viewComponents[currentView]
   const [isDesktop, setIsDesktop] = useState(false)
@@ -43,7 +43,7 @@ export default function Home() {
 
   if (isLanding) {
     return (
-      <div className="min-h-screen flex flex-col bg-background">
+      <div className="min-h-screen flex flex-col">
         <LandingPage />
       </div>
     )
@@ -104,6 +104,15 @@ export default function Home() {
                     <p className="text-[10px] text-muted-foreground">Super Admin</p>
                   </div>
                 </div>
+
+                {/* Logout / Back to Landing */}
+                <button
+                  onClick={() => setCurrentView('landing')}
+                  className="p-2 rounded-lg hover:bg-[rgba(212,168,67,0.05)] transition-colors"
+                  title="Kembali ke halaman utama"
+                >
+                  <LogOut className="w-4 h-4 text-muted-foreground" />
+                </button>
               </div>
             </div>
           </header>
