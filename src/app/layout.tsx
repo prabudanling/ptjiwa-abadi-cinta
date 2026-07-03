@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Fraunces, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  weight: "variable",
+  axes: ["opsz", "SOFT"],
+  style: ["normal"],
 });
 
 const geistMono = Geist_Mono({
@@ -30,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${jakarta.variable} ${fraunces.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

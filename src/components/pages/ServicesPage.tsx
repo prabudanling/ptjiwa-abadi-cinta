@@ -136,7 +136,7 @@ function GoldParticles({ count = 22 }: { count?: number }) {
           style={{
             left: `${p.x}%`, top: `${p.y}%`,
             width: p.size, height: p.size,
-            background: 'radial-gradient(circle, #F5D061, #B8860B)',
+            background: 'radial-gradient(circle, #F0E4B8, #C9A961)',
             boxShadow: '0 0 6px rgba(245,208,97,0.6)',
           }}
           animate={{ y: [0, -30, 0], opacity: [p.opacity, p.opacity * 1.8, p.opacity] }}
@@ -160,10 +160,10 @@ function IntroBand() {
   const yOrb2 = useTransform(scrollYProgress, [0, 1], [-60, 60])
 
   const stats = [
-    { value: '5', label: 'Bidang Usaha', color: '#E8C547' },
-    { value: '17+', label: 'KBLI Terdaftar', color: '#D4A843' },
-    { value: '340+', label: 'Mitra & Klien', color: '#E8C547' },
-    { value: '47+', label: 'Proyek Selesai', color: '#D4A843' },
+    { value: '5', label: 'Bidang Usaha', color: '#F0E4B8' },
+    { value: '17+', label: 'KBLI Terdaftar', color: '#E8D9A0' },
+    { value: '340+', label: 'Mitra & Klien', color: '#F0E4B8' },
+    { value: '47+', label: 'Proyek Selesai', color: '#E8D9A0' },
   ]
 
   return (
@@ -192,16 +192,16 @@ function IntroBand() {
 
       {/* Grid overlay */}
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none" aria-hidden style={{
-        backgroundImage: `linear-gradient(#F5D061 1px, transparent 1px), linear-gradient(90deg, #F5D061 1px, transparent 1px)`,
+        backgroundImage: `linear-gradient(#F0E4B8 1px, transparent 1px), linear-gradient(90deg, #F0E4B8 1px, transparent 1px)`,
         backgroundSize: '80px 80px',
       }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <FadeIn>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4A843]/30 bg-[#D4A843]/5 backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5 text-[#E8C547]" />
-              <span className="text-[#E8C547] text-xs font-semibold tracking-[0.2em] uppercase">Ekosistem Terintegrasi</span>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E8D9A0]/30 bg-[#E8D9A0]/5 backdrop-blur-sm">
+              <Sparkles className="w-3.5 h-3.5 text-[#F0E4B8]" />
+              <span className="text-[#F0E4B8] text-xs font-semibold tracking-[0.2em] uppercase">Ekosistem Terintegrasi</span>
             </span>
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-5 mb-6 leading-[1.15]"
@@ -210,7 +210,7 @@ function IntroBand() {
               Satu Ekosistem,
               <br />
               <span style={{
-                background: 'linear-gradient(135deg, #F5D061 0%, #E8C547 100%)',
+                background: 'linear-gradient(135deg, #F0E4B8 0%, #F0E4B8 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -226,7 +226,7 @@ function IntroBand() {
           <div className="grid grid-cols-2 gap-4 sm:gap-5">
             {stats.map((s, i) => (
               <FadeIn key={i} delay={0.1 + i * 0.1}>
-                <div className="rounded-sm border border-[#D4A843]/20 bg-white/[0.03] backdrop-blur-md p-5 sm:p-6 h-full transition-colors hover:border-[#D4A843]/40">
+                <div className="rounded-sm border border-[#E8D9A0]/20 bg-white/[0.03] backdrop-blur-md p-5 sm:p-6 h-full transition-colors hover:border-[#E8D9A0]/40">
                   <p className="text-4xl lg:text-5xl font-bold mb-1" style={{ fontFamily: SERIF, color: s.color }}>
                     <Counter value={s.value} />
                   </p>
@@ -265,9 +265,9 @@ function ModuleSection({
     ? { background: `linear-gradient(170deg, ${LUXURY_ACCENTS.charcoal} 0%, ${LUXURY_ACCENTS.emeraldDeep} 60%, ${LUXURY_ACCENTS.emerald} 100%)` }
     : { background: LUXURY_ACCENTS.cream }
 
-  const textColor = isDark ? 'text-white' : 'text-[#1A1A2E]'
-  const mutedColor = isDark ? 'text-white/65' : 'text-[#5a5a6a]'
-  const cardBorder = isDark ? 'rgba(212,168,67,0.15)' : '#e5e0d5'
+  const textColor = isDark ? 'text-white' : 'text-[#1A1430]'
+  const mutedColor = isDark ? 'text-white/65' : 'text-[#6B5E80]'
+  const cardBorder = isDark ? 'rgba(212,168,67,0.15)' : '#E0D8C8'
   const cardBg = isDark ? 'rgba(255,255,255,0.03)' : '#ffffff'
 
   return (
@@ -275,7 +275,7 @@ function ModuleSection({
       {isDark && <GoldParticles count={14} />}
       {isDark && (
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" aria-hidden style={{
-          backgroundImage: `radial-gradient(#D4A843 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(#E8D9A0 1px, transparent 1px)`,
           backgroundSize: '40px 40px',
         }} />
       )}
@@ -406,24 +406,24 @@ function ModuleSection({
    ============================================================ */
 function KbliSection() {
   return (
-    <section className="py-20 lg:py-28 bg-[#FAFAF7] relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#F8F4ED] relative overflow-hidden">
       {/* Subtle gold dot pattern */}
       <div className="absolute inset-0 opacity-[0.025] pointer-events-none" aria-hidden style={{
-        backgroundImage: `radial-gradient(#B8860B 1px, transparent 1px)`,
+        backgroundImage: `radial-gradient(#C9A961 1px, transparent 1px)`,
         backgroundSize: '32px 32px',
       }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#B8860B]/30 bg-[#B8860B]/5 mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-[#B8860B]" />
-              <span className="text-[#B8860B] text-xs font-semibold tracking-[0.2em] uppercase">Kepatuhan & Klasifikasi</span>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/5 mb-5">
+              <Sparkles className="w-3.5 h-3.5 text-[#C9A961]" />
+              <span className="text-[#C9A961] text-xs font-semibold tracking-[0.2em] uppercase">Kepatuhan & Klasifikasi</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mb-4" style={{ fontFamily: SERIF }}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1430] mb-4" style={{ fontFamily: SERIF }}>
               17+ KBLI Terdaftar, Satu Entitas Hukum
             </h2>
-            <p className="text-[#5a5a6a] max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[#6B5E80] max-w-2xl mx-auto leading-relaxed">
               Setiap bidang usaha didukung klasifikasi KBLI resmi sesuai Akta Pendirian No. 310 — memastikan kepatuhan regulasi dan ruang lingkup operasional yang transparan.
             </p>
           </div>
@@ -432,7 +432,7 @@ function KbliSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {MODULES.map((mod, i) => (
             <FadeIn key={mod.id} delay={i * 0.08}>
-              <div className="bg-white rounded-sm border border-[#e5e0d5] overflow-hidden h-full transition-shadow hover:shadow-xl"
+              <div className="bg-white rounded-sm border border-[#E0D8C8] overflow-hidden h-full transition-shadow hover:shadow-xl"
                 style={{ boxShadow: '0 1px 0 rgba(15,27,23,0.02)' }}
               >
                 {/* Color stripe */}
@@ -446,10 +446,10 @@ function KbliSection() {
                       {ICONS[mod.icon]}
                     </div>
                     <div>
-                      <h3 className="font-bold text-[#1A1A2E] text-base leading-tight" style={{ fontFamily: SERIF }}>
+                      <h3 className="font-bold text-[#1A1430] text-base leading-tight" style={{ fontFamily: SERIF }}>
                         {mod.name}
                       </h3>
-                      <p className="text-[#8a8a9a] text-xs mt-0.5">{mod.subtitle}</p>
+                      <p className="text-[#8B7FA3] text-xs mt-0.5">{mod.subtitle}</p>
                     </div>
                   </div>
 
@@ -464,7 +464,7 @@ function KbliSection() {
                           <span className="block text-xs font-mono font-semibold mb-0.5" style={{ color: mod.color }}>
                             KBLI {mod.kblis[j]}
                           </span>
-                          <span className="block text-xs text-[#5a5a6a] leading-relaxed">
+                          <span className="block text-xs text-[#6B5E80] leading-relaxed">
                             {name}
                           </span>
                         </div>
@@ -519,14 +519,14 @@ function ProcessSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#0D503C]/25 bg-[#0D503C]/5 mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-[#0D503C]" />
-              <span className="text-[#0D503C] text-xs font-semibold tracking-[0.2em] uppercase">Cara Kami Bekerja</span>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#3A2D5C]/25 bg-[#3A2D5C]/5 mb-5">
+              <Sparkles className="w-3.5 h-3.5 text-[#3A2D5C]" />
+              <span className="text-[#3A2D5C] text-xs font-semibold tracking-[0.2em] uppercase">Cara Kami Bekerja</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mb-4" style={{ fontFamily: SERIF }}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1430] mb-4" style={{ fontFamily: SERIF }}>
               Proses Empat Langkah, Hasil Berkelas
             </h2>
-            <p className="text-[#5a5a6a] max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[#6B5E80] max-w-2xl mx-auto leading-relaxed">
               Dari diskusi awal hingga serah terima — metodologi terstruktur yang memastikan setiap proyek tuntas tepat waktu, sesuai anggaran, dan melampaui ekspektasi.
             </p>
           </div>
@@ -561,15 +561,15 @@ function ProcessSection() {
                     <span className="absolute inset-0 rounded-full border-2 border-white/40" aria-hidden />
                   </div>
                 </div>
-                <h3 className="font-bold text-[#1A1A2E] text-lg mb-2.5" style={{ fontFamily: SERIF }}>
+                <h3 className="font-bold text-[#1A1430] text-lg mb-2.5" style={{ fontFamily: SERIF }}>
                   {step.title}
                 </h3>
-                <p className="text-[#5a5a6a] text-sm leading-relaxed">
+                <p className="text-[#6B5E80] text-sm leading-relaxed">
                   {step.desc}
                 </p>
                 {i < PROCESS_STEPS.length - 1 && (
                   <div className="lg:hidden flex justify-center my-4" aria-hidden>
-                    <ArrowRight className="w-4 h-4 text-[#B8860B] rotate-90" />
+                    <ArrowRight className="w-4 h-4 text-[#C9A961] rotate-90" />
                   </div>
                 )}
               </motion.div>
@@ -586,7 +586,7 @@ function ProcessSection() {
    ============================================================ */
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAF7] landing-page">
+    <div className="min-h-screen flex flex-col bg-[#F8F4ED] landing-page">
       <PublicNav />
       <main className="flex-1">
         <PageHero

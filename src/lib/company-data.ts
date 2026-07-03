@@ -190,7 +190,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '1',
     category: 'Industri Sawit',
-    categoryColor: '#2D6A4F',
+    categoryColor: '#8FB89B',
     title: 'Masa Depan Industri Sawit Indonesia 2025',
     excerpt: 'Analisis mendalam tentang tren, tantangan, dan peluang industri kelapa sawit di pasar global yang semakin kompetitif.',
     date: '15 Desember 2024',
@@ -200,7 +200,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '2',
     category: 'Konstruksi',
-    categoryColor: '#C75B39',
+    categoryColor: '#D99B7A',
     title: 'Infrastruktur Berkelanjutan: Tren Konstruksi Hijau 2025',
     excerpt: 'Bagaimana praktik konstruksi ramah lingkungan dan material berkelanjutan membentuk masa depan infrastruktur Indonesia.',
     date: '10 Desember 2024',
@@ -209,7 +209,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '3',
     category: 'Strategi',
-    categoryColor: '#1E3A5F',
+    categoryColor: '#9B8FB8',
     title: 'Strategi Pertumbuhan Bisnis di Era AI',
     excerpt: 'Memanfaatkan kecerdasan buatan untuk mendorong pertumbuhan bisnis yang berkelanjutan dan kompetitif.',
     date: '5 Desember 2024',
@@ -218,7 +218,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '4',
     category: 'Perdagangan',
-    categoryColor: '#B8860B',
+    categoryColor: '#C9A961',
     title: 'Rantai Pasok Global: Ketahanan di Tenga Ketidakpastian',
     excerpt: 'Membangun ketahanan rantai pasok melalui diversifikasi, digitalisasi, dan kemitraan strategis lintas wilayah.',
     date: '28 November 2024',
@@ -227,7 +227,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '5',
     category: 'Pertanian',
-    categoryColor: '#1B7A6E',
+    categoryColor: '#6A9A7F',
     title: 'Sawit Berkelanjutan: Menuju Sertifikasi ISPO & RSPO',
     excerpt: 'Perjalanan transformasi perkebunan kelapa sawit menuju praktik berkelanjutan dan sertifikasi internasional.',
     date: '22 November 2024',
@@ -236,7 +236,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '6',
     category: 'Jasa',
-    categoryColor: '#1E3A5F',
+    categoryColor: '#9B8FB8',
     title: 'MICE Pasca-Pandemi: Hibrid sebagai Standar Baru',
     excerpt: 'Evolusi industri pertemuan, perjalanan insentif, konferensi, dan pameran menuju format hibrida yang efisien.',
     date: '15 November 2024',
@@ -245,7 +245,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '7',
     category: 'Industri Sawit',
-    categoryColor: '#2D6A4F',
+    categoryColor: '#8FB89B',
     title: 'Volatilitas Harga CPO: Strategi Hedging untuk Trader',
     excerpt: 'Instrument dan pendekatan manajemen risiko untuk mengelola volatilitas harga minyak sawit mentah.',
     date: '8 November 2024',
@@ -254,7 +254,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '8',
     category: 'Konstruksi',
-    categoryColor: '#C75B39',
+    categoryColor: '#D99B7A',
     title: 'Tender Pemerintah: Panduan Menjadi Pemenang',
     excerpt: 'Strategi menyusun proposal tender yang kompetitif dan kepatuhan terhadap regulasi pengadaan publik.',
     date: '1 November 2024',
@@ -263,7 +263,7 @@ export const PUBLIC_INSIGHTS = [
   {
     id: '9',
     category: 'Strategi',
-    categoryColor: '#1E3A5F',
+    categoryColor: '#9B8FB8',
     title: 'Transformasi Digital Korporat: Peta Jalan 2025',
     excerpt: 'Langkah praktis mengadopsi teknologi digital untuk efisiensi operasional dan pengalaman pelanggan.',
     date: '25 Oktober 2024',
@@ -297,7 +297,7 @@ export const PUBLIC_SERVICES = [
     name: 'Perdagangan',
     subtitle: 'Marketplace & Trading',
     icon: 'Package',
-    color: '#B8860B',
+    color: '#C9A961',
     description: 'Ekspor, impor, dan distribusi komoditas strategis — perdagangan mesin, bahan baku sawit, dan produk industri.',
   },
   {
@@ -305,7 +305,7 @@ export const PUBLIC_SERVICES = [
     name: 'Jasa & Konsultasi',
     subtitle: 'Consulting & MICE',
     icon: 'Briefcase',
-    color: '#1E3A5F',
+    color: '#9B8FB8',
     description: 'Konsultasi manajemen, penyelenggaraan MICE, dan pelatihan profesional untuk pertumbuhan bisnis.',
   },
   {
@@ -313,7 +313,7 @@ export const PUBLIC_SERVICES = [
     name: 'Konstruksi',
     subtitle: 'Construction & Tender',
     icon: 'Building2',
-    color: '#C75B39',
+    color: '#D99B7A',
     description: 'Tender proyek, konstruksi gedung & sipil, irigasi, jembatan — pembangunan infrastruktur terpercaya.',
   },
   {
@@ -321,7 +321,7 @@ export const PUBLIC_SERVICES = [
     name: 'Industri Sawit',
     subtitle: 'Palm Oil & CPO Trading',
     icon: 'Factory',
-    color: '#2D6A4F',
+    color: '#8FB89B',
     description: 'Trading CPO, minyak goreng, dan fraksinasi — industri hilir kelapa sawit terintegrasi.',
   },
   {
@@ -329,7 +329,7 @@ export const PUBLIC_SERVICES = [
     name: 'Pertanian & Perikanan',
     subtitle: 'Agriculture & Fishery',
     icon: 'Leaf',
-    color: '#1B7A6E',
+    color: '#6A9A7F',
     description: 'Perkebunan sawit, kehutanan, perikanan — manajemen agrikultur terintegrasi & sertifikasi.',
   },
 ]
@@ -350,11 +350,11 @@ export const MISSION = [
 
 export const COMPANY_VALUES = [
   { id: 'v1', name: 'Integritas', icon: 'ShieldCheck', color: '#0D503C', description: 'Setiap keputusan dan tindakan dilandasi kejujuran, transparansi, dan kepatuhan hukum.' },
-  { id: 'v2', name: 'Abdi', icon: 'Handshake', color: '#B8860B', description: 'Mengabdi pada kepentingan klien, mitra, dan masyarakat dengan dedikasi tanpa batas.' },
-  { id: 'v3', name: 'Cinta', icon: 'Heart', color: '#C75B39', description: 'Mengutamakan kepedulian pada manusia, lingkungan, dan keberlanjutan dalam berbisnis.' },
-  { id: 'v4', name: 'Kolaborasi', icon: 'Users', color: '#1E3A5F', description: 'Membangun sinergi lintas divisi dan mitra untuk menciptakan nilai yang lebih besar.' },
-  { id: 'v5', name: 'Keberlanjutan', icon: 'Leaf', color: '#1B7A6E', description: 'Berkomitmen pada praktik agrikultur dan industri yang ramah lingkungan dan bertanggung jawab.' },
-  { id: 'v6', name: 'Inovasi', icon: 'Lightbulb', color: '#2D6A4F', description: 'Terus berinovasi dalam layanan, proses, dan teknologi untuk tetap relevan dan kompetitif.' },
+  { id: 'v2', name: 'Abdi', icon: 'Handshake', color: '#C9A961', description: 'Mengabdi pada kepentingan klien, mitra, dan masyarakat dengan dedikasi tanpa batas.' },
+  { id: 'v3', name: 'Cinta', icon: 'Heart', color: '#D99B7A', description: 'Mengutamakan kepedulian pada manusia, lingkungan, dan keberlanjutan dalam berbisnis.' },
+  { id: 'v4', name: 'Kolaborasi', icon: 'Users', color: '#9B8FB8', description: 'Membangun sinergi lintas divisi dan mitra untuk menciptakan nilai yang lebih besar.' },
+  { id: 'v5', name: 'Keberlanjutan', icon: 'Leaf', color: '#6A9A7F', description: 'Berkomitmen pada praktik agrikultur dan industri yang ramah lingkungan dan bertanggung jawab.' },
+  { id: 'v6', name: 'Inovasi', icon: 'Lightbulb', color: '#8FB89B', description: 'Terus berinovasi dalam layanan, proses, dan teknologi untuk tetap relevan dan kompetitif.' },
 ]
 
 /* Struktur Organisasi — berdasarkan Akta Pendirian No. 310 */
@@ -501,7 +501,7 @@ export const SERVICE_OFFERINGS = [
     moduleId: 'perdagangan',
     name: 'Perdagangan',
     tagline: 'Marketplace & Trading Komoditas',
-    color: '#B8860B',
+    color: '#C9A961',
     icon: 'Package',
     overview: 'Jembatan perdagangan antara produsen dan pasar — ekspor, impor, dan distribusi komoditas strategis dengan jaringan 340+ mitra terverifikasi.',
     offerings: [
@@ -516,7 +516,7 @@ export const SERVICE_OFFERINGS = [
     moduleId: 'jasa',
     name: 'Jasa & Konsultasi',
     tagline: 'Consulting, MICE & Pelatihan',
-    color: '#1E3A5F',
+    color: '#9B8FB8',
     icon: 'Briefcase',
     overview: 'Jasa profesional untuk pertumbuhan bisnis — konsultasi manajemen strategis, penyelenggaraan MICE, dan pelatihan kerja terstruktur.',
     offerings: [
@@ -531,7 +531,7 @@ export const SERVICE_OFFERINGS = [
     moduleId: 'konstruksi',
     name: 'Konstruksi',
     tagline: 'Construction & Tender',
-    color: '#C75B39',
+    color: '#D99B7A',
     icon: 'Building2',
     overview: 'Pembangun infrastruktur terpercaya — konstruksi gedung, sipil, irigasi, dan jembatan dengan manajemen tender yang transparan.',
     offerings: [
@@ -546,7 +546,7 @@ export const SERVICE_OFFERINGS = [
     moduleId: 'industri',
     name: 'Industri Sawit',
     tagline: 'Palm Oil & CPO Trading',
-    color: '#2D6A4F',
+    color: '#8FB89B',
     icon: 'Factory',
     overview: 'Industri hilir kelapa sawit terintegrasi — trading CPO, minyak goreng, olein, stearin, dan fraksinasi dengan pabrik dan gudang sendiri.',
     offerings: [
@@ -561,7 +561,7 @@ export const SERVICE_OFFERINGS = [
     moduleId: 'pertanian',
     name: 'Pertanian & Perikanan',
     tagline: 'Agriculture, Forestry & Fishery',
-    color: '#1B7A6E',
+    color: '#6A9A7F',
     icon: 'Leaf',
     overview: 'Manajemen agrikultur terintegrasi dari hulu — perkebunan sawit bersertifikasi, kehutanan industri, dan perikanan budidaya.',
     offerings: [
@@ -583,7 +583,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p1',
     title: 'Gedung Perkantoran Sudirman',
     category: 'Konstruksi',
-    categoryColor: '#C75B39',
+    categoryColor: '#D99B7A',
     location: 'Jakarta Selatan',
     year: '2024',
     value: 'Rp 45 M',
@@ -596,7 +596,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p2',
     title: 'Jembatan Sungai Mahakam',
     category: 'Konstruksi',
-    categoryColor: '#C75B39',
+    categoryColor: '#D99B7A',
     location: 'Kalimantan Timur',
     year: '2025',
     value: 'Rp 120 M',
@@ -609,7 +609,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p3',
     title: 'Ekspor CPO 12.000 Ton',
     category: 'Perdagangan',
-    categoryColor: '#B8860B',
+    categoryColor: '#C9A961',
     location: 'Riau → Rotterdam',
     year: '2024',
     value: 'Rp 178 M',
@@ -622,7 +622,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p4',
     title: 'Pabrik Fraksinasi JAC 1',
     category: 'Industri',
-    categoryColor: '#2D6A4F',
+    categoryColor: '#8FB89B',
     location: 'Riau',
     year: '2023',
     value: 'Rp 85 M',
@@ -635,7 +635,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p5',
     title: 'Kebun Sawit Riau Utara',
     category: 'Pertanian',
-    categoryColor: '#1B7A6E',
+    categoryColor: '#6A9A7F',
     location: 'Riau',
     year: '2023',
     value: 'Rp 32 M',
@@ -648,7 +648,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p6',
     title: 'Indonesia Palm Oil Summit 2024',
     category: 'Jasa',
-    categoryColor: '#1E3A5F',
+    categoryColor: '#9B8FB8',
     location: 'Jakarta Convention Center',
     year: '2024',
     value: 'Rp 2.5 M',
@@ -661,7 +661,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p7',
     title: 'Sistem Irigasi Daerah Aliran',
     category: 'Konstruksi',
-    categoryColor: '#C75B39',
+    categoryColor: '#D99B7A',
     location: 'Jawa Barat',
     year: '2023',
     value: 'Rp 28 M',
@@ -674,7 +674,7 @@ export const PROJECT_PORTFOLIO = [
     id: 'p8',
     title: 'Supply Mesin Fraksinasi Mini',
     category: 'Perdagangan',
-    categoryColor: '#B8860B',
+    categoryColor: '#C9A961',
     location: 'Medan → Kalimantan',
     year: '2024',
     value: 'Rp 18 M',
@@ -688,10 +688,10 @@ export const PROJECT_PORTFOLIO = [
 export const PORTFOLIO_CATEGORIES = ['Semua', 'Konstruksi', 'Perdagangan', 'Industri', 'Pertanian', 'Jasa']
 
 export const PORTFOLIO_STATS = [
-  { label: 'Total Proyek Selesai', value: 47, suffix: '+', color: '#B8860B' },
+  { label: 'Total Proyek Selesai', value: 47, suffix: '+', color: '#C9A961' },
   { label: 'Nilai Portofolio', value: 508, prefix: 'Rp ', suffix: ' M', color: '#0D503C' },
-  { label: 'Provinsi Terjangkau', value: 14, suffix: '', color: '#2D6A4F' },
-  { label: 'Mitra Eksekusi', value: 340, suffix: '+', color: '#1B7A6E' },
+  { label: 'Provinsi Terjangkau', value: 14, suffix: '', color: '#8FB89B' },
+  { label: 'Mitra Eksekusi', value: 340, suffix: '+', color: '#6A9A7F' },
 ]
 
 /* ============================================================
@@ -699,22 +699,28 @@ export const PORTFOLIO_STATS = [
    ============================================================ */
 
 export const LUXURY_HERO_STATS = [
-  { value: 5, suffix: '', label: 'Bidang Usaha', color: '#D4A843' },
-  { value: 17, suffix: '+', label: 'KBLI Terdaftar', color: '#E8C547' },
-  { value: 340, suffix: '+', label: 'Mitra & Klien', color: '#D4A843' },
-  { value: 47, suffix: '+', label: 'Proyek Selesai', color: '#E8C547' },
+  { value: 5, suffix: '', label: 'Bidang Usaha', color: '#E8D9A0' },
+  { value: 17, suffix: '+', label: 'KBLI Terdaftar', color: '#F0E4B8' },
+  { value: 340, suffix: '+', label: 'Mitra & Klien', color: '#E8D9A0' },
+  { value: 47, suffix: '+', label: 'Proyek Selesai', color: '#F0E4B8' },
 ]
 
 export const LUXURY_ACCENTS = {
-  emeraldDeep: '#0A2E25',
-  emerald: '#0D503C',
-  emeraldMid: '#1B7A6E',
-  gold: '#B8860B',
-  goldLight: '#D4A843',
-  goldBright: '#E8C547',
-  goldPale: '#F5D061',
-  cream: '#FAFAF7',
-  charcoal: '#0F1B17',
+  plumDeep: '#150F24',      // deepest dark surface
+  plum: '#1A1430',          // primary dark surface
+  plumMid: '#2A1F4A',       // mid dark surface
+  plumLight: '#3A2D5C',     // lighter dark surface
+  champagne: '#E8D9A0',     // primary gold accent (soft, elegant)
+  champagneBright: '#F0E4B8', // brighter champagne for highlights
+  bronze: '#C9A961',         // deeper gold for borders/active
+  sage: '#8FB89B',           // refined sage green accent
+  sageDeep: '#6A9A7F',       // deeper sage
+  cream: '#F8F4ED',          // warm ivory light surface
+  creamWarm: '#F5F0E8',      // warm cream text on dark
+  ink: '#1A1430',            // dark ink text on light (AAA contrast)
+  inkSoft: '#3A2D5C',        // softer dark text
+  muted: '#6B5E80',          // muted plum-gray text on light
+  mutedLight: '#B8AEC4',     // muted text on dark
 }
 
 

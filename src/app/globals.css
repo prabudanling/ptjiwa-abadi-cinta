@@ -6,8 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-jakarta);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-fraunces);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,83 +50,94 @@
 
 :root {
   --radius: 0.625rem;
-  /* Dark futuristic theme - PT JIWA ABDI CINTA corporate colors */
-  --background: #0a0a0f;
-  --foreground: #e8e6e3;
-  --card: #12121a;
-  --card-foreground: #e8e6e3;
-  --popover: #12121a;
-  --popover-foreground: #e8e6e3;
-  --primary: #d4a843;
-  --primary-foreground: #0a0a0f;
-  --secondary: #1a1a2e;
-  --secondary-foreground: #e8e6e3;
-  --muted: #1a1a2e;
-  --muted-foreground: #8a8a9a;
-  --accent: #1e3a2f;
-  --accent-foreground: #4ade80;
-  --destructive: #dc2626;
-  --border: rgba(212, 168, 67, 0.15);
-  --input: rgba(212, 168, 67, 0.1);
-  --ring: #d4a843;
-  /* Neon corporate colors */
-  --neon-gold: #d4a843;
-  --neon-green: #4ade80;
-  --neon-gold-dim: rgba(212, 168, 67, 0.15);
-  --neon-green-dim: rgba(74, 222, 128, 0.1);
-  /* Charts */
-  --chart-1: #d4a843;
-  --chart-2: #4ade80;
-  --chart-3: #60a5fa;
-  --chart-4: #f472b6;
-  --chart-5: #a78bfa;
+
+  /* ============================================================
+     MIDNIGHT PLUM & CHAMPAGNE — elegant corporate palette
+     Dark surface = Midnight Plum family (deep, regal, AA+ with cream text)
+     Accent = Champagne Gold (soft, refined — not amber/orange)
+     Light surface = Warm Ivory
+     ============================================================ */
+
+  /* Dark dashboard base (kept dark for app chrome) */
+  --background: #15101F;
+  --foreground: #F5F0E8;
+  --card: #1F1733;
+  --card-foreground: #F5F0E8;
+  --popover: #1F1733;
+  --popover-foreground: #F5F0E8;
+  --primary: #C9A961;
+  --primary-foreground: #15101F;
+  --secondary: #2A1F4A;
+  --secondary-foreground: #F5F0E8;
+  --muted: #2A1F4A;
+  --muted-foreground: #B8AEC4;
+  --accent: #3A2D5C;
+  --accent-foreground: #E8D9A0;
+  --destructive: #E05A7A;
+  --border: rgba(201, 169, 97, 0.18);
+  --input: rgba(201, 169, 97, 0.12);
+  --ring: #C9A961;
+
+  /* Neon/refined corporate colors */
+  --neon-gold: #E8D9A0;
+  --neon-green: #8FB89B;
+  --neon-gold-dim: rgba(232, 217, 160, 0.16);
+  --neon-green-dim: rgba(143, 184, 155, 0.12);
+
+  /* Charts — harmonized to new palette */
+  --chart-1: #E8D9A0;
+  --chart-2: #8FB89B;
+  --chart-3: #B89BD9;
+  --chart-4: #D99BAA;
+  --chart-5: #9BB8D9;
+
   /* Sidebar */
-  --sidebar: #0d0d14;
-  --sidebar-foreground: #e8e6e3;
-  --sidebar-primary: #d4a843;
-  --sidebar-primary-foreground: #0a0a0f;
-  --sidebar-accent: #1a1a2e;
-  --sidebar-accent-foreground: #e8e6e3;
-  --sidebar-border: rgba(212, 168, 67, 0.1);
-  --sidebar-ring: #d4a843;
+  --sidebar: #1A1430;
+  --sidebar-foreground: #F5F0E8;
+  --sidebar-primary: #E8D9A0;
+  --sidebar-primary-foreground: #15101F;
+  --sidebar-accent: #2A1F4A;
+  --sidebar-accent-foreground: #F5F0E8;
+  --sidebar-border: rgba(201, 169, 97, 0.12);
+  --sidebar-ring: #C9A961;
 }
 
 .dark {
-  --background: #0a0a0f;
-  --foreground: #e8e6e3;
-  --card: #12121a;
-  --card-foreground: #e8e6e3;
-  --popover: #12121a;
-  --popover-foreground: #e8e6e3;
-  --primary: #d4a843;
-  --primary-foreground: #0a0a0f;
-  --secondary: #1a1a2e;
-  --secondary-foreground: #e8e6e3;
-  --muted: #1a1a2e;
-  --muted-foreground: #8a8a9a;
-  --accent: #1e3a2f;
-  --accent-foreground: #4ade80;
-  --destructive: #dc2626;
-  --border: rgba(212, 168, 67, 0.15);
-  --input: rgba(212, 168, 67, 0.1);
-  --ring: #d4a843;
-  --neon-gold: #d4a843;
-  --neon-green: #4ade80;
-  --neon-gold-dim: rgba(212, 168, 67, 0.15);
-  --neon-green-dim: rgba(74, 222, 128, 0.1);
-  --chart-1: #d4a843;
-  --chart-2: #4ade80;
-  --chart-3: #60a5fa;
-  --chart-4: #f472b6;
-  --chart-5: #a78bfa;
-  --sidebar: #0d0d14;
-  --sidebar-foreground: #e8e6e3;
-  --sidebar-primary: #d4a843;
-  --sidebar-primary-foreground: #0a0a0f;
-  --sidebar-accent: #1a1a2e;
-  --sidebar-accent-foreground: #e8e6e3;
-  --sidebar-border: rgba(212, 168, 67, 0.1);
-  --sidebar-ring: #d4a843;
+  --background: #15101F;
+  --foreground: #F5F0E8;
+  --card: #1F1733;
+  --card-foreground: #F5F0E8;
+  --popover: #1F1733;
+  --popover-foreground: #F5F0E8;
+  --primary: #C9A961;
+  --primary-foreground: #15101F;
+  --secondary: #2A1F4A;
+  --secondary-foreground: #F5F0E8;
+  --muted: #2A1F4A;
+  --muted-foreground: #B8AEC4;
+  --accent: #3A2D5C;
+  --accent-foreground: #E8D9A0;
+  --destructive: #E05A7A;
+  --border: rgba(201, 169, 97, 0.18);
+  --input: rgba(201, 169, 97, 0.12);
+  --ring: #C9A961;
+  --neon-gold: #E8D9A0;
+  --neon-green: #8FB89B;
+  --neon-gold-dim: rgba(232, 217, 160, 0.16);
+  --neon-green-dim: rgba(143, 184, 155, 0.12);
+  --chart-1: #E8D9A0;
+  --chart-2: #8FB89B;
+  --chart-3: #B89BD9;
+  --chart-4: #D99BAA;
+  --chart-5: #9BB8D9;
+  --sidebar: #1A1430;
+  --sidebar-foreground: #F5F0E8;
+  --sidebar-primary: #E8D9A0;
+  --sidebar-primary-foreground: #15101F;
+  --sidebar-accent: #2A1F4A;
+  --sidebar-accent-foreground: #F5F0E8;
+  --sidebar-border: rgba(201, 169, 97, 0.12);
+  --sidebar-ring: #C9A961;
 }
 
 @layer base {
@@ -134,73 +146,78 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   html {
     scroll-behavior: smooth;
   }
+  /* Headings use Fraunces serif by default via .font-serif utility */
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: #15101F;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(212, 168, 67, 0.3);
-  border-radius: 3px;
+  background: rgba(201, 169, 97, 0.3);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 168, 67, 0.5);
+  background: rgba(201, 169, 97, 0.5);
 }
 
-/* Landing page scrollbar override */
+/* Landing page scrollbar override (ivory background) */
 .landing-page ::-webkit-scrollbar-track {
-  background: #FAFAF7;
+  background: #F8F4ED;
 }
 .landing-page ::-webkit-scrollbar-thumb {
-  background: rgba(13, 80, 60, 0.2);
-  border-radius: 3px;
+  background: rgba(63, 46, 92, 0.2);
+  border-radius: 4px;
 }
 .landing-page ::-webkit-scrollbar-thumb:hover {
-  background: rgba(13, 80, 60, 0.35);
+  background: rgba(63, 46, 92, 0.35);
 }
 
-/* Glassmorphism utility (dashboard only) */
+/* Glassmorphism utility (dashboard only) — plum-tinted glass */
 .glass {
-  background: rgba(18, 18, 26, 0.7);
+  background: rgba(31, 23, 51, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 168, 67, 0.1);
+  border: 1px solid rgba(201, 169, 97, 0.12);
 }
 
 .glass-strong {
-  background: rgba(18, 18, 26, 0.85);
+  background: rgba(31, 23, 51, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 168, 67, 0.15);
+  border: 1px solid rgba(201, 169, 97, 0.18);
 }
 
-/* Neon glow effects (dashboard only) */
+/* Refined glow effects (dashboard only) */
 .neon-gold-glow {
-  box-shadow: 0 0 15px rgba(212, 168, 67, 0.3), 0 0 30px rgba(212, 168, 67, 0.1);
+  box-shadow: 0 0 15px rgba(232, 217, 160, 0.28), 0 0 30px rgba(232, 217, 160, 0.1);
 }
 
 .neon-green-glow {
-  box-shadow: 0 0 15px rgba(74, 222, 128, 0.3), 0 0 30px rgba(74, 222, 128, 0.1);
+  box-shadow: 0 0 15px rgba(143, 184, 155, 0.28), 0 0 30px rgba(143, 184, 155, 0.1);
 }
 
 .neon-text-gold {
-  text-shadow: 0 0 10px rgba(212, 168, 67, 0.5), 0 0 20px rgba(212, 168, 67, 0.3);
+  text-shadow: 0 0 10px rgba(232, 217, 160, 0.45), 0 0 20px rgba(232, 217, 160, 0.25);
 }
 
 .neon-text-green {
-  text-shadow: 0 0 10px rgba(74, 222, 128, 0.5), 0 0 20px rgba(74, 222, 128, 0.3);
+  text-shadow: 0 0 10px rgba(143, 184, 155, 0.45), 0 0 20px rgba(143, 184, 155, 0.25);
 }
 
-/* Animated gradient border (dashboard only) */
+/* Animated gradient border (dashboard only) — champagne + sage */
 .gradient-border {
   position: relative;
   border-radius: 0.75rem;
@@ -212,7 +229,7 @@
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(212, 168, 67, 0.5), rgba(74, 222, 128, 0.3), rgba(212, 168, 67, 0.5));
+  background: linear-gradient(135deg, rgba(232, 217, 160, 0.5), rgba(143, 184, 155, 0.3), rgba(232, 217, 160, 0.5));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -246,16 +263,16 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(232, 217, 160, 0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
 
 /* Grid pattern background (dashboard only) */
 .grid-pattern {
-  background-image: 
-    linear-gradient(rgba(212, 168, 67, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 168, 67, 0.03) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(232, 217, 160, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 217, 160, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -265,4 +282,13 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Font utility classes */
+.font-serif {
+  font-family: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+}
+.font-sans {
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }

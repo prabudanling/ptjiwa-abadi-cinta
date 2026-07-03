@@ -107,7 +107,7 @@ export default function PortfolioPage() {
   const yGrid = useTransform(statsProgress, [0, 1], [-30, 30])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAF7] landing-page">
+    <div className="min-h-screen flex flex-col bg-[#F8F4ED] landing-page">
       <PublicNav />
       <main className="flex-1">
         <PageHero
@@ -142,7 +142,7 @@ export default function PortfolioPage() {
             className="absolute inset-0 opacity-[0.08] pointer-events-none"
             aria-hidden
             style={{
-              backgroundImage: 'radial-gradient(#F5D061 1.5px, transparent 1.5px)',
+              backgroundImage: 'radial-gradient(#F0E4B8 1.5px, transparent 1.5px)',
               backgroundSize: '40px 40px',
             }}
           />
@@ -165,9 +165,9 @@ export default function PortfolioPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="text-center mb-14">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4A843]/30 bg-[#D4A843]/5 backdrop-blur-sm mb-5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#E8C547]" />
-                  <span className="text-[#E8C547] text-xs font-semibold tracking-[0.2em] uppercase">Dalam Angka</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E8D9A0]/30 bg-[#E8D9A0]/5 backdrop-blur-sm mb-5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#F0E4B8]" />
+                  <span className="text-[#F0E4B8] text-xs font-semibold tracking-[0.2em] uppercase">Dalam Angka</span>
                 </span>
                 <h2
                   id="stats-heading"
@@ -187,7 +187,7 @@ export default function PortfolioPage() {
                 const Icon = STAT_ICONS[i] || Sparkles
                 return (
                   <FadeIn key={i} delay={i * 0.1}>
-                    <div className="relative h-full rounded-sm border border-[#D4A843]/20 bg-white/[0.04] backdrop-blur-md p-6 lg:p-7 overflow-hidden">
+                    <div className="relative h-full rounded-sm border border-[#E8D9A0]/20 bg-white/[0.04] backdrop-blur-md p-6 lg:p-7 overflow-hidden">
                       {/* Gold accent top bar */}
                       <span
                         className="absolute top-0 left-0 right-0 h-0.5"
@@ -222,7 +222,7 @@ export default function PortfolioPage() {
               <div className="text-center mt-12">
                 <button
                   onClick={() => document.getElementById('portfolio-grid')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-2 text-[#E8C547] text-sm font-medium hover:gap-3 transition-all duration-300"
+                  className="inline-flex items-center gap-2 text-[#F0E4B8] text-sm font-medium hover:gap-3 transition-all duration-300"
                 >
                   Pelajari lebih lanjut
                   <ArrowRight className="w-4 h-4" />
@@ -234,7 +234,7 @@ export default function PortfolioPage() {
 
         {/* ============== FEATURED PROJECT (cream) ============== */}
         <section
-          className="py-20 lg:py-28 bg-[#FAFAF7] relative overflow-hidden"
+          className="py-20 lg:py-28 bg-[#F8F4ED] relative overflow-hidden"
           aria-labelledby="featured-heading"
         >
           {/* Soft gold glow corner */}
@@ -246,12 +246,12 @@ export default function PortfolioPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="mb-10 max-w-2xl">
-                <span className="text-[#B8860B] text-xs font-semibold tracking-[0.2em] uppercase">
+                <span className="text-[#C9A961] text-xs font-semibold tracking-[0.2em] uppercase">
                   Proyek Unggulan
                 </span>
                 <h2
                   id="featured-heading"
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mt-3"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1430] mt-3"
                   style={{ fontFamily: SERIF }}
                 >
                   Sorotan Eksekusi Terbesar
@@ -260,7 +260,7 @@ export default function PortfolioPage() {
             </FadeIn>
 
             <FadeIn delay={0.15}>
-              <article className="grid grid-cols-1 lg:grid-cols-2 rounded-sm overflow-hidden border border-[#e5e0d5] bg-white shadow-xl">
+              <article className="grid grid-cols-1 lg:grid-cols-2 rounded-sm overflow-hidden border border-[#E0D8C8] bg-white shadow-xl">
                 {/* Left: rich gradient panel */}
                 <div
                   className="relative min-h-[280px] lg:min-h-[540px] flex items-center justify-center p-10 overflow-hidden"
@@ -269,7 +269,7 @@ export default function PortfolioPage() {
                 >
                   {/* Featured badge */}
                   <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/30">
-                    <Award className="w-3.5 h-3.5 text-[#F5D061]" />
+                    <Award className="w-3.5 h-3.5 text-[#F0E4B8]" />
                     <span className="text-white text-[10px] font-bold tracking-[0.25em] uppercase">Featured</span>
                   </div>
                   {/* Decorative pattern overlays */}
@@ -313,23 +313,23 @@ export default function PortfolioPage() {
                     >
                       {featured.category}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-[#8a8a9a]">
+                    <span className="flex items-center gap-1 text-xs text-[#8B7FA3]">
                       <Calendar className="w-3 h-3" />
                       {featured.year}
                     </span>
                   </div>
 
                   <h3
-                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1A2E] mb-3 leading-tight"
+                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1430] mb-3 leading-tight"
                     style={{ fontFamily: SERIF }}
                   >
                     {featured.title}
                   </h3>
-                  <p className="flex items-center gap-1.5 text-sm text-[#5a5a6a] mb-4">
-                    <MapPin className="w-3.5 h-3.5 text-[#B8860B]" />
+                  <p className="flex items-center gap-1.5 text-sm text-[#6B5E80] mb-4">
+                    <MapPin className="w-3.5 h-3.5 text-[#C9A961]" />
                     {featured.location}
                   </p>
-                  <p className="text-sm text-[#5a5a6a] leading-relaxed mb-6">
+                  <p className="text-sm text-[#6B5E80] leading-relaxed mb-6">
                     {featured.description}
                   </p>
 
@@ -338,15 +338,15 @@ export default function PortfolioPage() {
                     {featured.metrics.map((m, i) => (
                       <div
                         key={i}
-                        className="rounded-sm border border-[#e5e0d5] bg-[#FAFAF7] p-3 text-center"
+                        className="rounded-sm border border-[#E0D8C8] bg-[#F8F4ED] p-3 text-center"
                       >
                         <p
-                          className="text-base lg:text-lg font-bold text-[#0D503C]"
+                          className="text-base lg:text-lg font-bold text-[#3A2D5C]"
                           style={{ fontFamily: SERIF }}
                         >
                           {m.v}
                         </p>
-                        <p className="text-[10px] text-[#8a8a9a] mt-0.5 uppercase tracking-wider">
+                        <p className="text-[10px] text-[#8B7FA3] mt-0.5 uppercase tracking-wider">
                           {m.k}
                         </p>
                       </div>
@@ -354,11 +354,11 @@ export default function PortfolioPage() {
                   </div>
 
                   {/* Footer row */}
-                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[#e5e0d5]">
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[#E0D8C8]">
                     <div>
-                      <p className="text-[10px] text-[#8a8a9a] uppercase tracking-[0.15em]">Nilai Proyek</p>
+                      <p className="text-[10px] text-[#8B7FA3] uppercase tracking-[0.15em]">Nilai Proyek</p>
                       <p
-                        className="text-2xl font-bold text-[#0D503C]"
+                        className="text-2xl font-bold text-[#3A2D5C]"
                         style={{ fontFamily: SERIF }}
                       >
                         {featured.value}
@@ -366,13 +366,13 @@ export default function PortfolioPage() {
                     </div>
                     <span
                       className="inline-flex items-center px-3 py-1 rounded-sm text-xs font-bold tracking-wide uppercase"
-                      style={{ backgroundColor: '#1B7A6E20', color: '#1B7A6E' }}
+                      style={{ backgroundColor: '#6A9A7F20', color: '#6A9A7F' }}
                     >
                       {featured.status}
                     </span>
                     <button
                       className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-sm text-sm font-medium text-white transition-all duration-300 group"
-                      style={{ background: 'linear-gradient(135deg, #0D503C, #1B7A6E)' }}
+                      style={{ background: 'linear-gradient(135deg, #3A2D5C, #6A9A7F)' }}
                       onClick={() => document.getElementById('portfolio-grid')?.scrollIntoView({ behavior: 'smooth' })}
                     >
                       Lihat detail
@@ -396,7 +396,7 @@ export default function PortfolioPage() {
             className="absolute inset-0 opacity-[0.04] pointer-events-none"
             aria-hidden
             style={{
-              backgroundImage: 'radial-gradient(#F5D061 1px, transparent 1px)',
+              backgroundImage: 'radial-gradient(#F0E4B8 1px, transparent 1px)',
               backgroundSize: '30px 30px',
             }}
           />
@@ -409,9 +409,9 @@ export default function PortfolioPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="text-center mb-10">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4A843]/30 bg-[#D4A843]/5 backdrop-blur-sm mb-5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#E8C547]" />
-                  <span className="text-[#E8C547] text-xs font-semibold tracking-[0.2em] uppercase">Katalog</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E8D9A0]/30 bg-[#E8D9A0]/5 backdrop-blur-sm mb-5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#F0E4B8]" />
+                  <span className="text-[#F0E4B8] text-xs font-semibold tracking-[0.2em] uppercase">Katalog</span>
                 </span>
                 <h2
                   id="grid-heading"
@@ -443,13 +443,13 @@ export default function PortfolioPage() {
                       onClick={() => setCat(c)}
                       className="px-4 py-2 rounded-sm text-xs font-medium tracking-wide transition-all duration-300"
                       style={active
-                        ? { background: 'linear-gradient(135deg, #0D503C, #1B7A6E)', color: '#FFFFFF', border: '1px solid rgba(212,168,67,0.4)', boxShadow: '0 4px 16px rgba(13,80,60,0.4)' }
+                        ? { background: 'linear-gradient(135deg, #3A2D5C, #6A9A7F)', color: '#FFFFFF', border: '1px solid rgba(212,168,67,0.4)', boxShadow: '0 4px 16px rgba(13,80,60,0.4)' }
                         : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.65)' }
                       }
                       onMouseEnter={(e) => {
                         if (!active) {
                           e.currentTarget.style.borderColor = 'rgba(212,168,67,0.4)'
-                          e.currentTarget.style.color = '#F5D061'
+                          e.currentTarget.style.color = '#F0E4B8'
                         }
                       }}
                       onMouseLeave={(e) => {
@@ -512,7 +512,7 @@ export default function PortfolioPage() {
                     {/* Body */}
                     <div className="p-5 flex-1 flex flex-col">
                       <h3
-                        className="text-base lg:text-lg font-bold text-white mb-1.5 leading-snug group-hover:text-[#F5D061] transition-colors duration-300"
+                        className="text-base lg:text-lg font-bold text-white mb-1.5 leading-snug group-hover:text-[#F0E4B8] transition-colors duration-300"
                         style={{ fontFamily: SERIF }}
                       >
                         {p.title}
@@ -530,7 +530,7 @@ export default function PortfolioPage() {
                         <div className="mb-3">
                           <div className="flex items-center justify-between mb-1.5">
                             <span className="text-[10px] text-white/40 uppercase tracking-[0.15em]">Progres</span>
-                            <span className="text-[10px] font-bold text-[#F5D061]">{p.progress}%</span>
+                            <span className="text-[10px] font-bold text-[#F0E4B8]">{p.progress}%</span>
                           </div>
                           <ProgressFill value={p.progress} color={p.categoryColor} />
                         </div>
@@ -548,7 +548,7 @@ export default function PortfolioPage() {
                           className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold tracking-wide uppercase"
                           style={p.status === 'Selesai'
                             ? { backgroundColor: 'rgba(27,122,110,0.18)', color: '#3FAA9C' }
-                            : { backgroundColor: 'rgba(212,168,67,0.18)', color: '#E8C547' }
+                            : { backgroundColor: 'rgba(212,168,67,0.18)', color: '#F0E4B8' }
                           }
                         >
                           {p.status}
@@ -573,7 +573,7 @@ export default function PortfolioPage() {
                 <p className="text-white/40 text-sm">Tidak ada proyek pada kategori ini.</p>
                 <button
                   onClick={() => setCat('Semua')}
-                  className="mt-3 text-[#F5D061] text-sm font-medium hover:underline transition-colors"
+                  className="mt-3 text-[#F0E4B8] text-sm font-medium hover:underline transition-colors"
                 >
                   Lihat semua proyek
                 </button>

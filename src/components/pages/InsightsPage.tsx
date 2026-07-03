@@ -23,7 +23,7 @@ export default function InsightsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAF7] landing-page">
+    <div className="min-h-screen flex flex-col bg-[#F8F4ED] landing-page">
       <PublicNav />
       <main className="flex-1">
         <PageHero
@@ -40,7 +40,7 @@ export default function InsightsPage() {
                 <SectionLabel>Artikel Pilihan</SectionLabel>
                 <h2
                   id="featured-heading"
-                  className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mt-3"
+                  className="text-2xl sm:text-3xl font-bold text-[#1A1430] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Sorotan Bulan Ini
@@ -49,7 +49,7 @@ export default function InsightsPage() {
             </FadeIn>
 
             <FadeIn delay={0.1}>
-              <article className="group grid grid-cols-1 lg:grid-cols-2 bg-white rounded-sm border border-[#e5e0d5]/60 overflow-hidden hover:shadow-xl hover:border-[#e5e0d5] transition-all duration-300">
+              <article className="group grid grid-cols-1 lg:grid-cols-2 bg-white rounded-sm border border-[#E0D8C8]/60 overflow-hidden hover:shadow-xl hover:border-[#E0D8C8] transition-all duration-300">
                 {/* Left: tinted category panel */}
                 <div
                   className="relative p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[280px] lg:min-h-[440px] overflow-hidden"
@@ -110,15 +110,15 @@ export default function InsightsPage() {
                 {/* Right: content */}
                 <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
                   <h3
-                    className="text-2xl sm:text-3xl lg:text-[2.5rem] font-bold text-[#1A1A2E] leading-[1.15] mb-5"
+                    className="text-2xl sm:text-3xl lg:text-[2.5rem] font-bold text-[#1A1430] leading-[1.15] mb-5"
                     style={{ fontFamily: PUBLIC_DESIGN.serif }}
                   >
                     {featured.title}
                   </h3>
-                  <p className="text-[#5a5a6a] text-base sm:text-lg leading-relaxed mb-6">
+                  <p className="text-[#6B5E80] text-base sm:text-lg leading-relaxed mb-6">
                     {featured.excerpt}
                   </p>
-                  <div className="flex items-center gap-3 text-xs text-[#8a8a9a] mb-7">
+                  <div className="flex items-center gap-3 text-xs text-[#8B7FA3] mb-7">
                     <span>{featured.date}</span>
                     <span className="w-1 h-1 rounded-full bg-[#d0d0d0]" />
                     <span className="inline-flex items-center gap-1">
@@ -128,7 +128,7 @@ export default function InsightsPage() {
                   </div>
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#0D503C] text-white text-sm font-semibold rounded-sm hover:bg-[#0a3f2f] transition-all w-fit group/btn"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#3A2D5C] text-white text-sm font-semibold rounded-sm hover:bg-[#2A1F4A] transition-all w-fit group/btn"
                   >
                     Baca selengkapnya
                     <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5" />
@@ -148,13 +148,13 @@ export default function InsightsPage() {
                   <SectionLabel>Perpustakaan Insights</SectionLabel>
                   <h2
                     id="library-heading"
-                    className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mt-3"
+                    className="text-2xl sm:text-3xl font-bold text-[#1A1430] mt-3"
                     style={{ fontFamily: PUBLIC_DESIGN.serif }}
                   >
                     Jelajahi Semua Artikel
                   </h2>
                 </div>
-                <p className="text-sm text-[#5a5a6a] max-w-md leading-relaxed">
+                <p className="text-sm text-[#6B5E80] max-w-md leading-relaxed">
                   Pilih kategori untuk menyaring perspektif ahli JAC di sepanjang lima bidang usaha dan strategi korporat.
                 </p>
               </div>
@@ -179,8 +179,8 @@ export default function InsightsPage() {
                       className={
                         'px-4 py-2 text-sm font-medium rounded-full transition-all ' +
                         (active
-                          ? 'bg-[#0D503C] text-white shadow-sm'
-                          : 'bg-white border border-[#e5e0d5] text-[#5a5a6a] hover:border-[#0D503C]/40 hover:text-[#1A1A2E]')
+                          ? 'bg-[#3A2D5C] text-white shadow-sm'
+                          : 'bg-white border border-[#E0D8C8] text-[#6B5E80] hover:border-[#3A2D5C]/40 hover:text-[#1A1430]')
                       }
                     >
                       {cat}
@@ -195,7 +195,7 @@ export default function InsightsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filtered.map((insight, i) => (
                   <FadeIn key={insight.id} delay={i * 0.05}>
-                    <article className="group cursor-pointer h-full flex flex-col bg-white rounded-sm border border-[#e5e0d5]/60 hover:shadow-lg hover:border-[#e5e0d5] transition-all duration-300 overflow-hidden">
+                    <article className="group cursor-pointer h-full flex flex-col bg-white rounded-sm border border-[#E0D8C8]/60 hover:shadow-lg hover:border-[#E0D8C8] transition-all duration-300 overflow-hidden">
                       {/* Tinted top panel */}
                       <div
                         className="relative h-28 flex items-center px-5 overflow-hidden"
@@ -230,15 +230,15 @@ export default function InsightsPage() {
                       {/* Body */}
                       <div className="p-5 flex flex-col flex-1">
                         <h3
-                          className="text-lg font-bold text-[#1A1A2E] leading-snug mb-2 line-clamp-2"
+                          className="text-lg font-bold text-[#1A1430] leading-snug mb-2 line-clamp-2"
                           style={{ fontFamily: PUBLIC_DESIGN.serif }}
                         >
                           {insight.title}
                         </h3>
-                        <p className="text-sm text-[#5a5a6a] leading-relaxed mb-4 line-clamp-2 flex-1">
+                        <p className="text-sm text-[#6B5E80] leading-relaxed mb-4 line-clamp-2 flex-1">
                           {insight.excerpt}
                         </p>
-                        <div className="flex items-center gap-3 text-xs text-[#8a8a9a] mb-4">
+                        <div className="flex items-center gap-3 text-xs text-[#8B7FA3] mb-4">
                           <span>{insight.date}</span>
                           <span className="w-1 h-1 rounded-full bg-[#d0d0d0]" />
                           <span className="inline-flex items-center gap-1">
@@ -246,8 +246,8 @@ export default function InsightsPage() {
                             {insight.readTime}
                           </span>
                         </div>
-                        <div className="pt-3 border-t border-[#e5e0d5]/60 flex items-center justify-between">
-                          <span className="text-sm font-semibold text-[#0D503C] inline-flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                        <div className="pt-3 border-t border-[#E0D8C8]/60 flex items-center justify-between">
+                          <span className="text-sm font-semibold text-[#3A2D5C] inline-flex items-center gap-1.5 group-hover:gap-2 transition-all">
                             Baca selengkapnya
                             <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                           </span>
@@ -258,15 +258,15 @@ export default function InsightsPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 border border-dashed border-[#e5e0d5] rounded-sm">
-                <p className="text-[#5a5a6a]">
+              <div className="text-center py-20 border border-dashed border-[#E0D8C8] rounded-sm">
+                <p className="text-[#6B5E80]">
                   Belum ada artikel dalam kategori{' '}
-                  <span className="font-semibold text-[#1A1A2E]">{category}</span>.
+                  <span className="font-semibold text-[#1A1430]">{category}</span>.
                 </p>
                 <button
                   type="button"
                   onClick={() => setCategory('Semua')}
-                  className="mt-4 text-sm font-semibold text-[#0D503C] hover:underline"
+                  className="mt-4 text-sm font-semibold text-[#3A2D5C] hover:underline"
                 >
                   Lihat semua artikel
                 </button>
@@ -279,7 +279,7 @@ export default function InsightsPage() {
         <section className="py-20 lg:py-28" aria-labelledby="newsletter-heading">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
-              <div className="relative bg-[#0D503C] rounded-sm overflow-hidden">
+              <div className="relative bg-[#3A2D5C] rounded-sm overflow-hidden">
                 {/* Decorative overlays */}
                 <div
                   className="absolute inset-0 opacity-[0.06] pointer-events-none"
@@ -294,14 +294,14 @@ export default function InsightsPage() {
                   aria-hidden="true"
                 />
                 <div
-                  className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-[#B8860B]/10 pointer-events-none"
+                  className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-[#C9A961]/10 pointer-events-none"
                   aria-hidden="true"
                 />
 
                 <div className="relative z-10 p-8 sm:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                   {/* Left: copy */}
                   <div>
-                    <span className="inline-block text-[#B8860B] text-xs font-semibold tracking-[0.22em] uppercase mb-4">
+                    <span className="inline-block text-[#C9A961] text-xs font-semibold tracking-[0.22em] uppercase mb-4">
                       Newsletter JAC
                     </span>
                     <h2
@@ -344,7 +344,7 @@ export default function InsightsPage() {
                           </div>
                           <button
                             type="submit"
-                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#B8860B] text-white text-sm font-semibold rounded-sm hover:bg-[#a3760a] transition-colors whitespace-nowrap"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#C9A961] text-white text-sm font-semibold rounded-sm hover:bg-[#a3760a] transition-colors whitespace-nowrap"
                           >
                             Berlangganan
                             <ArrowRight className="w-4 h-4" />
@@ -356,8 +356,8 @@ export default function InsightsPage() {
                       </form>
                     ) : (
                       <div className="bg-white/[0.06] backdrop-blur-sm border border-white/15 rounded-sm p-8 text-center">
-                        <div className="w-14 h-14 rounded-full bg-[#B8860B]/20 flex items-center justify-center mx-auto mb-4">
-                          <CheckCircle2 className="w-7 h-7 text-[#B8860B]" />
+                        <div className="w-14 h-14 rounded-full bg-[#C9A961]/20 flex items-center justify-center mx-auto mb-4">
+                          <CheckCircle2 className="w-7 h-7 text-[#C9A961]" />
                         </div>
                         <h3
                           className="text-xl font-bold text-white mb-2"
