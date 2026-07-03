@@ -113,9 +113,10 @@ export function SectionHeading({
 /* ---------- Public Navigation ---------- */
 const NAV_LINKS: { label: string; view: AppView; scroll?: string }[] = [
   { label: 'Beranda', view: 'landing' },
-  { label: 'Tentang Kami', view: 'about' },
+  { label: 'Tentang', view: 'about' },
   { label: 'Layanan', view: 'layanan' },
   { label: 'Proyek', view: 'proyek' },
+  { label: 'Keberlanjutan', view: 'keberlanjutan' },
   { label: 'Insights', view: 'insights' },
   { label: 'Karir', view: 'careers' },
   { label: 'Kontak', view: 'contact' },

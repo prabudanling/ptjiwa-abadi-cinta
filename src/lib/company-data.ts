@@ -493,6 +493,172 @@ export const CAREER_BENEFITS = [
 export const INSIGHT_CATEGORIES = ['Semua', 'Industri Sawit', 'Konstruksi', 'Perdagangan', 'Pertanian', 'Jasa', 'Strategi']
 
 /* ============================================================
+   KELENGKAPAN INSIGHT — konten artikel lengkap (untuk detail)
+   ============================================================ */
+
+export const INSIGHT_ARTICLES: Record<string, { title: string; category: string; categoryColor: string; date: string; readTime: string; excerpt: string; author: string; authorRole: string; body: string[]; takeaways: string[] }> = {
+  '1': {
+    title: 'Masa Depan Industri Sawit Indonesia 2025',
+    category: 'Industri Sawit', categoryColor: '#8FB89B',
+    date: '15 Desember 2024', readTime: '8 menit',
+    excerpt: 'Analisis mendalam tentang tren, tantangan, dan peluang industri kelapa sawit di pasar global yang semakin kompetitif.',
+    author: 'Wirono, SE.M.Pd', authorRole: 'Direktur Utama, PT JAC',
+    body: [
+      'Industri kelapa sawit Indonesia berdiri di persimpangan kritis pada 2025. Di satu sisi, permintaan global untuk minyak nabati terus tumbuh seiring peningkatan populasi dan konsumsi. Di sisi lain, tekanan regulasi keberlanjutan dari Uni Eropa melalui EU Deforestation Regulation (EUDR) menuntut transformasi mendalam pada rantai pasok.',
+      'Data menunjukkan bahwa Indonesia memproduksi sekitar 45 juta ton CPO per tahun, atau lebih dari 50% pasokan global. Namun, nilai tambah yang diterima masih didominasi oleh ekspor bahan baku. Hilirisasi menjadi kunci strategis — dari CPO menjadi olein, stearin, minyak goreng, hingga biofuel.',
+      'Tiga tren utama yang akan membentuk industri di 2025: pertama, akselerasi sertifikasi ISPO dan RSPO sebagai prasyarat akses pasar. Kedua, digitalisasi rantai pasok untuk traceabilitas dari kebun ke konsumen. Ketiga, diversifikasi produk turunan untuk mengurangi ketergantungan pada CPO mentah.',
+      'PT Jiwa Abdi Cinta memposisikan diri di jantung transformasi ini — dengan pabrik fraksinasi terintegrasi, kebun bersertifikasi, dan platform trading digital yang menghubungkan produsen langsung dengan pembeli global.',
+    ],
+    takeaways: [
+      'Hilirisasi CPO menjadi strategi kunci untuk meningkatkan nilai tambah.',
+      'Sertifikasi ISPO & RSPO kini prasyarat, bukan opsi, untuk akses pasar global.',
+      'Digitalisasi traceabilitas rantai pasok menentukan daya saing 2025.',
+    ],
+  },
+  '2': {
+    title: 'Infrastruktur Berkelanjutan: Tren Konstruksi Hijau 2025',
+    category: 'Konstruksi', categoryColor: '#D99B7A',
+    date: '10 Desember 2024', readTime: '7 menit',
+    excerpt: 'Bagaimana praktik konstruksi ramah lingkungan dan material berkelanjutan membentuk masa depan infrastruktur Indonesia.',
+    author: 'Edy Kurniawan', authorRole: 'Direktur Bisnis & Keuangan, PT JAC',
+    body: [
+      'Konstruksi hijau bukan lagi niche — ia menjadi standar baru. Pemerintah Indonesia menargetkan penurunan emisi 29% pada 2030, dan sektor konstruksi menyumbang signifikan terhadap jejak karbon nasional.',
+      'Praktik berkelanjutan mencakup penggunaan material daur ulang, efisiensi energi dalam operasional konstruksi, desain bangunan hemat energi, dan manajemen limbah konstruksi yang bertanggung jawab.',
+      'Sertifikasi Greenship dari Green Building Council Indonesia semakin dipersyaratkan dalam tender proyek pemerintah. Kontraktor yang adaptif dengan standar ini akan memenangkan lebih banyak proyek strategis.',
+    ],
+    takeaways: [
+      'Sertifikasi Greenship kian dipersyaratkan dalam tender pemerintah.',
+      'Material daur ulang & efisiensi energi mengurangi biaya operasional jangka panjang.',
+      'Kontraktor yang adaptif standar hijau memenangkan lebih banyak proyek.',
+    ],
+  },
+  '3': {
+    title: 'Strategi Pertumbuhan Bisnis di Era AI',
+    category: 'Strategi', categoryColor: '#9B8FB8',
+    date: '5 Desember 2024', readTime: '10 menit',
+    excerpt: 'Memanfaatkan kecerdasan buatan untuk mendorong pertumbuhan bisnis yang berkelanjutan dan kompetitif.',
+    author: 'Tegar Ramadhan Wiroputro', authorRole: 'Komisaris Utama, PT JAC',
+    body: [
+      'Era AI mengubah lanskap bisnis lebih cepat daripada revolusi digital sebelumnya. Perusahaan yang gagal beradaptasi menghadapi risiko obsolesensi dalam 3-5 tahun.',
+      'Tiga penerapan AI paling berdampak untuk korporasi: otomasi proses back-office, analitik prediktif untuk keputusan strategis, dan personalisasi pengalaman pelanggan.',
+      'Namun, adopsi AI bukan hanya soal teknologi — ia memerlukan transformasi budaya, investasi talenta, dan tata kelola data yang matang.',
+    ],
+    takeaways: [
+      'AI paling berdampak di otomasi, analitik prediktif, dan personalisasi.',
+      'Transformasi budaya & tata kelola data sama pentingnya dengan teknologi.',
+      'Perusahaan yang lambat beradaptasi menghadapi risiko obsolesensi 3-5 tahun.',
+    ],
+  },
+}
+
+/* ============================================================
+   KELESTARIAN & BERKELANJUTAN — data untuk halaman Sustainability
+   ============================================================ */
+
+export const SUSTAINABILITY_PILLARS = [
+  {
+    id: 's1', name: 'Produksi Bertanggung Jawab', icon: 'Leaf', color: '#5A8A6A',
+    description: 'Praktik agrikultur dan industri yang meminimalkan dampak lingkungan sambil memaksimalkan produktivitas.',
+    initiatives: ['Sertifikasi ISPO & RSPO di seluruh kebun', 'Manajemen limbah pabrik fraksinasi', 'Penggunaan energi terbarukan di pabrik'],
+    metric: { label: 'Kebun Bersertifikasi', value: '100%', sub: 'ISPO + RSPO' },
+  },
+  {
+    id: 's2', name: 'Kesejahteraan Masyarakat', icon: 'Users', color: '#9B8FB8',
+    description: 'Memberdayakan komunitas lokal di sekitar operasional melalui program sosial dan ekonomi.',
+    initiatives: ['Program plasma untuk petani swadaya', 'Beasiswa pendidikan anak mitra', 'Pelatihan keterampilan masyarakat lokal'],
+    metric: { label: 'Keluarga Mitra Plasma', value: '1.200+', sub: 'petani swadaya' },
+  },
+  {
+    id: 's3', name: 'Konservasi Lingkungan', icon: 'TreePine', color: '#8FB89B',
+    description: 'Melindungi keanekaragaman hayati dan ekosistem di area operasional perkebunan dan kehutanan.',
+    initiatives: ['Konservasi hutan riparian & HCV', 'Program rehabilitasi lahan terdegradasi', 'Pemantauan keanekaragaman hayati'],
+    metric: { label: 'Area Konservasi', value: '850 ha', sub: 'HCV & riparian' },
+  },
+  {
+    id: 's4', name: 'Tata Kelola Transparan', icon: 'Scale', color: '#C9A961',
+    description: 'Kepatuhan penuh terhadap regulasi dan standar internasional dengan pelaporan yang akuntabel.',
+    initiatives: ['Kepatuhan EUDR & ISPO', 'Audit independen tahunan', 'Pelaporan dampak berkelanjutan publik'],
+    metric: { label: 'Audit Independen', value: '4', sub: 'sertifikasi aktif' },
+  },
+]
+
+export const CERTIFICATIONS = [
+  { id: 'ispo', name: 'ISPO', fullName: 'Indonesian Sustainable Palm Oil', scope: 'Perkebunan Kelapa Sawit', year: '2023', color: '#5A8A6A', description: 'Sertifikasi keberlanjutan sawit wajib nasional yang menjamin praktik perkebunan yang bertanggung jawab.' },
+  { id: 'rspo', name: 'RSPO', fullName: 'Roundtable on Sustainable Palm Oil', scope: 'Perkebunan & rantai pasok', year: '2023', color: '#8FB89B', description: 'Standar internasional untuk minyak sawit berkelanjutan yang diakui pasar global.' },
+  { id: 'fsc', name: 'FSC', fullName: 'Forest Stewardship Council', scope: 'Hutan Tanaman Industri', year: '2022', color: '#2D5A3D', description: 'Sertifikasi pengelolaan hutan yang menjamin keberlanjutan ekologi dan sosial.' },
+  { id: 'pefc', name: 'PEFC', fullName: 'Programme for the Endorsement of Forest Certification', scope: 'HTI Akasia & Eucalyptus', year: '2022', color: '#6A9A7F', description: 'Sertifikasi internasional untuk pengelolaan hutan berkelanjutan.' },
+  { id: 'asc', name: 'ASC', fullName: 'Aquaculture Stewardship Council', scope: 'Tambak Udang Vannamei', year: '2023', color: '#9B8FB8', description: 'Standar akuakultur berkelanjutan untuk perikanan budidaya yang bertanggung jawab.' },
+  { id: 'iscc', name: 'ISCC', fullName: 'International Sustainability and Carbon Certification', scope: 'Biofuel & rantai pasok CPO', year: '2024', color: '#C9A961', description: 'Sertifikasi keberlanjutan dan jejak karbon untuk bioenergi dan rantai pasok.' },
+]
+
+export const SDG_ALIGNMENT = [
+  { id: 'sdg8', name: 'Pekerjaan Layak & Pertumbuhan Ekonomi', color: '#8FB89B', contribution: 'Menciptakan 1.800+ lapangan kerja langsung dan memberdayakan 1.200+ keluarga petani plasma.' },
+  { id: 'sdg12', name: 'Konsumsi & Produksi Bertanggung Jawab', color: '#5A8A6A', contribution: 'Praktik produksi bersertifikasi dengan manajemen limbah dan efisiensi sumber daya.' },
+  { id: 'sdg13', name: 'Penanganan Perubahan Iklim', color: '#2D5A3D', contribution: 'Konservasi 850 ha HCV, rehabilitasi lahan, dan pengurangan emisi melalui efisiensi pabrik.' },
+  { id: 'sdg15', name: 'Ekosistem Darat Lestari', color: '#6A9A7F', contribution: 'Pengelolaan HTI bersertifikasi FSC/PEFC dan perlindungan keanekaragaman hayati.' },
+]
+
+export const SUSTAINABILITY_STATS = [
+  { value: 100, suffix: '%', label: 'Kebun Bersertifikasi ISPO+RSPO', color: '#5A8A6A' },
+  { value: 850, suffix: ' ha', label: 'Area Konservasi HCV', color: '#2D5A3D' },
+  { value: 1200, suffix: '+', label: 'Keluarga Petani Plasma', color: '#8FB89B' },
+  { value: 4, suffix: '', label: 'Sertifikasi Internasional', color: '#C9A961' },
+]
+
+/* ============================================================
+   TESTIMONIALS — social proof untuk landing
+   ============================================================ */
+
+export const TESTIMONIALS = [
+  {
+    name: 'Andi Wijaya', role: 'CEO, PT Maju Jaya Abadi', company: 'Mitra Perdagangan',
+    quote: 'Kolaborasi dengan JAC dalam ekspor CPO berjalan transparan dan profesional. Rantai pasok tersertifikasi ISPO memberi kami akses ke pasar Eropa yang sebelumnya tertutup.',
+    rating: 5, avatar: 'AW',
+  },
+  {
+    name: 'Dr. Siti Rahmawati', role: 'Kepala Riset, Universitas Indonesia', company: 'Klien Konsultasi',
+    quote: 'Tim konsultan JAC membantu transformasi digital lembaga kami dengan pendekatan strategis yang praktis. Hasilnya melebihi ekspektasi.',
+    rating: 5, avatar: 'SR',
+  },
+  {
+    name: 'Bambang Hartono', role: 'Direktur, PT Global Palm Indonesia', company: 'Mitra Industri',
+    quote: 'Pabrik fraksinasi JAC menghasilkan olein dengan kualitas konsisten yang memenuhi standar ekspor kami. Logistiknya pun andal.',
+    rating: 5, avatar: 'BH',
+  },
+]
+
+/* ============================================================
+   FAQ — pertanyaan umum (untuk halaman kontak/landing)
+   ============================================================ */
+
+export const FAQS = [
+  {
+    q: 'Bidang usaha apa saja yang dijalankan PT Jiwa Abdi Cinta?',
+    a: 'JAC menjalankan lima bidang usaha terintegrasi: Perdagangan komoditas, Jasa & Konsultasi (MICE), Konstruksi & Tender, Industri Sawit (CPO), dan Pertanian/Perikanan. Semua terdaftar dalam Akta Pendirian No. 310 dengan 17+ KBLI.',
+  },
+  {
+    q: 'Bagaimana cara menjadi mitra atau supplier JAC?',
+    a: 'Anda dapat mendaftar sebagai mitra melalui halaman Kontak dengan memilih departemen terkait. Tim kami akan melakukan verifikasi dan onboarding dalam 5-7 hari kerja. Saat ini JAC memiliki 340+ mitra terverifikasi.',
+  },
+  {
+    q: 'Apakah produk CPO JAC tersertifikasi keberlanjutan?',
+    a: 'Ya. Seluruh kebun kelapa sawit JAC bersertifikasi ISPO (wajib nasional) dan RSPO (internasional). Kami juga memenuhi kepatuhan EUDR untuk akses pasar Uni Eropa.',
+  },
+  {
+    q: 'Bagaimana proses pengajuan tender konstruksi JAC?',
+    a: 'Tender terbuka diumumkan pada halaman Proyek. Kontraktor dengan SBU yang relevan dapat mengajukan proposal sebelum tanggal tutup. Evaluasi dilakukan berdasarkan kualifikasi teknis, harga, dan rekam jejak.',
+  },
+  {
+    q: 'Apakah JAC melayani konsultasi untuk UMKM?',
+    a: 'Ya, divis Jasa & Konsultasi melayani klien dari skala UMKM hingga korporasi besar. Program pelatihan dan konsultasi manajemen dapat disesuaikan dengan kebutuhan dan skala bisnis Anda.',
+  },
+  {
+    q: 'Di wilayah mana saja JAC beroperasi?',
+    a: 'Operasional JAC mencakup 14 provinsi di Indonesia, dengan kebun dan pabrik utama di Riau, Sumatera Utara, Kalimantan Timur, dan Kalimantan Barat. Kantor pusat berada di Jakarta Selatan.',
+  },
+]
+
+/* ============================================================
    LAYANAN — Penawaran detail per modul (untuk halaman Layanan)
    ============================================================ */
 

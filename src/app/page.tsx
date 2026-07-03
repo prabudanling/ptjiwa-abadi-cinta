@@ -14,8 +14,10 @@ import AboutPage from '@/components/pages/AboutPage'
 import ServicesPage from '@/components/pages/ServicesPage'
 import PortfolioPage from '@/components/pages/PortfolioPage'
 import InsightsPage from '@/components/pages/InsightsPage'
+import InsightDetailPage from '@/components/pages/InsightDetailPage'
 import CareersPage from '@/components/pages/CareersPage'
 import ContactPage from '@/components/pages/ContactPage'
+import SustainabilityPage from '@/components/pages/SustainabilityPage'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COMPANY } from '@/lib/company-data'
 import { Bell, Search, Menu, LogOut } from 'lucide-react'
@@ -28,8 +30,10 @@ const viewComponents: Record<AppView, React.ComponentType> = {
   layanan: ServicesPage,
   proyek: PortfolioPage,
   insights: InsightsPage,
+  'insight-detail': InsightDetailPage,
   careers: CareersPage,
   contact: ContactPage,
+  keberlanjutan: SustainabilityPage,
   dashboard: Dashboard,
   perdagangan: PerdaganganModule,
   jasa: JasaModule,

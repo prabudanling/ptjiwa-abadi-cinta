@@ -3,12 +3,19 @@
 import { useState } from 'react'
 import { PublicNav, PublicFooter, CtaBand, PageHero, FadeIn, SectionLabel, PUBLIC_DESIGN } from '@/components/public/PublicChrome'
 import { PUBLIC_INSIGHTS, INSIGHT_CATEGORIES } from '@/lib/company-data'
+import { useAppStore } from '@/store/useAppStore'
 import { TrendingUp, ArrowRight, ArrowUpRight, Mail, CheckCircle2, Clock } from 'lucide-react'
 
 export default function InsightsPage() {
+  const { openInsight } = useAppStore()
   const [category, setCategory] = useState('Semua')
   const [subscribed, setSubscribed] = useState(false)
   const [email, setEmail] = useState('')
+
+  const openArticle = (id: string) => {
+    openInsight(id)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const featured = PUBLIC_INSIGHTS.find((i) => i.featured) ?? PUBLIC_INSIGHTS[0]
   const nonFeatured = PUBLIC_INSIGHTS.filter((i) => !i.featured)
@@ -49,7 +56,18 @@ export default function InsightsPage() {
             </FadeIn>
 
             <FadeIn delay={0.1}>
-              <article className="group grid grid-cols-1 lg:grid-cols-2 bg-white rounded-sm border border-[#D4E0D4]/60 overflow-hidden hover:shadow-xl hover:border-[#D4E0D4] transition-all duration-300">
+              <article
+                role="button"
+                tabIndex={0}
+                onClick={() => openArticle(featured.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openArticle(featured.id)
+                  }
+                }}
+                className="group cursor-pointer grid grid-cols-1 lg:grid-cols-2 bg-white rounded-sm border border-[#D4E0D4]/60 overflow-hidden hover:shadow-xl hover:border-[#D4E0D4] transition-all duration-300"
+              >
                 {/* Left: tinted category panel */}
                 <div
                   className="relative p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[280px] lg:min-h-[440px] overflow-hidden"
@@ -195,7 +213,18 @@ export default function InsightsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filtered.map((insight, i) => (
                   <FadeIn key={insight.id} delay={i * 0.05}>
-                    <article className="group cursor-pointer h-full flex flex-col bg-white rounded-sm border border-[#D4E0D4]/60 hover:shadow-lg hover:border-[#D4E0D4] transition-all duration-300 overflow-hidden">
+                    <article
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => openArticle(insight.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          openArticle(insight.id)
+                        }
+                      }}
+                      className="group cursor-pointer h-full flex flex-col bg-white rounded-sm border border-[#D4E0D4]/60 hover:shadow-lg hover:border-[#D4E0D4] transition-all duration-300 overflow-hidden"
+                    >
                       {/* Tinted top panel */}
                       <div
                         className="relative h-28 flex items-center px-5 overflow-hidden"

@@ -5,12 +5,13 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useAppStore, type AppView } from '@/store/useAppStore'
 import {
   COMPANY, PUBLIC_INSIGHTS, TRUST_LOGOS, PUBLIC_SERVICES,
-  LUXURY_HERO_STATS, LUXURY_ACCENTS, MODULES,
+  LUXURY_HERO_STATS, LUXURY_ACCENTS, MODULES, TESTIMONIALS,
 } from '@/lib/company-data'
 import {
   Package, Briefcase, Building2, Factory, Leaf,
   ArrowRight, ChevronDown, MapPin, Clock,
   ArrowUpRight, Users, Globe, Award, TrendingUp, Sparkles, Network,
+  Star, Quote, ArrowUp,
 } from 'lucide-react'
 import {
   PublicNav, PublicFooter, CtaBand, PUBLIC_DESIGN,
@@ -27,19 +28,36 @@ const moduleIcons: Record<string, React.ReactNode> = {
 const SERIF = 'var(--font-fraunces), Georgia, "Times New Roman", serif'
 
 /* ============================================================
+   SEEDED PRNG (mulberry32) — deterministic so server & client
+   render identical particles (prevents hydration mismatch).
+   ============================================================ */
+function mulberry32(seed: number) {
+  return function () {
+    seed |= 0
+    seed = (seed + 0x6D2B79F5) | 0
+    let t = seed
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+/* ============================================================
    SAGE PARTICLE FIELD — soft floating dots on light bg
+   Uses seeded PRNG so SSR & client match (no hydration error).
    ============================================================ */
 function SageParticles() {
   const particles = useMemo(() => {
+    const rand = mulberry32(20240421) // fixed seed
     return Array.from({ length: 24 }).map((_, i) => ({
       id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
-      duration: Math.random() * 8 + 6,
-      delay: Math.random() * 5,
-      opacity: Math.random() * 0.4 + 0.15,
-      isGold: Math.random() > 0.5,
+      x: rand() * 100,
+      y: rand() * 100,
+      size: rand() * 4 + 2,
+      duration: rand() * 8 + 6,
+      delay: rand() * 5,
+      opacity: rand() * 0.4 + 0.15,
+      isGold: rand() > 0.5,
     }))
   }, [])
   return (
@@ -509,7 +527,11 @@ function LuxuryStats() {
    INSIGHTS PREVIEW — rich gradient cards
    ============================================================ */
 function LuxuryInsights() {
-  const { setCurrentView } = useAppStore()
+  const { setCurrentView, openInsight } = useAppStore()
+  const openArticle = (id: string) => {
+    openInsight(id)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
   return (
     <section className="py-24 lg:py-32 bg-[#F8FAF6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -530,7 +552,18 @@ function LuxuryInsights() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {PUBLIC_INSIGHTS.slice(0, 3).map((insight, i) => (
             <FadeIn key={insight.id} delay={i * 0.1}>
-              <article className="group cursor-pointer h-full flex flex-col bg-white rounded-sm overflow-hidden border border-[#D4E0D4] hover:shadow-xl transition-all duration-300">
+              <article
+                role="button"
+                tabIndex={0}
+                onClick={() => openArticle(insight.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openArticle(insight.id)
+                  }
+                }}
+                className="group cursor-pointer h-full flex flex-col bg-white rounded-sm overflow-hidden border border-[#D4E0D4] hover:shadow-xl transition-all duration-300"
+              >
                 <div className="w-full aspect-[16/10] flex items-center justify-center relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${insight.categoryColor}, ${insight.categoryColor}cc)` }}>
                   <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white, transparent 60%)' }} />
                   <motion.div
@@ -635,6 +668,87 @@ function LuxuryCareers() {
 }
 
 /* ============================================================
+   TESTIMONIALS — social proof carousel/grid
+   ============================================================ */
+function LuxuryTestimonials() {
+  return (
+    <section className="py-24 lg:py-32 bg-[#E8F0E8] relative overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" aria-hidden style={{
+        backgroundImage: `radial-gradient(#2D5A3D 1px, transparent 1px)`,
+        backgroundSize: '30px 30px',
+      }} />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn>
+          <div className="text-center mb-16">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#8FB89B]/40 bg-[#8FB89B]/10 mb-5">
+              <Star className="w-3 h-3 text-[#5A8A6A]" />
+              <span className="text-[#2D5A3D] text-xs font-semibold tracking-[0.2em] uppercase">Testimoni Klien</span>
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-[#1A3D2A]" style={{ fontFamily: SERIF }}>
+              Dipercaya Mitra Strategis
+            </h2>
+            <p className="text-[#5A7A6A] max-w-xl mx-auto">
+              Apa kata mereka yang telah bekerja sama dengan ekosistem bisnis JAC.
+            </p>
+          </div>
+        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <FadeIn key={t.name} delay={i * 0.1}>
+              <motion.div
+                whileHover={{ y: -6 }}
+                className="bg-white rounded-sm p-6 border border-[#D4E0D4] hover:shadow-lg transition-shadow h-full flex flex-col"
+              >
+                <Quote className="w-8 h-8 text-[#8FB89B] mb-3" aria-hidden />
+                <div className="flex gap-0.5 mb-3" aria-label={`${t.rating} dari 5 bintang`}>
+                  {Array.from({ length: t.rating }).map((_, j) => (
+                    <Star key={j} className="w-3.5 h-3.5 fill-[#C9A961] text-[#C9A961]" />
+                  ))}
+                </div>
+                <p className="text-sm text-[#3A4A3A] leading-relaxed mb-5 flex-1 italic">“{t.quote}”</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-[#D4E0D4]">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2D5A3D] to-[#5A8A6A] flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
+                    {t.avatar}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-[#1A3D2A] text-sm truncate">{t.name}</p>
+                    <p className="text-xs text-[#8B9A8B] truncate">{t.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   BACK TO TOP — floating button, appears on scroll
+   ============================================================ */
+function BackToTop() {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 600)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <motion.button
+      initial={false}
+      animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.6, pointerEvents: visible ? 'auto' : 'none' }}
+      transition={{ duration: 0.25 }}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#2D5A3D] text-white shadow-lg hover:bg-[#1A3D2A] transition-colors flex items-center justify-center"
+      aria-label="Kembali ke atas"
+    >
+      <ArrowUp className="w-5 h-5" />
+    </motion.button>
+  )
+}
+
+/* ============================================================
    MAIN
    ============================================================ */
 export default function LandingPage() {
@@ -651,9 +765,11 @@ export default function LandingPage() {
         <EcosystemSection />
         <LuxuryStats />
         <LuxuryInsights />
+        <LuxuryTestimonials />
         <LuxuryCareers />
         <CtaBand />
       </main>
+      <BackToTop />
       <PublicFooter />
     </div>
   )

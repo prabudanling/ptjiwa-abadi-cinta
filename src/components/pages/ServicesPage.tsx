@@ -115,18 +115,35 @@ function FadeIn({
 }
 
 /* ============================================================
-   GOLD PARTICLES — luxury floating dots
+   SEEDED PRNG (mulberry32) — deterministic for SSR/CSR parity.
+   ============================================================ */
+function mulberry32(seed: number) {
+  return function () {
+    seed |= 0
+    seed = (seed + 0x6D2B79F5) | 0
+    let t = seed
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+/* ============================================================
+   GOLD PARTICLES — luxury floating dots (deterministic)
    ============================================================ */
 function GoldParticles({ count = 22 }: { count?: number }) {
-  const particles = useMemo(() => Array.from({ length: count }).map((_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2.5 + 1,
-    duration: Math.random() * 8 + 6,
-    delay: Math.random() * 5,
-    opacity: Math.random() * 0.5 + 0.2,
-  })), [count])
+  const particles = useMemo(() => {
+    const rand = mulberry32(20240422)
+    return Array.from({ length: count }).map((_, i) => ({
+      id: i,
+      x: rand() * 100,
+      y: rand() * 100,
+      size: rand() * 2.5 + 1,
+      duration: rand() * 8 + 6,
+      delay: rand() * 5,
+      opacity: rand() * 0.5 + 0.2,
+    }))
+  }, [count])
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
       {particles.map(p => (

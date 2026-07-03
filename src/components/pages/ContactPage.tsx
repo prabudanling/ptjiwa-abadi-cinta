@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { PublicNav, PublicFooter, PageHero, FadeIn, SectionLabel, PUBLIC_DESIGN } from '@/components/public/PublicChrome'
-import { CONTACT_DEPARTMENTS, OFFICE_INFO, COMPANY } from '@/lib/company-data'
-import { MapPin, Mail, Phone, Clock, Send, CheckCircle2, ArrowRight, MessageSquare } from 'lucide-react'
+import { CONTACT_DEPARTMENTS, OFFICE_INFO, COMPANY, FAQS } from '@/lib/company-data'
+import { MapPin, Mail, Phone, Clock, Send, CheckCircle2, ArrowRight, MessageSquare, ChevronDown } from 'lucide-react'
 
 /* Shared input styling — McKinsey/BCG professional light theme */
 const INPUT_CLASS =
@@ -31,6 +32,7 @@ const INITIAL_FORM: FormState = {
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState<FormState>(INITIAL_FORM)
+  const [openFaq, setOpenFaq] = useState<number>(0)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -344,6 +346,87 @@ export default function ContactPage() {
                 </div>
               </FadeIn>
             </div>
+          </div>
+        </section>
+
+        {/* =====================================================
+            FAQ — accordion of frequently asked questions
+            ===================================================== */}
+        <section className="py-20 lg:py-28 bg-[#F8FAF6]" aria-labelledby="faq-heading">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <FadeIn>
+              <div className="mb-12 lg:mb-14 text-center">
+                <SectionLabel>FAQ</SectionLabel>
+                <h2
+                  id="faq-heading"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3 mb-4"
+                  style={{ fontFamily: PUBLIC_DESIGN.serif }}
+                >
+                  Pertanyaan yang Sering Diajukan
+                </h2>
+                <p className="text-[#5A7A6A] max-w-xl mx-auto leading-relaxed">
+                  Jawaban singkat untuk pertanyaan paling umum seputar mitra, layanan, dan operasional {COMPANY.shortName}. Tidak menemukan yang Anda cari? Sampaikan melalui formulir di atas.
+                </p>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.1}>
+              <div className="bg-white border border-[#D4E0D4] rounded-sm overflow-hidden">
+                {FAQS.map((item, idx) => {
+                  const isOpen = openFaq === idx
+                  const panelId = `faq-panel-${idx}`
+                  const buttonId = `faq-button-${idx}`
+                  return (
+                    <div
+                      key={item.q}
+                      className={`border-b border-[#D4E0D4] last:border-b-0 ${
+                        isOpen ? 'bg-[#E8F0E8]/40' : 'hover:bg-[#E8F0E8]/40'
+                      } transition-colors`}
+                    >
+                      <button
+                        id={buttonId}
+                        type="button"
+                        onClick={() => setOpenFaq(isOpen ? -1 : idx)}
+                        aria-expanded={isOpen}
+                        aria-controls={panelId}
+                        className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-5"
+                      >
+                        <span
+                          className="text-sm sm:text-base font-medium text-[#1A3D2A]"
+                          style={{ fontFamily: PUBLIC_DESIGN.serif }}
+                        >
+                          {item.q}
+                        </span>
+                        <ChevronDown
+                          className={`w-5 h-5 flex-shrink-0 text-[#2D5A3D] transition-transform duration-300 ${
+                            isOpen ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isOpen && (
+                          <motion.div
+                            key="content"
+                            id={panelId}
+                            role="region"
+                            aria-labelledby={buttonId}
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: 'easeInOut' }}
+                            className="overflow-hidden"
+                          >
+                            <p className="px-5 sm:px-6 pb-5 text-sm text-[#5A7A6A] leading-relaxed">
+                              {item.a}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )
+                })}
+              </div>
+            </FadeIn>
           </div>
         </section>
 

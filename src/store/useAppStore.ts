@@ -7,8 +7,10 @@ export type AppView =
   | 'layanan'
   | 'proyek'
   | 'insights'
+  | 'insight-detail'
   | 'careers'
   | 'contact'
+  | 'keberlanjutan'
   // App (behind login)
   | 'dashboard'
   | 'perdagangan'
@@ -27,7 +29,7 @@ export type UserRole =
   | 'mitra'
   | 'pelanggan'
 
-export const PUBLIC_VIEWS: AppView[] = ['landing', 'about', 'layanan', 'proyek', 'insights', 'careers', 'contact']
+export const PUBLIC_VIEWS: AppView[] = ['landing', 'about', 'layanan', 'proyek', 'insights', 'insight-detail', 'careers', 'contact', 'keberlanjutan']
 
 interface AppState {
   currentView: AppView
@@ -38,6 +40,9 @@ interface AppState {
   setCurrentRole: (role: UserRole) => void
   searchQuery: string
   setSearchQuery: (query: string) => void
+  currentInsightId: string | null
+  setCurrentInsightId: (id: string | null) => void
+  openInsight: (id: string) => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -49,4 +54,7 @@ export const useAppStore = create<AppState>((set) => ({
   setCurrentRole: (role) => set({ currentRole: role }),
   searchQuery: '',
   setSearchQuery: (query) => set({ searchQuery: query }),
+  currentInsightId: null,
+  setCurrentInsightId: (id) => set({ currentInsightId: id }),
+  openInsight: (id) => set({ currentInsightId: id, currentView: 'insight-detail' }),
 }))

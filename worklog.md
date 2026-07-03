@@ -664,3 +664,148 @@ Stage Summary:
 - Luxury animations preserved (parallax, particles, counters, 3D tilt, ecosystem diagram, marquee, AnimatePresence filters)
 - Professional fonts: Plus Jakarta Sans (body, very clear) + Fraunces (serif headings, elegant)
 - Lint clean; Agent Browser confirms all light, zero errors
+
+---
+Task ID: 8-b
+Agent: Sub-agent (general-purpose)
+Task: Make insight cards clickable (InsightsPage + LandingPage) + add FAQ section to ContactPage
+
+Work Log:
+- Verified store API: `useAppStore` exposes `openInsight(id)` which sets `currentInsightId` and `currentView: 'insight-detail'`. Verified `FAQS` export (6 items of `{ q, a }`) exists in `@/lib/company-data`.
+
+Changes in InsightsPage.tsx:
+1. Added import `{ useAppStore }` from '@/store/useAppStore'.
+2. Added `const { openInsight } = useAppStore()` in component body.
+3. Added local helper `openArticle(id)` that calls `openInsight(id)` then `window.scrollTo({ top: 0, behavior: 'smooth' })` (single source of truth for click + keyboard handlers).
+4. Featured article (`<article>`): added `cursor-pointer`, `role="button"`, `tabIndex={0}`, `onClick={() => openArticle(featured.id)}`, and `onKeyDown` handler that triggers `openArticle` on Enter / Space (with preventDefault on Space to stop page scroll). The nested "Baca selengkapnya" button bubbles clicks to the article — no double-trigger since button has no own onClick.
+5. Grid article cards (`<article>` inside the `filtered.map`): added `role="button"`, `tabIndex={0}`, `onClick={() => openArticle(insight.id)}`, and the same `onKeyDown` handler.
+6. Category filter pills (`INSIGHT_CATEGORIES` tablist), AnimatePresence logic (none here, but the FadeIn wrappers), and the empty-state branch all preserved unchanged.
+
+Changes in LandingPage.tsx (LuxuryInsights section only):
+1. Destructured `openInsight` from `useAppStore` alongside existing `setCurrentView` in the `LuxuryInsights` component.
+2. Added local helper `openArticle(id)` (same pattern as InsightsPage).
+3. The 3 insight preview cards (`PUBLIC_INSIGHTS.slice(0, 3)` mapped `<article>`): added `role="button"`, `tabIndex={0}`, `onClick={() => openArticle(insight.id)}`, and `onKeyDown` handler (Enter/Space). The `cursor-pointer` and all existing styling/animation (`motion.div` icon hover, gradient aspect panel, category pill) preserved.
+4. "Lihat Semua Insights" button (which sets `currentView('insights')`) left untouched — it remains the dedicated route to the full Insights list.
+
+Changes in ContactPage.tsx (new FAQ section):
+1. Imports: added `import { AnimatePresence, motion } from 'framer-motion'`, added `ChevronDown` to the lucide-react import line, added `FAQS` to the company-data import line. (`useState` was already imported; `SectionLabel` was already imported.)
+2. Added `const [openFaq, setOpenFaq] = useState<number>(0)` — first FAQ open by default; clicking an open item sets index to -1 to collapse.
+3. Added a new FAQ `<section>` (bg `#F8FAF6` cream, `py-20 lg:py-28`, container `max-w-4xl mx-auto`) inserted BEFORE the existing Map / Location band (i.e. between the main contact grid and the map).
+   - Header: `SectionLabel` "FAQ" + serif h2 "Pertanyaan yang Sering Diajukan" + subtitle paragraph (forest text on cream, references `COMPANY.shortName`).
+   - Body: a white card (`bg-white border border-[#D4E0D4] rounded-sm overflow-hidden`) containing 6 FAQ rows mapped from `FAQS`.
+   - Each row: `border-b border-[#D4E0D4] last:border-b-0`, hover bg `bg-[#E8F0E8]/40` (and the active row stays on that mint tint).
+   - Question row is a `<button type="button">` (full width, flex justify-between) with question text in `font-medium text-[#1A3D2A]` + serif, and a `ChevronDown` icon (`text-[#2D5A3D]`, `transition-transform duration-300`, `rotate-180` when open).
+   - Answer panel: `framer-motion` `AnimatePresence` + `motion.div` animating `height: 0 ↔ auto` and `opacity: 0 ↔ 1` (250ms easeInOut). Answer text `text-sm text-[#5A7A6A] leading-relaxed`.
+   - Accessibility: each button has `aria-expanded={isOpen}` + `aria-controls={panelId}`; each panel has `role="region"`, `id={panelId}`, `aria-labelledby={buttonId}`. IDs derived from index (`faq-panel-${idx}` / `faq-button-${idx}`).
+4. Map / Location band, Quick Info section, contact form, and all existing department info preserved unchanged.
+
+Verification:
+- `npx eslint` on InsightsPage.tsx, LandingPage.tsx, ContactPage.tsx → 0 errors / 0 warnings (clean exit, no output).
+- `npx tsc --noEmit` filtered for the three edited files → no new TypeScript errors introduced.
+- No unused imports: `useAppStore` + `openInsight` consumed in InsightsPage and LandingPage; `AnimatePresence`/`motion`/`ChevronDown`/`FAQS` all consumed in ContactPage.
+- Visual identity preserved: insight cards keep all existing classes (only `role`/`tabIndex`/`onClick`/`onKeyDown` added; cursor-pointer kept/added on featured). FAQ uses the established Spring Sage & Sunshine palette (cream bg, white card, forest headings, muted sage body text, mint hover tint) — no indigo/blue, all-light theme.
+
+Stage Summary:
+- All insight cards on InsightsPage (featured + grid) and LandingPage (3 preview cards) are now clickable and keyboard-accessible, navigating to the existing 'insight-detail' view via `openInsight(id)` with a smooth scroll-to-top.
+- ContactPage now has a 6-item FAQ accordion section (light theme, animated, accessible) placed between the main contact grid and the map band, improving self-service discoverability before users reach the form/phone channels.
+
+---
+Task ID: 8-a
+Agent: Sub-agent (general-purpose)
+Task: Build full SustainabilityPage.tsx (Keberlanjutan page) for PT JIWA ABDI CINTA — luxury animated, light Spring Sage & Sunshine theme
+
+File edited (full overwrite — was a 35-line stub):
+- /home/z/my-project/src/components/pages/SustainabilityPage.tsx
+
+Imports used (all confirmed in use, zero unused):
+- react: useRef, useState, useEffect (Counter requestAnimationFrame loop)
+- framer-motion: motion, useInView, useScroll, useTransform (parallax + counter trigger)
+- @/components/public/PublicChrome: PublicNav, PublicFooter, CtaBand, PageHero, FadeIn, SectionLabel, PUBLIC_DESIGN (all 7 shared exports used)
+- @/store/useAppStore: useAppStore (pledge "Pelajari lebih lanjut" → setCurrentView('contact'))
+- @/lib/company-data: SUSTAINABILITY_PILLARS, CERTIFICATIONS, SDG_ALIGNMENT, SUSTAINABILITY_STATS, LUXURY_ACCENTS (all 5 used)
+- lucide-react: Leaf, Users, TreePine, Scale (PILLAR_ICONS map), Award (certs eyebrow), ArrowRight (pledge button), Sparkles (intro + pledge eyebrows), CheckCircle2 (pillar initiatives checklist), TrendingUp (stat card icons), Globe (certs + SDG eyebrows)
+
+Custom components built:
+1. PILLAR_ICONS: Record<string, React.ReactNode> mapping 'Leaf'|'Users'|'TreePine'|'Scale' → lucide icon nodes (strokeWidth 1.5, w-9 h-9).
+2. Counter({value, suffix, duration=2}) — requestAnimationFrame cubic ease-out (1 - (1-t)^3), triggers on useInView (once, -50px margin), formats with toLocaleString('id-ID') so 1200 → "1.200".
+3. sdgNumber(id) — regex extracts numeric SDG id ('sdg8' → '8') for the SDG number badge.
+
+Parallax (useScroll + useTransform) — two distinct parallax sections:
+- Intro + Stats band: yGrid (sage grid overlay) [-40,40], yDots (sage particle dots overlay) [30,-30], both driven by statsRef scrollYProgress.
+- Pledge band: yPledgeBg (forest particle dots overlay) [-30,30], driven by pledgeRef scrollYProgress.
+
+Page structure built (all 7 sections in spec order):
+1. PageHero — label "Keberlanjutan", title "Komitmen untuk Masa Depan Lestari", subtitle about balancing business growth with environmental & social responsibility (sawit bersertifikasi, HTI, komunitas plasma).
+2. Intro + Stats band — mint gradient section (linear-gradient(135deg, sageBright #A8D5BA → mintBright #D4E8D4) per spec) with serif heading "Keberlanjutan adalah Inti Bisnis Kami" + intro paragraph + ESG "Pendekatan" glass card (Lingkungan/Sosial/Ekonomi/Tata Kelola) + 4 SUSTAINABILITY_STATS as large animated counters in glass/white cards. Luxury: 2 parallax overlays (sage grid + sage dots), 2 floating glow orbs (sageDeep + bronze, infinite scale/opacity animation), each stat card has color top accent strip + TrendingUp icon badge in st.color + 0N index label + Counter in forest serif.
+3. 4 Pillars section — cream bg (#F8FAF6). For each SUSTAINABILITY_PILLARS, alternating 2-col row (reversed = i%2===1): visual panel (pale tint gradient of p.color, dot pattern, color accent strip, white circle icon badge with p.color glow, pillar number badge, metric label/value/sub) + content panel ("Pilar N" badge in p.color, serif name, description, 3 initiatives with CheckCircle2 in p.color). Hover: motion.article whileHover y:-4 spring lift. Staggered FadeIn delay i*0.05.
+4. Certifications grid — mint bg (#E8F0E8). Heading "Sertifikasi & Standar Internasional" with Award eyebrow. Grid 1/2/3 cols of 6 CERTIFICATIONS cards: color top accent strip in c.color, c.name badge (serif, c.color tint bg), year pill in c.color, fullName serif, Globe + scope, description. Hover: motion.article whileHover animates borderColor → c.color AND boxShadow → c.color66 glow (framer-motion color/boxShadow animation); plus group-hover radial glow overlay.
+5. SDG Alignment section — cream bg. Heading "Selaras dengan Tujuan Pembangunan Berkelanjutan" with Globe eyebrow. 4 cards 1/2/4 cols for SDG_ALIGNMENT: number badge (parsed from sdg.id via regex) in serif, "SDG" pill in sdg.color, serif name, contribution text, colored left border (border-l-4 + inline borderLeftColor: sdg.color). Hover: y:-5 + group-hover soft gradient glow.
+6. Pledge / Commitment section — sage gradient bg (linear-gradient(135deg, sage #8FB89B → sageBright #A8D5BA)) with parallax forest dots overlay + center white glow orb (infinite scale/opacity). Sparkles icon + "Komitmen Jangka Panjang" eyebrow + serif quote ("Kami berkomitmen meninggalkan jejak yang lebih hijau...") + supporting paragraph + "Pelajari lebih lanjut" button (bg forest #1A3D2A, hover #2D5A3D, navigates via setCurrentView('contact')).
+7. CtaBand — title "Bergabung dalam Komitmen Keberlanjutan", subtitle about partnering with JAC for sustainable supply chain.
+
+Light theme discipline (no dark section bgs, AAA text contrast):
+- All section backgrounds: cream #F8FAF6, mint #E8F0E8, sage gradient, mint gradient (per spec).
+- All primary text: forest #1A3D2A (AAA on light).
+- All secondary text: muted #5A7A6A or faint #8B9A8B.
+- Decorative colors (pillar.color, cert.color, sdg.color, stat.color) used ONLY on: icon badges, top accent strips, dot patterns, glow shadows, small "Pilar N"/"SDG" pills — NEVER on large primary text (because lavender #9B8FB8, sage #8FB89B, bronze #C9A961 fail AA Large on white at heading scale).
+- Big metric/stat numbers use forest #1A3D2A for AAA contrast — color identity conveyed by adjacent accents.
+- Single forest accent button (pledge "Pelajari lebih lanjut") — small accent element per spec.
+
+Animation summary:
+- FadeIn (shared from PublicChrome) on every section block + stat/pillar/cert/sdg card with staggered delays (i*0.08 to i*0.1).
+- Counter requestAnimationFrame cubic ease-out for 4 stats (100%, 850 ha, 1.200+, 4).
+- 2 parallax layers in stats band (grid + dots, opposite directions).
+- 1 parallax layer in pledge band (forest dots).
+- 4 floating glow orbs (2 in stats band, 1 in pledge band, infinite scale/opacity loops 11-13s).
+- Hover lift on all cards (motion whileHover y:-4/-5/-6 spring stiffness 260-300 damping 20-22).
+- Cert cards: animated borderColor + colored boxShadow glow on hover (framer-motion color interpolation).
+- SDG cards: group-hover opacity fade-in soft gradient glow.
+
+Verification:
+- npx eslint src/components/pages/SustainabilityPage.tsx → 0 errors, 0 warnings.
+- npx tsc --noEmit (full project) → 0 errors related to SustainabilityPage.tsx (only pre-existing unrelated errors in other files, if any).
+- All 18 imports verified in use (no unused import warnings).
+- Responsive: grid-cols 1/2/4 and 1/2/3 and 1/2/lg-2 layouts; sm/lg padding variants; min-h-[280px] visual panel for mobile balance.
+
+Stage Summary:
+- SustainabilityPage.tsx upgraded from 35-line stub to ~480-line world-class luxury sustainability page.
+- All 7 spec sections built in order with required data sources, animations, and shared components.
+- Heavy framer-motion: parallax (2 sections), animated counters (4), staggered reveals, hover lifts (all cards), animated color borders/glows (cert cards).
+- Strict light theme: cream/mint/sage surfaces only, forest text (AAA), no dark section backgrounds, single small forest accent button (per spec).
+- Lint clean; TS clean; ready for `currentView === 'keberlanjutan'` routing.
+
+---
+Task ID: 8
+Agent: Main (Z.ai Code)
+Task: Fix hydration mismatch error + audit all pages + fill missing content with brilliant ideas
+
+Work Log:
+- Diagnosed hydration error from uploaded file: caused by Math.random() in SageParticles (LandingPage) + GoldParticles (ServicesPage) running during render → different values server vs client
+- Fix: implemented mulberry32 seeded PRNG (deterministic) in both LandingPage & ServicesPage — particles now identical on server & client
+- Verified ParticleCanvas (Math.random in useEffect = client-only, OK) and sidebar.tsx SidebarMenuSkeleton (unused library component, no impact)
+- Confirmed no other Math.random/Date.now in render paths
+- Brilliant ideas audit — found gaps and filled them:
+  - Added INSIGHT_ARTICLES (3 full articles with body paragraphs, takeaways, author) for insight detail
+  - Added SUSTAINABILITY_PILLARS (4), CERTIFICATIONS (6: ISPO/RSPO/FSC/PEFC/ASC/ISCC), SDG_ALIGNMENT (4), SUSTAINABILITY_STATS (4) for sustainability page
+  - Added TESTIMONIALS (3) for landing social proof
+  - Added FAQS (6) for contact accordion
+- Store: added 'keberlanjutan' + 'insight-detail' to AppView & PUBLIC_VIEWS; added currentInsightId + openInsight(id) action
+- Nav: added "Keberlanjutan" link (8 nav items now)
+- page.tsx: wired SustainabilityPage + InsightDetailPage into viewComponents
+- Dispatched 2 parallel subagents:
+  - 8-a: Built full luxury SustainabilityPage (480 lines) — PageHero, stats band with parallax+counters, 4 pillars alternating, certifications grid, SDG alignment, pledge, CtaBand
+  - 8-b: Made insight cards clickable (InsightsPage + LandingPage) via openInsight() with role/tabIndex/onKeyDown accessibility; added FAQ accordion to ContactPage
+- Added Testimonials section + BackToTop floating button directly to LandingPage (luxury mint section with quote cards + star ratings + avatar circles; back-to-top appears after 600px scroll)
+- Verification:
+  - `bun run lint`: clean, zero errors
+  - Agent Browser: hydration error GONE (zero errors after reload), insight click → detail page complete (heading+body+takeaways+author), Sustainability page complete (pillars+ISPO certs+SDG), FAQ present on contact, Testimonials + BackToTop present, zero console errors across all pages
+
+Stage Summary:
+- Critical hydration mismatch bug FIXED via seeded PRNG (mulberry32)
+- NEW page added: Keberlanjutan/Sustainability (luxury animated — fills gap for JAC's ISPO/RSPO/FSC/PEFC certification story)
+- NEW feature: Insight detail view — clicking any insight card opens full article with body, takeaways, author, related articles
+- NEW: Testimonials section on landing (social proof with star ratings)
+- NEW: FAQ accordion on contact page (6 common questions)
+- NEW: Back-to-top floating button on landing
+- Nav expanded to 8 items: Beranda, Tentang, Layanan, Proyek, Keberlanjutan, Insights, Karir, Kontak
+- All light green theme preserved; all animations preserved; lint clean; Agent Browser confirms zero errors end-to-end
