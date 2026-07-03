@@ -1,7 +1,31 @@
 import { create } from 'zustand'
 
-export type AppView = 'landing' | 'dashboard' | 'perdagangan' | 'jasa' | 'konstruksi' | 'industri' | 'pertanian' | 'perizinan'
-export type UserRole = 'super_admin' | 'admin_perdagangan' | 'admin_jasa' | 'admin_konstruksi' | 'admin_industri' | 'admin_pertanian' | 'admin_perizinan' | 'mitra' | 'pelanggan' | 'notaris'
+export type AppView =
+  // Public pages
+  | 'landing'
+  | 'about'
+  | 'insights'
+  | 'careers'
+  | 'contact'
+  // App (behind login)
+  | 'dashboard'
+  | 'perdagangan'
+  | 'jasa'
+  | 'konstruksi'
+  | 'industri'
+  | 'pertanian'
+
+export type UserRole =
+  | 'super_admin'
+  | 'admin_perdagangan'
+  | 'admin_jasa'
+  | 'admin_konstruksi'
+  | 'admin_industri'
+  | 'admin_pertanian'
+  | 'mitra'
+  | 'pelanggan'
+
+export const PUBLIC_VIEWS: AppView[] = ['landing', 'about', 'insights', 'careers', 'contact']
 
 interface AppState {
   currentView: AppView

@@ -16,9 +16,6 @@ async function seed() {
   const tegar = await db.user.create({
     data: { email: 'tegar@jiwaabdicinta.co.id', name: 'Tegar Ramadhan Wiroputro', role: 'admin_jasa', phone: '081234567893' }
   })
-  const notaris = await db.user.create({
-    data: { email: 'bagas@notaris.co.id', name: 'Bagas Raffy Raditya, S.H.', role: 'notaris', phone: '081234567894' }
-  })
   const mitra1 = await db.user.create({
     data: { email: 'info@majujaya.co.id', name: 'PT Maju Jaya Abadi', role: 'mitra', phone: '081234567895' }
   })
@@ -148,43 +145,19 @@ async function seed() {
     ]
   })
 
-  // Create permit types (Perizinan)
-  const permitType1 = await db.permitType.create({
-    data: { name: 'Izin Usaha Perdagangan', category: 'perdagangan', kbliCode: '46100, 46599, 47911, 46202', description: 'Izin usaha untuk kegiatan perdagangan umum', fee: 5000000, requirements: JSON.stringify(['Akta Pendirian', 'NIB/OSS', 'NPWP Badan', 'KTP Direktur']), processingDays: 14 }
-  })
-  const permitType2 = await db.permitType.create({
-    data: { name: 'Izin Usaha Jasa Konsultasi', category: 'jasa', kbliCode: '70209, 71102', description: 'Izin usaha untuk jasa konsultasi manajemen dan teknis', fee: 3000000, requirements: JSON.stringify(['Akta Pendirian', 'NIB/OSS', 'Sertifikat Kompetensi']), processingDays: 10 }
-  })
-  const permitType3 = await db.permitType.create({
-    data: { name: 'SBU Konstruksi', category: 'konstruksi', kbliCode: '41019, 42102, 41012', description: 'Sertifikat Badan Usaha untuk konstruksi', fee: 7500000, requirements: JSON.stringify(['Akta Pendirian', 'NIB/OSS', 'Sertifikat Keahlian Teknis', 'Pengalaman Kerja']), processingDays: 21 }
-  })
-  const permitType4 = await db.permitType.create({
-    data: { name: 'Izin Usaha Industri Sawit', category: 'industri', kbliCode: '10433, 10434, 10435, 10437', description: 'Izin usaha untuk industri pengolahan kelapa sawit', fee: 10000000, requirements: JSON.stringify(['Akta Pendirian', 'NIB/OSS', 'AMDAL', 'Izin Lokasi', 'Sertifikat Halal']), processingDays: 30 }
-  })
-  const permitType5 = await db.permitType.create({
-    data: { name: 'Izin Usaha Perkebunan', category: 'pertanian', kbliCode: '01262', description: 'Izin usaha untuk perkebunan kelapa sawit', fee: 8000000, requirements: JSON.stringify(['Akta Pendirian', 'NIB/OSS', 'HGU', 'AMDAL', 'Rencana Kerja']), processingDays: 21 }
-  })
-
-  // Create permit requests
-  await db.permitRequest.createMany({
-    data: [
-      { requestNumber: 'PRM-2024-001', permitTypeId: permitType1.id, applicantId: mitra1.id, status: 'approved', paymentStatus: 'paid', paymentAmount: 5000000, verifiedBy: notaris.id, issuedAt: new Date('2024-01-12') },
-      { requestNumber: 'PRM-2024-002', permitTypeId: permitType3.id, applicantId: mitra2.id, status: 'under_review', paymentStatus: 'paid', paymentAmount: 7500000 },
-      { requestNumber: 'PRM-2024-003', permitTypeId: permitType4.id, applicantId: mitra2.id, status: 'submitted', paymentStatus: 'unpaid', paymentAmount: 10000000 },
-    ]
-  })
+  // Create permit types & requests — DIHAPUS (modul Perizinan dihapus dari sistem)
 
   // Create audit logs
   await db.auditLog.createMany({
     data: [
       { userId: wirono.id, action: 'CREATE', module: 'perdagangan', details: 'Created product: CPO' },
       { userId: wirono.id, action: 'VIEW', module: 'dashboard', details: 'Viewed dashboard' },
-      { userId: notaris.id, action: 'APPROVE', module: 'perizinan', details: 'Approved permit PRM-2024-001' },
+      { userId: purwanto.id, action: 'UPDATE', module: 'perdagangan', details: 'Updated product stock: TBS Kelapa Sawit' },
     ]
   })
 
   console.log('✅ Seed completed successfully!')
-  console.log(`   Created ${8} users, products, services, projects, commodities, plantations, permits`)
+  console.log(`   Created 7 users, products, services, projects, commodities, plantations`)
 }
 
 seed()

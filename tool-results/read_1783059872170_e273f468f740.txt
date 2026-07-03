@@ -1,0 +1,687 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import { useState, useEffect, useRef } from 'react'
+     4→     4→import { motion, useInView, AnimatePresence } from 'framer-motion'
+     5→     5→import { useAppStore, type AppView } from '@/store/useAppStore'
+     6→     6→import { COMPANY, PUBLIC_INSIGHTS, TRUST_LOGOS, CAREERS, PUBLIC_SERVICES } from '@/lib/company-data'
+     7→     7→import {
+     8→     8→  Package, Briefcase, Building2, Factory, Leaf, ShieldCheck,
+     9→     9→  ArrowRight, Menu, X, ChevronDown, MapPin, Clock, Mail, Phone, Linkedin, Twitter,
+    10→    10→  ArrowUpRight, Users, Globe, Award, TrendingUp,
+    11→    11→} from 'lucide-react'
+    12→    12→
+    13→    13→const moduleIcons: Record<string, React.ReactNode> = {
+    14→    14→  Package: <Package className="w-6 h-6" />,
+    15→    15→  Briefcase: <Briefcase className="w-6 h-6" />,
+    16→    16→  Building2: <Building2 className="w-6 h-6" />,
+    17→    17→  Factory: <Factory className="w-6 h-6" />,
+    18→    18→  Leaf: <Leaf className="w-6 h-6" />,
+    19→    19→  ShieldCheck: <ShieldCheck className="w-6 h-6" />,
+    20→    20→}
+    21→    21→
+    22→    22→// Fade-in on scroll animation wrapper
+    23→    23→function FadeInWhenVisible({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
+    24→    24→  const ref = useRef(null)
+    25→    25→  const isInView = useInView(ref, { once: true, margin: '-50px' })
+    26→    26→
+    27→    27→  return (
+    28→    28→    <motion.div
+    29→    29→      ref={ref}
+    30→    30→      initial={{ opacity: 0, y: 30 }}
+    31→    31→      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+    32→    32→      transition={{ duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] }}
+    33→    33→      className={className}
+    34→    34→    >
+    35→    35→      {children}
+    36→    36→    </motion.div>
+    37→    37→  )
+    38→    38→}
+    39→    39→
+    40→    40→// Navigation Bar
+    41→    41→function NavBar({ onMasuk }: { onMasuk: () => void }) {
+    42→    42→  const [scrolled, setScrolled] = useState(false)
+    43→    43→  const [mobileOpen, setMobileOpen] = useState(false)
+    44→    44→
+    45→    45→  useEffect(() => {
+    46→    46→    const handleScroll = () => setScrolled(window.scrollY > 20)
+    47→    47→    window.addEventListener('scroll', handleScroll)
+    48→    48→    return () => window.removeEventListener('scroll', handleScroll)
+    49→    49→  }, [])
+    50→    50→
+    51→    51→  const navLinks = [
+    52→    52→    { label: 'Tentang', href: '#about' },
+    53→    53→    { label: 'Layanan', href: '#layanan' },
+    54→    54→    { label: 'Insights', href: '#insights' },
+    55→    55→    { label: 'Karir', href: '#karir' },
+    56→    56→    { label: 'Kontak', href: '#kontak' },
+    57→    57→  ]
+    58→    58→
+    59→    59→  const handleNavClick = (href: string) => {
+    60→    60→    setMobileOpen(false)
+    61→    61→    const el = document.querySelector(href)
+    62→    62→    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    63→    63→  }
+    64→    64→
+    65→    65→  return (
+    66→    66→    <header
+    67→    67→      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    68→    68→        scrolled
+    69→    69→          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#e5e0d5]'
+    70→    70→          : 'bg-transparent'
+    71→    71→      }`}
+    72→    72→    >
+    73→    73→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    74→    74→        <div className="flex items-center justify-between h-16 lg:h-18">
+    75→    75→          {/* Logo */}
+    76→    76→          <a href="#" className="flex items-center gap-2" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+    77→    77→            <div className="w-8 h-8 rounded-sm bg-[#0D503C] flex items-center justify-center">
+    78→    78→              <span className="text-white text-xs font-bold tracking-wider">JAC</span>
+    79→    79→            </div>
+    80→    80→            <span className="hidden sm:block text-[#0D503C] font-semibold text-sm tracking-wide">
+    81→    81→              Jiwa Abdi Cinta
+    82→    82→            </span>
+    83→    83→          </a>
+    84→    84→
+    85→    85→          {/* Desktop Nav */}
+    86→    86→          <nav className="hidden lg:flex items-center gap-8">
+    87→    87→            {navLinks.map((link) => (
+    88→    88→              <button
+    89→    89→                key={link.href}
+    90→    90→                onClick={() => handleNavClick(link.href)}
+    91→    91→                className="text-[#3a3a4a] hover:text-[#0D503C] text-sm font-medium transition-colors relative group"
+    92→    92→              >
+    93→    93→                {link.label}
+    94→    94→                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0D503C] transition-all duration-300 group-hover:w-full" />
+    95→    95→              </button>
+    96→    96→            ))}
+    97→    97→          </nav>
+    98→    98→
+    99→    99→          {/* CTA + Mobile Toggle */}
+   100→   100→          <div className="flex items-center gap-3">
+   101→   101→            <button
+   102→   102→              onClick={onMasuk}
+   103→   103→              className="hidden sm:inline-flex items-center gap-2 px-5 py-2 bg-[#0D503C] text-white text-sm font-medium rounded-sm hover:bg-[#0a3f2f] transition-colors"
+   104→   104→            >
+   105→   105→              Masuk
+   106→   106→            </button>
+   107→   107→            <button
+   108→   108→              onClick={() => setMobileOpen(!mobileOpen)}
+   109→   109→              className="lg:hidden p-2 text-[#3a3a4a] hover:text-[#0D503C] transition-colors"
+   110→   110→              aria-label="Toggle menu"
+   111→   111→            >
+   112→   112→              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+   113→   113→            </button>
+   114→   114→          </div>
+   115→   115→        </div>
+   116→   116→      </div>
+   117→   117→
+   118→   118→      {/* Mobile Menu */}
+   119→   119→      <AnimatePresence>
+   120→   120→        {mobileOpen && (
+   121→   121→          <motion.div
+   122→   122→            initial={{ opacity: 0, height: 0 }}
+   123→   123→            animate={{ opacity: 1, height: 'auto' }}
+   124→   124→            exit={{ opacity: 0, height: 0 }}
+   125→   125→            transition={{ duration: 0.3 }}
+   126→   126→            className="lg:hidden bg-white border-b border-[#e5e0d5] overflow-hidden"
+   127→   127→          >
+   128→   128→            <div className="px-4 py-4 space-y-1">
+   129→   129→              {navLinks.map((link) => (
+   130→   130→                <button
+   131→   131→                  key={link.href}
+   132→   132→                  onClick={() => handleNavClick(link.href)}
+   133→   133→                  className="block w-full text-left px-3 py-2.5 text-[#3a3a4a] hover:text-[#0D503C] hover:bg-[#F5F0E8] text-sm font-medium rounded transition-colors"
+   134→   134→                >
+   135→   135→                  {link.label}
+   136→   136→                </button>
+   137→   137→              ))}
+   138→   138→              <div className="pt-3 border-t border-[#e5e0d5]">
+   139→   139→                <button
+   140→   140→                  onClick={() => { setMobileOpen(false); onMasuk() }}
+   141→   141→                  className="w-full px-4 py-2.5 bg-[#0D503C] text-white text-sm font-medium rounded-sm hover:bg-[#0a3f2f] transition-colors"
+   142→   142→                >
+   143→   143→                  Masuk Dashboard
+   144→   144→                </button>
+   145→   145→              </div>
+   146→   146→            </div>
+   147→   147→          </motion.div>
+   148→   148→        )}
+   149→   149→      </AnimatePresence>
+   150→   150→    </header>
+   151→   151→  )
+   152→   152→}
+   153→   153→
+   154→   154→// Hero Section
+   155→   155→function HeroSection() {
+   156→   156→  return (
+   157→   157→    <section className="relative min-h-screen flex items-center bg-[#FAFAF7] overflow-hidden">
+   158→   158→      {/* Subtle geometric pattern */}
+   159→   159→      <div className="absolute inset-0 opacity-[0.03]" style={{
+   160→   160→        backgroundImage: `
+   161→   161→          linear-gradient(#0D503C 1px, transparent 1px),
+   162→   162→          linear-gradient(90deg, #0D503C 1px, transparent 1px)
+   163→   163→        `,
+   164→   164→        backgroundSize: '60px 60px',
+   165→   165→      }} />
+   166→   166→      {/* Accent shape */}
+   167→   167→      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0D503C]/[0.03] rounded-full -translate-y-1/2 translate-x-1/3" />
+   168→   168→      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#B8860B]/[0.04] rounded-full translate-y-1/2 -translate-x-1/3" />
+   169→   169→
+   170→   170→      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
+   171→   171→        <div className="max-w-3xl">
+   172→   172→          <motion.div
+   173→   173→            initial={{ opacity: 0, y: 20 }}
+   174→   174→            animate={{ opacity: 1, y: 0 }}
+   175→   175→            transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+   176→   176→          >
+   177→   177→            <span className="inline-block text-[#B8860B] text-xs font-semibold tracking-[0.2em] uppercase mb-6 border-b border-[#B8860B]/30 pb-1">
+   178→   178→              PT Jiwa Abdi Cinta
+   179→   179→            </span>
+   180→   180→          </motion.div>
+   181→   181→
+   182→   182→          <motion.h1
+   183→   183→            initial={{ opacity: 0, y: 30 }}
+   184→   184→            animate={{ opacity: 1, y: 0 }}
+   185→   185→            transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+   186→   186→            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#1A1A2E] leading-[1.1] mb-6"
+   187→   187→            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+   188→   188→          >
+   189→   189→            Membangun Masa Depan Bisnis Indonesia
+   190→   190→          </motion.h1>
+   191→   191→
+   192→   192→          <motion.p
+   193→   193→            initial={{ opacity: 0, y: 20 }}
+   194→   194→            animate={{ opacity: 1, y: 0 }}
+   195→   195→            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+   196→   196→            className="text-lg sm:text-xl text-[#5a5a6a] max-w-2xl mb-10 leading-relaxed"
+   197→   197→          >
+   198→   198→            Konsultasi strategis, perdagangan, konstruksi, industri sawit, pertanian & perizinan — satu ekosistem terintegrasi.
+   199→   199→          </motion.p>
+   200→   200→
+   201→   201→          <motion.div
+   202→   202→            initial={{ opacity: 0, y: 20 }}
+   203→   203→            animate={{ opacity: 1, y: 0 }}
+   204→   204→            transition={{ duration: 0.8, delay: 0.45, ease: [0.25, 0.4, 0.25, 1] }}
+   205→   205→          >
+   206→   206→            <button
+   207→   207→              onClick={() => document.getElementById('layanan')?.scrollIntoView({ behavior: 'smooth' })}
+   208→   208→              className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#0D503C] text-white text-sm font-medium rounded-sm hover:bg-[#0a3f2f] transition-all duration-300 group"
+   209→   209→            >
+   210→   210→              Jelajahi Layanan Kami
+   211→   211→              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+   212→   212→            </button>
+   213→   213→          </motion.div>
+   214→   214→        </div>
+   215→   215→      </div>
+   216→   216→
+   217→   217→      {/* Scroll indicator */}
+   218→   218→      <motion.div
+   219→   219→        animate={{ y: [0, 8, 0] }}
+   220→   220→        transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+   221→   221→        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+   222→   222→      >
+   223→   223→        <ChevronDown className="w-5 h-5 text-[#0D503C]/30" />
+   224→   224→      </motion.div>
+   225→   225→    </section>
+   226→   226→  )
+   227→   227→}
+   228→   228→
+   229→   229→// Trust Bar
+   230→   230→function TrustBar() {
+   231→   231→  return (
+   232→   232→    <section className="bg-white border-y border-[#e5e0d5]/60">
+   233→   233→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+   234→   234→        <FadeInWhenVisible>
+   235→   235→          <p className="text-center text-xs font-semibold tracking-[0.15em] uppercase text-[#8a8a9a] mb-6">
+   236→   236→            Dipercaya oleh
+   237→   237→          </p>
+   238→   238→          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14">
+   239→   239→            {TRUST_LOGOS.map((name, i) => (
+   240→   240→              <div
+   241→   241→                key={i}
+   242→   242→                className="flex items-center justify-center px-4 py-2 text-[#9a9aaa] hover:text-[#5a5a6a] transition-colors"
+   243→   243→              >
+   244→   244→                <span className="text-sm sm:text-base font-medium tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
+   245→   245→                  {name}
+   246→   246→                </span>
+   247→   247→              </div>
+   248→   248→            ))}
+   249→   249→          </div>
+   250→   250→        </FadeInWhenVisible>
+   251→   251→      </div>
+   252→   252→    </section>
+   253→   253→  )
+   254→   254→}
+   255→   255→
+   256→   256→// Services Section
+   257→   257→function ServicesSection({ onNavigate }: { onNavigate: (view: AppView) => void }) {
+   258→   258→  return (
+   259→   259→    <section id="layanan" className="bg-[#FAFAF7] py-20 lg:py-28">
+   260→   260→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   261→   261→        <FadeInWhenVisible>
+   262→   262→          <div className="text-center mb-14">
+   263→   263→            <span className="text-[#B8860B] text-xs font-semibold tracking-[0.2em] uppercase">
+   264→   264→              Layanan Kami
+   265→   265→            </span>
+   266→   266→            <h2
+   267→   267→              className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mt-3 mb-4"
+   268→   268→              style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+   269→   269→            >
+   270→   270→              Enam Bidang Usaha Terintegrasi
+   271→   271→            </h2>
+   272→   272→            <p className="text-[#5a5a6a] max-w-xl mx-auto">
+   273→   273→              Dari hulu ke hilir — setiap aspek kegiatan usaha dalam satu ekosistem yang saling terhubung.
+   274→   274→            </p>
+   275→   275→          </div>
+   276→   276→        </FadeInWhenVisible>
+   277→   277→
+   278→   278→        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+   279→   279→          {PUBLIC_SERVICES.map((service, i) => (
+   280→   280→            <FadeInWhenVisible key={service.id} delay={i * 0.08}>
+   281→   281→              <button
+   282→   282→                onClick={() => onNavigate(service.id as AppView)}
+   283→   283→                className="w-full text-left bg-white rounded-sm p-6 border border-[#e5e0d5]/60 hover:border-[#d5d0c5] hover:shadow-lg transition-all duration-300 group h-full"
+   284→   284→              >
+   285→   285→                <div className="flex items-start gap-4">
+   286→   286→                  <div
+   287→   287→                    className="p-2.5 rounded-sm transition-colors duration-300 flex-shrink-0"
+   288→   288→                    style={{ backgroundColor: `${service.color}10`, color: service.color }}
+   289→   289→                  >
+   290→   290→                    {moduleIcons[service.icon]}
+   291→   291→                  </div>
+   292→   292→                  <div className="flex-1 min-w-0">
+   293→   293→                    <h3 className="font-bold text-[#1A1A2E] text-base mb-0.5">{service.name}</h3>
+   294→   294→                    <p className="text-xs text-[#8a8a9a] mb-2">{service.subtitle}</p>
+   295→   295→                    <p className="text-sm text-[#5a5a6a] leading-relaxed">{service.description}</p>
+   296→   296→                  </div>
+   297→   297→                </div>
+   298→   298→                <div className="mt-4 flex items-center gap-1.5 text-xs font-medium transition-all duration-300 opacity-0 group-hover:opacity-100" style={{ color: service.color }}>
+   299→   299→                  <span>Selengkapnya</span>
+   300→   300→                  <ArrowUpRight className="w-3 h-3" />
+   301→   301→                </div>
+   302→   302→              </button>
+   303→   303→            </FadeInWhenVisible>
+   304→   304→          ))}
+   305→   305→        </div>
+   306→   306→      </div>
+   307→   307→    </section>
+   308→   308→  )
+   309→   309→}
+   310→   310→
+   311→   311→// Insights Section
+   312→   312→function InsightsSection() {
+   313→   313→  return (
+   314→   314→    <section id="insights" className="bg-white py-20 lg:py-28">
+   315→   315→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   316→   316→        <FadeInWhenVisible>
+   317→   317→          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+   318→   318→            <div>
+   319→   319→              <span className="text-[#B8860B] text-xs font-semibold tracking-[0.2em] uppercase">
+   320→   320→                Thought Leadership
+   321→   321→              </span>
+   322→   322→              <h2
+   323→   323→                className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mt-3"
+   324→   324→                style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+   325→   325→              >
+   326→   326→                Insights & Perspektif
+   327→   327→              </h2>
+   328→   328→            </div>
+   329→   329→            <button className="inline-flex items-center gap-1.5 text-[#0D503C] text-sm font-medium hover:gap-2.5 transition-all duration-300">
+   330→   330→              Lihat Semua Insights
+   331→   331→              <ArrowRight className="w-4 h-4" />
+   332→   332→            </button>
+   333→   333→          </div>
+   334→   334→        </FadeInWhenVisible>
+   335→   335→
+   336→   336→        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+   337→   337→          {PUBLIC_INSIGHTS.map((insight, i) => (
+   338→   338→            <FadeInWhenVisible key={insight.id} delay={i * 0.1}>
+   339→   339→              <article className="group cursor-pointer h-full flex flex-col">
+   340→   340→                {/* Image placeholder */}
+   341→   341→                <div
+   342→   342→                  className="w-full aspect-[16/10] rounded-sm mb-4 flex items-center justify-center transition-all duration-300 group-hover:shadow-md"
+   343→   343→                  style={{ backgroundColor: `${insight.categoryColor}08` }}
+   344→   344→                >
+   345→   345→                  <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: `${insight.categoryColor}15` }}>
+   346→   346→                    <TrendingUp className="w-5 h-5" style={{ color: insight.categoryColor }} />
+   347→   347→                  </div>
+   348→   348→                </div>
+   349→   349→
+   350→   350→                {/* Category tag */}
+   351→   351→                <span
+   352→   352→                  className="inline-block text-[10px] font-semibold tracking-[0.15em] uppercase px-2.5 py-1 rounded-sm mb-3 w-fit"
+   353→   353→                  style={{ backgroundColor: `${insight.categoryColor}10`, color: insight.categoryColor }}
+   354→   354→                >
+   355→   355→                  {insight.category}
+   356→   356→                </span>
+   357→   357→
+   358→   358→                {/* Title */}
+   359→   359→                <h3
+   360→   360→                  className="text-lg font-bold text-[#1A1A2E] mb-2 leading-snug group-hover:text-[#0D503C] transition-colors"
+   361→   361→                  style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+   362→   362→                >
+   363→   363→                  {insight.title}
+   364→   364→                </h3>
+   365→   365→
+   366→   366→                {/* Excerpt */}
+   367→   367→                <p className="text-sm text-[#5a5a6a] leading-relaxed mb-4 line-clamp-2 flex-1">
+   368→   368→                  {insight.excerpt}
+   369→   369→                </p>
+   370→   370→
+   371→   371→                {/* Meta */}
+   372→   372→                <div className="flex items-center gap-3 text-xs text-[#8a8a9a]">
+   373→   373→                  <span>{insight.date}</span>
+   374→   374→                  <span className="w-1 h-1 rounded-full bg-[#d0d0d0]" />
+   375→   375→                  <span>{insight.readTime} baca</span>
+   376→   376→                </div>
+   377→   377→
+   378→   378→                {/* Read more */}
+   379→   379→                <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-[#0D503C] opacity-0 group-hover:opacity-100 transition-all duration-300">
+   380→   380→                  <span>Baca selengkapnya</span>
+   381→   381→                  <ArrowRight className="w-3 h-3" />
+   382→   382→                </div>
+   383→   383→              </article>
+   384→   384→            </FadeInWhenVisible>
+   385→   385→          ))}
+   386→   386→        </div>
+   387→   387→      </div>
+   388→   388→    </section>
+   389→   389→  )
+   390→   390→}
+   391→   391→
+   392→   392→// Stats Section
+   393→   393→function StatsSection() {
+   394→   394→  const stats = [
+   395→   395→    { value: '5', label: 'Bidang Usaha', icon: <Globe className="w-5 h-5" /> },
+   396→   396→    { value: '17+', label: 'KBLI Terdaftar', icon: <Award className="w-5 h-5" /> },
+   397→   397→    { value: '50+', label: 'Mitra & Klien', icon: <Users className="w-5 h-5" /> },
+   398→   398→    { value: '310', label: 'Akta Pendirian', icon: <TrendingUp className="w-5 h-5" /> },
+   399→   399→  ]
+   400→   400→
+   401→   401→  return (
+   402→   402→    <section id="about" className="bg-[#0D503C] py-14 lg:py-16">
+   403→   403→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   404→   404→        <FadeInWhenVisible>
+   405→   405→          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+   406→   406→            {stats.map((stat, i) => (
+   407→   407→              <div key={i} className="text-center">
+   408→   408→                <div className="inline-flex items-center justify-center w-10 h-10 rounded-sm bg-white/10 text-[#B8860B] mb-3">
+   409→   409→                  {stat.icon}
+   410→   410→                </div>
+   411→   411→                <p className="text-3xl lg:text-4xl font-bold text-white mb-1" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+   412→   412→                  {stat.value}
+   413→   413→                </p>
+   414→   414→                <p className="text-sm text-white/60">{stat.label}</p>
+   415→   415→              </div>
+   416→   416→            ))}
+   417→   417→          </div>
+   418→   418→        </FadeInWhenVisible>
+   419→   419→      </div>
+   420→   420→    </section>
+   421→   421→  )
+   422→   422→}
+   423→   423→
+   424→   424→// Careers Section
+   425→   425→function CareersSection() {
+   426→   426→  return (
+   427→   427→    <section id="karir" className="bg-[#FAFAF7] py-20 lg:py-28">
+   428→   428→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   429→   429→        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+   430→   430→          {/* Left: Content */}
+   431→   431→          <FadeInWhenVisible>
+   432→   432→            <div>
+   433→   433→              <span className="text-[#B8860B] text-xs font-semibold tracking-[0.2em] uppercase">
+   434→   434→                Karir
+   435→   435→              </span>
+   436→   436→              <h2
+   437→   437→                className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mt-3 mb-4"
+   438→   438→                style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+   439→   439→              >
+   440→   440→                Bergabung dengan Tim Kami
+   441→   441→              </h2>
+   442→   442→              <p className="text-[#5a5a6a] leading-relaxed mb-6">
+   443→   443→                Di JAC, kami percaya bahwa sumber daya manusia adalah aset terpenting. 
+   444→   444→                Kami mencari individu berbakat yang berbagi visi untuk membangun masa depan 
+   445→   445→                bisnis Indonesia yang lebih baik.
+   446→   446→              </p>
+   447→   447→
+   448→   448→              {/* Open positions preview */}
+   449→   449→              <div className="space-y-3 mb-6">
+   450→   450→                {CAREERS.map((job, i) => (
+   451→   451→                  <div
+   452→   452→                    key={i}
+   453→   453→                    className="flex items-center justify-between p-3.5 bg-white rounded-sm border border-[#e5e0d5]/60 hover:border-[#d5d0c5] transition-colors"
+   454→   454→                  >
+   455→   455→                    <div className="flex items-center gap-3">
+   456→   456→                      <div className="w-1.5 h-1.5 rounded-full bg-[#0D503C]" />
+   457→   457→                      <span className="text-sm font-medium text-[#1A1A2E]">{job.title}</span>
+   458→   458→                    </div>
+   459→   459→                    <div className="flex items-center gap-3 text-xs text-[#8a8a9a]">
+   460→   460→                      <span className="flex items-center gap-1">
+   461→   461→                        <MapPin className="w-3 h-3" />
+   462→   462→                        {job.location}
+   463→   463→                      </span>
+   464→   464→                      <span className="flex items-center gap-1">
+   465→   465→                        <Clock className="w-3 h-3" />
+   466→   466→                        {job.type}
+   467→   467→                      </span>
+   468→   468→                    </div>
+   469→   469→                  </div>
+   470→   470→                ))}
+   471→   471→              </div>
+   472→   472→
+   473→   473→              <button className="inline-flex items-center gap-2 text-[#0D503C] text-sm font-medium hover:gap-3 transition-all duration-300">
+   474→   474→                Lihat Posisi Terbuka
+   475→   475→                <ArrowRight className="w-4 h-4" />
+   476→   476→              </button>
+   477→   477→            </div>
+   478→   478→          </FadeInWhenVisible>
+   479→   479→
+   480→   480→          {/* Right: Geometric illustration */}
+   481→   481→          <FadeInWhenVisible delay={0.2}>
+   482→   482→            <div className="relative aspect-square max-w-md mx-auto">
+   483→   483→              {/* Geometric shapes */}
+   484→   484→              <div className="absolute inset-0 flex items-center justify-center">
+   485→   485→                <div className="w-48 h-48 rounded-full border-2 border-[#0D503C]/10" />
+   486→   486→              </div>
+   487→   487→              <div className="absolute inset-0 flex items-center justify-center">
+   488→   488→                <div className="w-64 h-64 rounded-full border border-[#B8860B]/10" />
+   489→   489→              </div>
+   490→   490→              <div className="absolute inset-0 flex items-center justify-center">
+   491→   491→                <div className="w-32 h-32 bg-[#0D503C]/[0.04] rotate-45" />
+   492→   492→              </div>
+   493→   493→              <div className="absolute inset-0 flex items-center justify-center">
+   494→   494→                <div className="w-20 h-20 bg-[#B8860B]/[0.06] rotate-12 rounded-sm" />
+   495→   495→              </div>
+   496→   496→              {/* Center text */}
+   497→   497→              <div className="absolute inset-0 flex items-center justify-center">
+   498→   498→                <div className="text-center">
+   499→   499→                  <p className="text-4xl font-bold text-[#0D503C]/20" style={{ fontFamily: 'Georgia, serif' }}>JAC</p>
+   500→   500→                  <p className="text-xs text-[#0D503C]/30 mt-1 tracking-widest uppercase">People & Growth</p>
+   501→   501→                </div>
+   502→   502→              </div>
+   503→   503→            </div>
+   504→   504→          </FadeInWhenVisible>
+   505→   505→        </div>
+   506→   506→      </div>
+   507→   507→    </section>
+   508→   508→  )
+   509→   509→}
+   510→   510→
+   511→   511→// CTA Section
+   512→   512→function CTASection({ onMasuk }: { onMasuk: () => void }) {
+   513→   513→  return (
+   514→   514→    <section className="bg-[#0D503C] py-20 lg:py-24">
+   515→   515→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+   516→   516→        <FadeInWhenVisible>
+   517→   517→          <h2
+   518→   518→            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4"
+   519→   519→            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+   520→   520→          >
+   521→   521→            Siap Bertransformasi?
+   522→   522→          </h2>
+   523→   523→          <p className="text-white/60 max-w-xl mx-auto mb-8 text-lg">
+   524→   524→            Hubungi kami untuk konsultasi strategis bisnis Anda.
+   525→   525→          </p>
+   526→   526→          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+   527→   527→            <button
+   528→   528→              onClick={() => document.getElementById('kontak')?.scrollIntoView({ behavior: 'smooth' })}
+   529→   529→              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#0D503C] text-sm font-medium rounded-sm hover:bg-[#F5F0E8] transition-colors"
+   530→   530→            >
+   531→   531→              Kontak Kami
+   532→   532→            </button>
+   533→   533→            <button
+   534→   534→              onClick={onMasuk}
+   535→   535→              className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/30 text-white text-sm font-medium rounded-sm hover:bg-white/10 transition-colors"
+   536→   536→            >
+   537→   537→              Masuk Dashboard
+   538→   538→              <ArrowRight className="w-4 h-4" />
+   539→   539→            </button>
+   540→   540→          </div>
+   541→   541→        </FadeInWhenVisible>
+   542→   542→      </div>
+   543→   543→    </section>
+   544→   544→  )
+   545→   545→}
+   546→   546→
+   547→   547→// Footer
+   548→   548→function Footer() {
+   549→   549→  const serviceLinks = PUBLIC_SERVICES.map(s => ({ name: s.name, id: s.id }))
+   550→   550→  const companyLinks = [
+   551→   551→    { name: 'Tentang Kami', href: '#about' },
+   552→   552→    { name: 'Karir', href: '#karir' },
+   553→   553→    { name: 'Insights', href: '#insights' },
+   554→   554→    { name: 'Kontak', href: '#kontak' },
+   555→   555→  ]
+   556→   556→
+   557→   557→  return (
+   558→   558→    <footer id="kontak" className="bg-[#1A1A2E] pt-16 pb-8">
+   559→   559→      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   560→   560→        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
+   561→   561→          {/* Column 1: JAC */}
+   562→   562→          <div>
+   563→   563→            <div className="flex items-center gap-2 mb-4">
+   564→   564→              <div className="w-8 h-8 rounded-sm bg-[#0D503C] flex items-center justify-center">
+   565→   565→                <span className="text-white text-xs font-bold tracking-wider">JAC</span>
+   566→   566→              </div>
+   567→   567→              <span className="text-white font-semibold text-sm">Jiwa Abdi Cinta</span>
+   568→   568→            </div>
+   569→   569→            <p className="text-white/40 text-sm leading-relaxed mb-3">
+   570→   570→              Ekosistem bisnis terintegrasi — perdagangan, jasa, konstruksi, industri sawit, pertanian, dan perizinan.
+   571→   571→            </p>
+   572→   572→            <p className="text-white/30 text-xs">
+   573→   573→              Akta No. 310, Jakarta Selatan
+   574→   574→            </p>
+   575→   575→          </div>
+   576→   576→
+   577→   577→          {/* Column 2: Layanan */}
+   578→   578→          <div>
+   579→   579→            <h4 className="text-white text-sm font-semibold mb-4">Layanan</h4>
+   580→   580→            <ul className="space-y-2.5">
+   581→   581→              {serviceLinks.map((service) => (
+   582→   582→                <li key={service.id}>
+   583→   583→                  <button
+   584→   584→                    onClick={() => document.getElementById('layanan')?.scrollIntoView({ behavior: 'smooth' })}
+   585→   585→                    className="text-white/40 text-sm hover:text-white/70 transition-colors"
+   586→   586→                  >
+   587→   587→                    {service.name}
+   588→   588→                  </button>
+   589→   589→                </li>
+   590→   590→              ))}
+   591→   591→            </ul>
+   592→   592→          </div>
+   593→   593→
+   594→   594→          {/* Column 3: Perusahaan */}
+   595→   595→          <div>
+   596→   596→            <h4 className="text-white text-sm font-semibold mb-4">Perusahaan</h4>
+   597→   597→            <ul className="space-y-2.5">
+   598→   598→              {companyLinks.map((link) => (
+   599→   599→                <li key={link.name}>
+   600→   600→                  <button
+   601→   601→                    onClick={() => {
+   602→   602→                      const el = document.querySelector(link.href)
+   603→   603→                      if (el) el.scrollIntoView({ behavior: 'smooth' })
+   604→   604→                    }}
+   605→   605→                    className="text-white/40 text-sm hover:text-white/70 transition-colors"
+   606→   606→                  >
+   607→   607→                    {link.name}
+   608→   608→                  </button>
+   609→   609→                </li>
+   610→   610→              ))}
+   611→   611→            </ul>
+   612→   612→          </div>
+   613→   613→
+   614→   614→          {/* Column 4: Kontak */}
+   615→   615→          <div>
+   616→   616→            <h4 className="text-white text-sm font-semibold mb-4">Kontak</h4>
+   617→   617→            <ul className="space-y-3">
+   618→   618→              <li className="flex items-start gap-2.5">
+   619→   619→                <MapPin className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" />
+   620→   620→                <span className="text-white/40 text-sm">Jakarta Selatan, DKI Jakarta, Indonesia</span>
+   621→   621→              </li>
+   622→   622→              <li className="flex items-start gap-2.5">
+   623→   623→                <Mail className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" />
+   624→   624→                <span className="text-white/40 text-sm">info@jiwaabdicinta.co.id</span>
+   625→   625→              </li>
+   626→   626→              <li className="flex items-start gap-2.5">
+   627→   627→                <Phone className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" />
+   628→   628→                <span className="text-white/40 text-sm">+62 21 5555 0310</span>
+   629→   629→              </li>
+   630→   630→            </ul>
+   631→   631→            {/* Social */}
+   632→   632→            <div className="flex items-center gap-3 mt-5">
+   633→   633→              <a href="#" className="w-8 h-8 rounded-sm bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white/70 transition-all" aria-label="LinkedIn">
+   634→   634→                <Linkedin className="w-4 h-4" />
+   635→   635→              </a>
+   636→   636→              <a href="#" className="w-8 h-8 rounded-sm bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white/70 transition-all" aria-label="Twitter">
+   637→   637→                <Twitter className="w-4 h-4" />
+   638→   638→              </a>
+   639→   639→            </div>
+   640→   640→          </div>
+   641→   641→        </div>
+   642→   642→
+   643→   643→        {/* Bottom bar */}
+   644→   644→        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+   645→   645→          <p className="text-white/30 text-xs">
+   646→   646→            &copy; 2024 PT Jiwa Abdi Cinta. All rights reserved.
+   647→   647→          </p>
+   648→   648→          <div className="flex items-center gap-4">
+   649→   649→            <button className="text-white/30 text-xs hover:text-white/50 transition-colors">Kebijakan Privasi</button>
+   650→   650→            <span className="text-white/10">|</span>
+   651→   651→            <button className="text-white/30 text-xs hover:text-white/50 transition-colors">Syarat & Ketentuan</button>
+   652→   652→          </div>
+   653→   653→        </div>
+   654→   654→      </div>
+   655→   655→    </footer>
+   656→   656→  )
+   657→   657→}
+   658→   658→
+   659→   659→// Main Landing Page Component
+   660→   660→export default function LandingPage() {
+   661→   661→  const { setCurrentView } = useAppStore()
+   662→   662→
+   663→   663→  const handleMasuk = () => {
+   664→   664→    setCurrentView('dashboard' as AppView)
+   665→   665→  }
+   666→   666→
+   667→   667→  const handleNavigate = (view: AppView) => {
+   668→   668→    setCurrentView(view)
+   669→   669→  }
+   670→   670→
+   671→   671→  return (
+   672→   672→    <div className="min-h-screen flex flex-col bg-[#FAFAF7] landing-page">
+   673→   673→      <NavBar onMasuk={handleMasuk} />
+   674→   674→      <main className="flex-1">
+   675→   675→        <HeroSection />
+   676→   676→        <TrustBar />
+   677→   677→        <ServicesSection onNavigate={handleNavigate} />
+   678→   678→        <InsightsSection />
+   679→   679→        <StatsSection />
+   680→   680→        <CareersSection />
+   681→   681→        <CTASection onMasuk={handleMasuk} />
+   682→   682→      </main>
+   683→   683→      <Footer />
+   684→   684→    </div>
+   685→   685→  )
+   686→   686→}
+   687→   687→

@@ -6,7 +6,7 @@ import { NeonButton } from '@/components/shared/NeonButton'
 import { SAMPLE_STATS, COMMODITY_PRICES, MONTHLY_REVENUE, MODULES, COMPANY } from '@/lib/company-data'
 import { useAppStore, type AppView } from '@/store/useAppStore'
 import {
-  TrendingUp, Package, Users, Building2, Factory, Leaf, ShieldCheck,
+  TrendingUp, Package, Users, Building2, Factory, Leaf,
   ArrowUpRight, ArrowDownRight, BarChart3, DollarSign, Activity,
   Clock, CheckCircle, AlertTriangle, Briefcase
 } from 'lucide-react'
@@ -26,7 +26,7 @@ const PIE_DATA = [
 const ACTIVITIES = [
   { type: 'order', message: 'Pesanan baru #ORD-2847 — CPO 500 ton', time: '2 menit lalu', color: '#d4a843' },
   { type: 'tender', message: 'Tender konstruksi gedung kantor won — PT JAC', time: '15 menit lalu', color: '#f97316' },
-  { type: 'permit', message: 'Izin usaha perdagangan disetujui — PT Maju Jaya', time: '1 jam lalu', color: '#a78bfa' },
+  { type: 'permit', message: 'Kontrak B2B baru — Minyak Goreng 800 ton', time: '1 jam lalu', color: '#a78bfa' },
   { type: 'booking', message: 'Booking MICE Conference — 200 peserta', time: '2 jam lalu', color: '#60a5fa' },
   { type: 'harvest', message: 'Panen kelapa sawit — 120 ton dari Kebun A', time: '3 jam lalu', color: '#22d3ee' },
   { type: 'trade', message: 'CPO trading — jual 1.000 ton @ Rp 14.850.000', time: '4 jam lalu', color: '#4ade80' },
@@ -246,7 +246,7 @@ export default function Dashboard() {
                  mod.icon === 'Building2' ? <Building2 className="w-5 h-5" /> :
                  mod.icon === 'Factory' ? <Factory className="w-5 h-5" /> :
                  mod.icon === 'Leaf' ? <Leaf className="w-5 h-5" /> :
-                 <ShieldCheck className="w-5 h-5" />}
+                 <Package className="w-5 h-5" />}
               </div>
               <p className="text-xs font-medium" style={{ color: mod.color }}>{mod.name}</p>
             </motion.button>
@@ -271,8 +271,8 @@ export default function Dashboard() {
               <span className="text-[#f97316] font-bold">5</span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span>Izin menunggu review</span>
-              <span className="text-[#a78bfa] font-bold">12</span>
+              <span>Booking jasa pending</span>
+              <span className="text-[#60a5fa] font-bold">9</span>
             </div>
           </div>
         </GlassCard>
@@ -292,8 +292,8 @@ export default function Dashboard() {
               <span className="text-[#4ade80] font-bold">4</span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span>Izin diterbitkan</span>
-              <span className="text-[#4ade80] font-bold">31</span>
+              <span>Booking jasa selesai</span>
+              <span className="text-[#4ade80] font-bold">42</span>
             </div>
           </div>
         </GlassCard>

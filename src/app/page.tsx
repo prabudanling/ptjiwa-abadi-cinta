@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAppStore, type AppView } from '@/store/useAppStore'
+import { useAppStore, PUBLIC_VIEWS, type AppView } from '@/store/useAppStore'
 import Sidebar from '@/components/navigation/Sidebar'
 import LandingPage from '@/components/landing/LandingPage'
 import Dashboard from '@/components/dashboard/Dashboard'
@@ -10,7 +10,10 @@ import JasaModule from '@/components/modules/JasaModule'
 import KonstruksiModule from '@/components/modules/KonstruksiModule'
 import IndustriModule from '@/components/modules/IndustriModule'
 import PertanianModule from '@/components/modules/PertanianModule'
-import PerizinanModule from '@/components/modules/PerizinanModule'
+import AboutPage from '@/components/pages/AboutPage'
+import InsightsPage from '@/components/pages/InsightsPage'
+import CareersPage from '@/components/pages/CareersPage'
+import ContactPage from '@/components/pages/ContactPage'
 import { motion, AnimatePresence } from 'framer-motion'
 import { COMPANY } from '@/lib/company-data'
 import { Bell, Search, Menu, LogOut } from 'lucide-react'
@@ -19,18 +22,21 @@ import { cn } from '@/lib/utils'
 
 const viewComponents: Record<AppView, React.ComponentType> = {
   landing: LandingPage,
+  about: AboutPage,
+  insights: InsightsPage,
+  careers: CareersPage,
+  contact: ContactPage,
   dashboard: Dashboard,
   perdagangan: PerdaganganModule,
   jasa: JasaModule,
   konstruksi: KonstruksiModule,
   industri: IndustriModule,
   pertanian: PertanianModule,
-  perizinan: PerizinanModule,
 }
 
 export default function Home() {
   const { currentView, sidebarOpen, setSidebarOpen, setCurrentView } = useAppStore()
-  const isLanding = currentView === 'landing'
+  const isPublic = PUBLIC_VIEWS.includes(currentView)
   const CurrentComponent = viewComponents[currentView]
   const [isDesktop, setIsDesktop] = useState(false)
 
@@ -41,10 +47,15 @@ export default function Home() {
     return () => window.removeEventListener('resize', checkDesktop)
   }, [])
 
-  if (isLanding) {
+  // Scroll to top whenever the public view changes
+  useEffect(() => {
+    if (isPublic) window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [currentView, isPublic])
+
+  if (isPublic) {
     return (
       <div className="min-h-screen flex flex-col">
-        <LandingPage />
+        <CurrentComponent />
       </div>
     )
   }
@@ -75,7 +86,7 @@ export default function Home() {
                 <div className="hidden sm:block relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="Cari produk, jasa, proyek, izin..."
+                    placeholder="Cari produk, jasa, proyek..."
                     className="pl-10 w-64 lg:w-80 bg-[rgba(212,168,67,0.05)] border-[rgba(212,168,67,0.1)] text-sm"
                   />
                 </div>
@@ -118,7 +129,7 @@ export default function Home() {
           </header>
 
           {/* Page Content */}
-          <div className="p-4 lg:p-6 max-w-[1400px] mx-auto flex-1">
+          <div className="p-4 lg:p-6 max-w-[1400px] mx-auto flex-1 w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentView}

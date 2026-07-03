@@ -9,7 +9,6 @@ export async function GET() {
     const totalProjects = await db.project.count()
     const totalCommodities = await db.commodity.count()
     const totalPlantations = await db.plantation.count()
-    const totalPermitRequests = await db.permitRequest.count()
     const totalUsers = await db.user.count()
 
     return NextResponse.json({
@@ -20,7 +19,6 @@ export async function GET() {
         totalProjects,
         totalCommodities,
         totalPlantations,
-        totalPermitRequests,
         totalUsers,
       },
       modules: {
@@ -29,7 +27,6 @@ export async function GET() {
         konstruksi: { projects: totalProjects },
         industri: { commodities: totalCommodities },
         pertanian: { plantations: totalPlantations },
-        perizinan: { permits: totalPermitRequests },
       }
     })
   } catch (error) {

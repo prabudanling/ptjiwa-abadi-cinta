@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "PT JIWA ABDI CINTA — Super App",
-  description: "Ekosistem digital penuh untuk Perdagangan, Jasa, Konstruksi, Industri, Pertanian & Perizinan. Akta No.310, Jakarta Selatan.",
-  keywords: ["PT Jiwa Abdi Cinta", "Super App", "Perdagangan", "Jasa", "Konstruksi", "Industri Sawit", "Pertanian", "Perizinan"],
+  description: "Ekosistem digital penuh untuk Perdagangan, Jasa, Konstruksi, Industri Sawit & Pertanian. Akta No.310, Jakarta Selatan.",
+  keywords: ["PT Jiwa Abdi Cinta", "Super App", "Perdagangan", "Jasa", "Konstruksi", "Industri Sawit", "Pertanian"],
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>",
   },

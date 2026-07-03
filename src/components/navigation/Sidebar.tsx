@@ -4,23 +4,26 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useAppStore, type AppView } from '@/store/useAppStore'
 import { MODULES, COMPANY } from '@/lib/company-data'
 import {
-  LayoutDashboard, Package, Briefcase, Building2, Factory, Leaf, ShieldCheck,
-  ChevronLeft, ChevronRight, Settings, Users, LogOut, Crown, Menu, X
+  LayoutDashboard, Package, Briefcase, Building2, Factory, Leaf,
+  ChevronLeft, ChevronRight, Crown, Menu, X
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
+
+const ICON_MAP: Record<string, React.ReactNode> = {
+  Package: <Package className="w-5 h-5" />,
+  Briefcase: <Briefcase className="w-5 h-5" />,
+  Building2: <Building2 className="w-5 h-5" />,
+  Factory: <Factory className="w-5 h-5" />,
+  Leaf: <Leaf className="w-5 h-5" />,
+}
 
 const NAV_ITEMS: { id: AppView; label: string; icon: React.ReactNode; color: string }[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" />, color: '#d4a843' },
   ...MODULES.map(m => ({
     id: m.id as AppView,
     label: m.name,
-    icon: m.icon === 'Package' ? <Package className="w-5 h-5" /> :
-          m.icon === 'Briefcase' ? <Briefcase className="w-5 h-5" /> :
-          m.icon === 'Building2' ? <Building2 className="w-5 h-5" /> :
-          m.icon === 'Factory' ? <Factory className="w-5 h-5" /> :
-          m.icon === 'Leaf' ? <Leaf className="w-5 h-5" /> :
-          <ShieldCheck className="w-5 h-5" />,
+    icon: ICON_MAP[m.icon] ?? <Package className="w-5 h-5" />,
     color: m.color,
   })),
 ]

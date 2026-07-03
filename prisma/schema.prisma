@@ -19,7 +19,7 @@ model User {
   email     String   @unique
   name      String
   phone     String?
-  role      String   @default("pelanggan") // super_admin, admin_perdagangan, admin_jasa, admin_konstruksi, admin_industri, admin_pertanian, admin_perizinan, mitra, pelanggan, notaris
+  role      String   @default("pelanggan") // super_admin, admin_perdagangan, admin_jasa, admin_konstruksi, admin_industri, admin_pertanian, mitra, pelanggan
   avatar    String?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -29,7 +29,6 @@ model User {
   orders         Order[]
   serviceBookings ServiceBooking[]
   tenderBids     TenderBid[]
-  permitRequests PermitRequest[]
 }
 
 // ============================================
@@ -340,44 +339,9 @@ model Forestry {
 }
 
 // ============================================
-// MODUL PERIZINAN & SERTIFIKASI
+// MODUL PERIZINAN & SERTIFIKASI — DIHAPUS
+// (Modul ini telah dihapus dari sistem sesuai kebijakan perusahaan)
 // ============================================
-
-model PermitType {
-  id          String   @id @default(cuid())
-  name        String
-  category    String   // perdagangan, jasa, konstruksi, industri, pertanian
-  kbliCode    String
-  description String
-  fee         Float
-  requirements String  // JSON array of requirements
-  processingDays Int
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  requests PermitRequest[]
-}
-
-model PermitRequest {
-  id            String   @id @default(cuid())
-  requestNumber String   @unique
-  permitTypeId  String
-  applicantId   String
-  status        String   @default("submitted") // submitted, under_review, approved, rejected, issued
-  documents     String?  // JSON array of document URLs
-  notes         String?
-  paymentStatus String   @default("unpaid") // unpaid, paid
-  paymentAmount Float
-  issuedAt      DateTime?
-  certificateUrl String?
-  verifiedBy    String?  // notaris id
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  permitType PermitType @relation(fields: [permitTypeId], references: [id])
-  applicant  User       @relation(fields: [applicantId], references: [id])
-}
 
 // ============================================
 // AUDIT LOG
