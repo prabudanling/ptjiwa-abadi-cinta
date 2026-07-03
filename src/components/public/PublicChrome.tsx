@@ -89,7 +89,8 @@ export function SectionHeading({
 const NAV_LINKS: { label: string; view: AppView; scroll?: string }[] = [
   { label: 'Beranda', view: 'landing' },
   { label: 'Tentang Kami', view: 'about' },
-  { label: 'Layanan', view: 'landing', scroll: '#layanan' },
+  { label: 'Layanan', view: 'layanan' },
+  { label: 'Proyek', view: 'proyek' },
   { label: 'Insights', view: 'insights' },
   { label: 'Karir', view: 'careers' },
   { label: 'Kontak', view: 'contact' },

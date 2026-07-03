@@ -492,3 +492,229 @@ export const CAREER_BENEFITS = [
 
 export const INSIGHT_CATEGORIES = ['Semua', 'Industri Sawit', 'Konstruksi', 'Perdagangan', 'Pertanian', 'Jasa', 'Strategi']
 
+/* ============================================================
+   LAYANAN — Penawaran detail per modul (untuk halaman Layanan)
+   ============================================================ */
+
+export const SERVICE_OFFERINGS = [
+  {
+    moduleId: 'perdagangan',
+    name: 'Perdagangan',
+    tagline: 'Marketplace & Trading Komoditas',
+    color: '#B8860B',
+    icon: 'Package',
+    overview: 'Jembatan perdagangan antara produsen dan pasar — ekspor, impor, dan distribusi komoditas strategis dengan jaringan 340+ mitra terverifikasi.',
+    offerings: [
+      { title: 'Trading CPO & Bahan Baku Sawit', desc: 'Perdagangan besar minyak kelapa sawit mentah dan TBS untuk industri hilir.' },
+      { title: 'Ekspor-Impor Mesin Industri', desc: 'Penyediaan mesin produksi, fraksinasi, dan analisis laboratorium sawit.' },
+      { title: 'Distribusi Komoditas', desc: 'Jaringan distribusi lintas wilayah dengan gudang strategis di Riau, Medan, Jakarta.' },
+      { title: 'Marketplace B2B', desc: 'Platform digital untuk transaksi grosir antar perusahaan terverifikasi.' },
+    ],
+    stats: [{ label: 'Mitra Supplier', value: '340+' }, { label: 'Nilai Trading', value: 'Rp 47M' }, { label: 'Komoditas', value: '12+' }],
+  },
+  {
+    moduleId: 'jasa',
+    name: 'Jasa & Konsultasi',
+    tagline: 'Consulting, MICE & Pelatihan',
+    color: '#1E3A5F',
+    icon: 'Briefcase',
+    overview: 'Jasa profesional untuk pertumbuhan bisnis — konsultasi manajemen strategis, penyelenggaraan MICE, dan pelatihan kerja terstruktur.',
+    offerings: [
+      { title: 'Konsultasi Manajemen', desc: 'Strategi pertumbuhan, transformasi digital, dan tata kelola korporat.' },
+      { title: 'MICE', desc: 'Konferensi, pameran, seminar, workshop, dan incentive trip terintegrasi.' },
+      { title: 'Pelatihan Bisnis & Manajemen', desc: 'Program pelatihan kerja bisnis dan manajemen perusahaan bersertifikasi.' },
+      { title: 'Konsultasi Teknis & Hukum Bisnis', desc: 'Pendampingan teknis dan kepatuhan hukum lintas sektor usaha.' },
+    ],
+    stats: [{ label: 'Klien Konsultasi', value: '120+' }, { label: 'Event MICE', value: '48' }, { label: 'Rating', value: '4.8★' }],
+  },
+  {
+    moduleId: 'konstruksi',
+    name: 'Konstruksi',
+    tagline: 'Construction & Tender',
+    color: '#C75B39',
+    icon: 'Building2',
+    overview: 'Pembangun infrastruktur terpercaya — konstruksi gedung, sipil, irigasi, dan jembatan dengan manajemen tender yang transparan.',
+    offerings: [
+      { title: 'Konstruksi Gedung', desc: 'Perkantoran, gedung komersial, dan fasilitas industri multi-lantai.' },
+      { title: 'Konstruksi Sipil', desc: 'Jembatan, jalan layang, fly over, underpass, dan pengolahan air bersih.' },
+      { title: 'Jaringan Irigasi & Drainase', desc: 'Sistem irigasi dan drainase untuk pertanian dan kawasan industri.' },
+      { title: 'Manajemen Tender', desc: 'Penyusunan dan pengelolaan tender proyek pemerintah & swasta.' },
+    ],
+    stats: [{ label: 'Proyek Aktif', value: '28' }, { label: 'Tender Dimenangkan', value: '15+' }, { label: 'Nilai Proyek', value: 'Rp 165M' }],
+  },
+  {
+    moduleId: 'industri',
+    name: 'Industri Sawit',
+    tagline: 'Palm Oil & CPO Trading',
+    color: '#2D6A4F',
+    icon: 'Factory',
+    overview: 'Industri hilir kelapa sawit terintegrasi — trading CPO, minyak goreng, olein, stearin, dan fraksinasi dengan pabrik dan gudang sendiri.',
+    offerings: [
+      { title: 'Trading CPO & PKO', desc: 'Perdagangan minyak sawit mentah dan inti sawit untuk pasar domestik & ekspor.' },
+      { title: 'Produksi Minyak Goreng', desc: 'Pabrik minyak goreng kemasan industri berkapasitas 300 ton/hari.' },
+      { title: 'Fraksinasi & Pemurnian', desc: 'Pemisahan olein dan stearin dari minyak sawit murni.' },
+      { title: 'Manajemen Pabrik & Gudang', desc: '3 pabrik dan 3 gudang strategis dengan kapasitas 10.000 ton.' },
+    ],
+    stats: [{ label: 'Kapasitas Pabrik', value: '1.250 t/h' }, { label: 'Kapasitas Gudang', value: '10K ton' }, { label: 'Harga CPO', value: 'Rp 14.85M' }],
+  },
+  {
+    moduleId: 'pertanian',
+    name: 'Pertanian & Perikanan',
+    tagline: 'Agriculture, Forestry & Fishery',
+    color: '#1B7A6E',
+    icon: 'Leaf',
+    overview: 'Manajemen agrikultur terintegrasi dari hulu — perkebunan sawit bersertifikasi, kehutanan industri, dan perikanan budidaya.',
+    offerings: [
+      { title: 'Perkebunan Kelapa Sawit', desc: '4.500+ hektar kebun bersertifikasi RSPO & ISPO dengan produktivitas optimal.' },
+      { title: 'Kehutanan Industri', desc: 'HTI Eucalyptus dan Akasia bersertifikasi FSC & PEFC untuk pulp & kayu.' },
+      { title: 'Perikanan Budidaya', desc: 'Tambak udang vannamei dan keramba jaring apung ikan nila.' },
+      { title: 'Konsultasi Agrikultur', desc: 'Manajemen perkebunan, sertifikasi, dan praktik berkelanjutan.' },
+    ],
+    stats: [{ label: 'Luas Kebun', value: '5.200 ha' }, { label: 'Sertifikasi', value: '4' }, { label: 'Produksi', value: '2.8K ton' }],
+  },
+]
+
+/* ============================================================
+   PROYEK & PORTOFOLIO — showcase lintas modul
+   ============================================================ */
+
+export const PROJECT_PORTFOLIO = [
+  {
+    id: 'p1',
+    title: 'Gedung Perkantoran Sudirman',
+    category: 'Konstruksi',
+    categoryColor: '#C75B39',
+    location: 'Jakarta Selatan',
+    year: '2024',
+    value: 'Rp 45 M',
+    status: 'Berlangsung',
+    progress: 72,
+    description: 'Pembangunan gedung perkantoran 8 lantai di kawasan bisnis Sudirman dengan standar green building.',
+    metrics: [{ k: 'Lantai', v: '8' }, { k: 'Luas', v: '12.000 m²' }, { k: 'Progres', v: '72%' }],
+  },
+  {
+    id: 'p2',
+    title: 'Jembatan Sungai Mahakam',
+    category: 'Konstruksi',
+    categoryColor: '#C75B39',
+    location: 'Kalimantan Timur',
+    year: '2025',
+    value: 'Rp 120 M',
+    status: 'Berlangsung',
+    progress: 15,
+    description: 'Konstruksi jembatan penghubung strategis sepanjang 1.8 km melintasi Sungai Mahakam.',
+    metrics: [{ k: 'Panjang', v: '1.8 km' }, { k: 'Lajur', v: '4' }, { k: 'Progres', v: '15%' }],
+  },
+  {
+    id: 'p3',
+    title: 'Ekspor CPO 12.000 Ton',
+    category: 'Perdagangan',
+    categoryColor: '#B8860B',
+    location: 'Riau → Rotterdam',
+    year: '2024',
+    value: 'Rp 178 M',
+    status: 'Selesai',
+    progress: 100,
+    description: 'Kontrak ekspor CPO premium 12.000 ton ke pembeli Eropa dengan rantai pasok tersertifikasi ISPO.',
+    metrics: [{ k: 'Volume', v: '12K ton' }, { k: 'Tujuan', v: 'Rotterdam' }, { k: 'Status', v: 'Terkirim' }],
+  },
+  {
+    id: 'p4',
+    title: 'Pabrik Fraksinasi JAC 1',
+    category: 'Industri',
+    categoryColor: '#2D6A4F',
+    location: 'Riau',
+    year: '2023',
+    value: 'Rp 85 M',
+    status: 'Selesai',
+    progress: 100,
+    description: 'Pembangunan pabrik fraksinasi minyak sawit berkapasitas 500 ton/hari dengan teknologi Eropa.',
+    metrics: [{ k: 'Kapasitas', v: '500 t/h' }, { k: 'Investasi', v: 'Rp 85M' }, { k: 'Tenaga Kerja', v: '180' }],
+  },
+  {
+    id: 'p5',
+    title: 'Kebun Sawit Riau Utara',
+    category: 'Pertanian',
+    categoryColor: '#1B7A6E',
+    location: 'Riau',
+    year: '2023',
+    value: 'Rp 32 M',
+    status: 'Selesai',
+    progress: 100,
+    description: 'Pengembangan 1.200 hektar kebun kelapa sawit bersertifikasi RSPO & ISPO dengan produktivitas 4.2 ton/ha/tahun.',
+    metrics: [{ k: 'Luas', v: '1.200 ha' }, { k: 'Sertifikasi', v: 'RSPO+ISPO' }, { k: 'Produktivitas', v: '4.2 t/ha' }],
+  },
+  {
+    id: 'p6',
+    title: 'Indonesia Palm Oil Summit 2024',
+    category: 'Jasa',
+    categoryColor: '#1E3A5F',
+    location: 'Jakarta Convention Center',
+    year: '2024',
+    value: 'Rp 2.5 M',
+    status: 'Selesai',
+    progress: 100,
+    description: 'Penyelenggaraan konferensi industri sawit terbesar dengan 342 peserta dan 28 pembicara internasional.',
+    metrics: [{ k: 'Peserta', v: '342' }, { k: 'Pembicara', v: '28' }, { k: 'Durasi', v: '3 hari' }],
+  },
+  {
+    id: 'p7',
+    title: 'Sistem Irigasi Daerah Aliran',
+    category: 'Konstruksi',
+    categoryColor: '#C75B39',
+    location: 'Jawa Barat',
+    year: '2023',
+    value: 'Rp 28 M',
+    status: 'Selesai',
+    progress: 100,
+    description: 'Pembangunan jaringan irigasi dan drainase untuk 800 hektar kawasan pertanian.',
+    metrics: [{ k: 'Cakupan', v: '800 ha' }, { k: 'Saluran', v: '24 km' }, { k: 'Status', v: 'Operasional' }],
+  },
+  {
+    id: 'p8',
+    title: 'Supply Mesin Fraksinasi Mini',
+    category: 'Perdagangan',
+    categoryColor: '#B8860B',
+    location: 'Medan → Kalimantan',
+    year: '2024',
+    value: 'Rp 18 M',
+    status: 'Selesai',
+    progress: 100,
+    description: 'Penyediaan dan instalasi 6 unit mesin fraksinasi mini untuk pabrik mitra di Kalimantan.',
+    metrics: [{ k: 'Unit', v: '6' }, { k: 'Kapasitas', v: '50 t/h' }, { k: 'Garansi', v: '2 thn' }],
+  },
+]
+
+export const PORTFOLIO_CATEGORIES = ['Semua', 'Konstruksi', 'Perdagangan', 'Industri', 'Pertanian', 'Jasa']
+
+export const PORTFOLIO_STATS = [
+  { label: 'Total Proyek Selesai', value: 47, suffix: '+', color: '#B8860B' },
+  { label: 'Nilai Portofolio', value: 508, prefix: 'Rp ', suffix: ' M', color: '#0D503C' },
+  { label: 'Provinsi Terjangkau', value: 14, suffix: '', color: '#2D6A4F' },
+  { label: 'Mitra Eksekusi', value: 340, suffix: '+', color: '#1B7A6E' },
+]
+
+/* ============================================================
+   LUXURY HERO — statistik untuk landing mewah
+   ============================================================ */
+
+export const LUXURY_HERO_STATS = [
+  { value: 5, suffix: '', label: 'Bidang Usaha', color: '#D4A843' },
+  { value: 17, suffix: '+', label: 'KBLI Terdaftar', color: '#E8C547' },
+  { value: 340, suffix: '+', label: 'Mitra & Klien', color: '#D4A843' },
+  { value: 47, suffix: '+', label: 'Proyek Selesai', color: '#E8C547' },
+]
+
+export const LUXURY_ACCENTS = {
+  emeraldDeep: '#0A2E25',
+  emerald: '#0D503C',
+  emeraldMid: '#1B7A6E',
+  gold: '#B8860B',
+  goldLight: '#D4A843',
+  goldBright: '#E8C547',
+  goldPale: '#F5D061',
+  cream: '#FAFAF7',
+  charcoal: '#0F1B17',
+}
+
+

@@ -11,6 +11,8 @@ import KonstruksiModule from '@/components/modules/KonstruksiModule'
 import IndustriModule from '@/components/modules/IndustriModule'
 import PertanianModule from '@/components/modules/PertanianModule'
 import AboutPage from '@/components/pages/AboutPage'
+import ServicesPage from '@/components/pages/ServicesPage'
+import PortfolioPage from '@/components/pages/PortfolioPage'
 import InsightsPage from '@/components/pages/InsightsPage'
 import CareersPage from '@/components/pages/CareersPage'
 import ContactPage from '@/components/pages/ContactPage'
@@ -23,6 +25,8 @@ import { cn } from '@/lib/utils'
 const viewComponents: Record<AppView, React.ComponentType> = {
   landing: LandingPage,
   about: AboutPage,
+  layanan: ServicesPage,
+  proyek: PortfolioPage,
   insights: InsightsPage,
   careers: CareersPage,
   contact: ContactPage,

@@ -231,3 +231,175 @@ Stage Summary:
 - Data layer enriched with vision/mission/values/org-structure/leadership/timeline/legal/differentiators
 - 5 business modules remain: Perdagangan, Jasa, Konstruksi, Industri Sawit, Pertanian
 - Lint clean; Agent Browser confirms all pages render, interactions work, footer sticky, mobile responsive, no perizinan traces
+
+---
+Task ID: 5-a
+Agent: Sub (general-purpose)
+Task: Build luxury "Layanan" (Services) page for PT JIWA ABDI CINTA corporate site
+
+Work Log:
+- Read worklog.md and previous LandingPage.tsx to match the luxury dark-emerald + gold aesthetic (SERIF Georgia, LUXURY_ACCENTS palette, GoldParticles, Counter pattern).
+- Reviewed company-data.ts exports: SERVICE_OFFERINGS (5 modules with offerings x4 + stats x3), MODULES (5 modules with kblis + kbliNames), LUXURY_ACCENTS token object.
+- OVERWROTE /home/z/my-project/src/components/pages/ServicesPage.tsx (615 lines) with full luxury animated version.
+- File opens with 'use client', TypeScript ES modules, uses framer-motion + lucide-react, no new files created.
+
+Page structure built (in order):
+1. PublicNav (from PublicChrome)
+2. PageHero — label "Layanan", title "Lima Bidang Usaha Terintegrasi", subtitle about hulu-ke-hilir ecosystem.
+3. IntroBand — dark emerald gradient section (LUXURY_ACCENTS.emeraldDeep → emerald → charcoal) with:
+   - Gold particle field (22 animated dots, floating y/opacity loop)
+   - Two parallax orbs (useScroll + useTransform on section ref, yOrb1/yOrb2 translate scroll progress)
+   - Gold grid overlay (80px, opacity 0.04)
+   - Glass-chip label "Ekosistem Terintegrasi" with Sparkles icon
+   - Serif heading "Satu Ekosistem, Lima Pilar Bisnis" with gold gradient on second line
+   - 4 animated counters in glass cards: 5 Bidang, 17+ KBLI, 340+ Mitra, 47+ Proyek (count-up on inView via custom Counter)
+4. 5 ModuleSection blocks (one per SERVICE_OFFERINGS entry) — alternating cream/dark backgrounds AND alternating visual/content sides for rhythm:
+   - Each section uses useScroll + useTransform for parallax on a large decorative module icon inside the visual panel
+   - Visual panel: module color → emeraldDeep gradient, glass grid overlay, glass circle with lucide icon, "BIDANG 0X / 05" mono label, large serif module name + tagline, 3 mini stat cards with animated Counter
+   - Content side: gold uppercase tagline, serif heading, overview paragraph, 2x2 grid of offering cards with dot bullet that scales on hover, whileHover y-lift + colored boxShadow glow in module color
+   - Staggered entrance via useInView (initial x offset based on reversed state, delay 0.15 for content, 0.4 + j*0.12 for stats)
+5. KbliSection — cream bg with subtle gold dot pattern:
+   - Centered header with Sparkles chip "Kepatuhan & Klasifikasi"
+   - 3-column (lg) / 2-column (md) / 1-column (sm) grid of 5 module cards
+   - Each card: top color stripe (module color → gold gradient), icon in tinted square, serif name + subtitle, bullet list of KBLI entries using CheckCircle2 in module color, with mono "KBLI <code>" label + full kbliNames description (zipped from mod.kblis and mod.kbliNames)
+6. ProcessSection — cream-to-warm-cream gradient:
+   - Sparkles chip "Cara Kami Bekerja", serif heading "Proses Empat Langkah, Hasil Berkelas"
+   - 4-step horizontal layout (lg) / 2-col (md) / 1-col (sm): Konsultasi & Discovery → Perencanaan & Strategi → Eksekusi & Implementasi → Evaluasi & Penyerahan
+   - Gold gradient numbered circles (01-04) with white inset border, connecting horizontal gold gradient line (lg only), staggered fade-in entrance
+   - Mobile: vertical arrow connectors (ArrowRight rotated 90deg) between steps
+7. CtaBand — title "Siap Memulai Proyek Anda?" subtitle about contacting relevant division
+8. PublicFooter
+
+Custom local components:
+- parseStat(value): robust regex parser that extracts prefix/numeric/suffix and handles Indonesian thousand separators (5.200 → 5200 displayed as "5.200"), comma decimals (4,8), dot decimals (14.85), and plain integers — supports all stat string formats in SERVICE_OFFERINGS.stats (e.g. "340+", "Rp 47M", "5.200 ha", "1.250 t/h", "4.8★", "10K ton", "Rp 14.85M").
+- Counter: requestAnimationFrame count-up with cubic ease-out, triggers on useInView, preserves prefix/suffix formatting.
+- FadeIn: local scroll-triggered fade+rise wrapper.
+- GoldParticles: 22 floating gold dots with random position/size/duration, radial-gradient + box-shadow glow.
+
+Imports (all used, ESLint clean):
+- react: useRef, useState, useEffect, useMemo
+- framer-motion: motion, useInView, useScroll, useTransform
+- @/components/public/PublicChrome: PublicNav, PublicFooter, CtaBand, PageHero, PUBLIC_DESIGN
+- @/lib/company-data: SERVICE_OFFERINGS, MODULES, LUXURY_ACCENTS
+- lucide-react: Package, Briefcase, Building2, Factory, Leaf (in ICONS map), ArrowRight (process mobile connectors), CheckCircle2 (KBLI bullets), Sparkles (section labels)
+
+Quality:
+- `npx tsc --noEmit` — clean (resolved one initial 'possibly null' TS18047 by capturing target = parsed.num into local const).
+- `npx eslint src/components/pages/ServicesPage.tsx` — clean (no unused imports, no errors).
+- No indigo/blue primary colors — palette strictly emerald + gold + cream.
+- All sections responsive (sm/md/lg/xl breakpoints), semantic HTML (section/ul/li/h2/h3/h4/p), aria-hidden on decorative overlays.
+- Heavy framer-motion usage: parallax (IntroBand orbs + ModuleSection decorative icons), staggered entrance (stats, offerings), count-up counters, hover micro-interactions (offering cards y-lift + colored glow, KBLI cards shadow, intro stat cards border glow).
+
+Stage Summary:
+- ServicesPage.tsx fully rebuilt as a world-class luxury consulting services showcase.
+- Matches the rebuilt LandingPage aesthetic (dark emerald gradients, gold accents, gold particles, Georgia serif headings, glass cards).
+- 5 module sections each visually distinct via module color, alternating cream/dark backgrounds for rhythm.
+- KBLI legal section and 4-step process section add depth and credibility.
+- All animations powered by framer-motion; no syntax/type/lint errors.
+
+Next Actions:
+- Page is ready for visual QA in browser at the `/` route with currentView === 'layanan'.
+- If desired, follow-up tasks could add per-module deep-dive sub-pages or anchor links from the module sections to the KBLI section, but spec is fully met as-is.
+
+---
+Task ID: 5-b
+Agent: Sub-agent (general-purpose)
+Task: Build luxury "Proyek & Portofolio" (PortfolioPage) — full, brilliant, fully-animated showcase rendered when currentView === 'proyek'
+
+Work Log:
+- Read worklog.md (prior context: Task 1→4) to understand prior architecture — single-route app with useAppStore view switching, PublicChrome shared components (PublicNav/PublicFooter/CtaBand/PageHero/FadeIn/PUBLIC_DESIGN), LUXURY_ACCENTS token object in company-data, and that the landing was just rewritten (Task 5) as a luxury dark-emerald+gold animated version in src/components/landing/LandingPage.tsx
+- Read existing PortfolioPage.tsx (76 lines, basic static version with simple FadeIn + plain cards)
+- Read PublicChrome.tsx to confirm PageHero signature ({label,title,subtitle?}), CtaBand ({title?,subtitle?}), PUBLIC_DESIGN.serif token = Georgia, and that PublicNav/PublicFooter are imported as components
+- Read LandingPage.tsx (665 lines) to match the new luxury design language: dark emerald gradient backgrounds (LUXURY_ACCENTS.emerald → emeraldDeep, or charcoal → emeraldDeep), gold particles + gold grid overlays (opacity-[0.04]–0.08), gold/cream typography on dark, glass cards (white/[0.04] + backdrop-blur + gold border), floating gold glow orbs (radial-gradient + blur), Counter component pattern (requestAnimationFrame cubic ease-out with useInView once), FadeIn pattern, TiltCard pattern, shimmer buttons, Sparkles+gold-eyebrow pattern
+- Read PROJECT_PORTFOLIO (8 projects: p1–p8 across Konstruksi/Perdagangan/Industri/Pertanian/Jasa; statuses Selesai/Berlangsung; categoryColor hex per category; metrics: [{k,v} x3]), PORTFOLIO_CATEGORIES (['Semua','Konstruksi','Perdagangan','Industri','Pertanian','Jasa']), PORTFOLIO_STATS (4 stats with value/prefix?/suffix?/color), LUXURY_ACCENTS (emeraldDeep #0A2E25, emerald #0D503C, emeraldMid #1B7A6E, gold #B8860B, goldLight #D4A843, goldBright #E8C547, goldPale #F5D061, cream #FAFAF7, charcoal #0F1B17)
+- Computed featured project programmatically: filter Selesai → sort by numeric(value) desc → take [0]. Numeric parser strips non-digit/dot. Result: p3 "Ekspor CPO 12.000 Ton" (Rp 178 M, Perdagangan, color #B8860B) — the highest-value completed project
+- OVERWROTE /home/z/my-project/src/components/pages/PortfolioPage.tsx with 592-line luxury animated version ('use client', TypeScript, ES modules, exact import block per spec)
+
+Built 5 sections in order (all using required imports — verified each used):
+1. PageHero (cream) — label "Proyek & Portofolio", title "Karya Nyata Lintas Indonesia", subtitle mentioning 5 business fields + 14 provinces
+2. Stats band (dark emerald gradient #0D503C→#0A2E25) — aria-labelledby="stats-heading", parallax background via useScroll(target=statsRef, offset start-end→end-start) + useTransform([-50,70]) on a motion.div containing the gold grid overlay; secondary particle-dot overlay (radial-gradient 1.5px dots, 40px tile); two floating glow orbs (gold + emeraldMid radial, animated scale/opacity infinite); centered eyebrow chip (Sparkles + "Dalam Angka") + serif h2 "Jejak Nyata yang Terukur"; 4 PORTFOLIO_STATS in 2×2 / lg:4-col grid of glass cards (white/[0.04] + backdrop-blur + gold/20 border + top gold accent bar gradient), each card has icon (STAT_ICONS=[Award,TrendingUp,MapPin,Sparkles] mapped by index) in gold/20 tinted square + goldBright color, "0N" white/30 counter, large animated Counter (custom — supports prefix+suffix, requestAnimationFrame cubic ease-out, useInView once) in goldPale serif, label in white/55. All 4 cards wrapped in FadeIn with stagger i*0.1. Bottom "Pelajari lebih lanjut" link (ArrowRight, goldBright, hover gap-3) scrolls to #portfolio-grid
+3. Featured project (cream bg with subtle gold radial corner glow) — eyebrow "Proyek Unggulan" + serif h2 "Sorotan Eksekusi Terbesar"; large 2-col card (grid-cols-1 lg:grid-cols-2, rounded-sm, white bg, shadow-xl, border):
+   • Left gradient panel (min-h 280px/540px lg, linear-gradient 135deg categoryColor → categoryColorB3) with absolute "Featured" gold badge top-left (Award icon + "Featured" uppercase tracked text in glass pill), pattern overlays (radial white + grid lines), big floating TrendingUp icon (w-14 h-14 white in 32×32 glass circle, motion y:[0,-8,0] infinite 4s), bottom-left category uppercase, bottom-right year+Calendar
+   • Right content panel (p-8/p-12) — category pill (categoryColor 15% tint) + year, large serif title (2xl/3xl/4xl), location (MapPin gold), description, 3 metrics mini-cards (3-col grid, each with k uppercase + v green serif bold), footer row with "Nilai Proyek" label + large green value, Selesai status badge (emeraldMid tint), and "Lihat detail" button (gradient emerald→emeraldMid, ArrowUpRight with group-hover translate)
+4. Grid section (dark emerald gradient #0F1B17→#0A2E25, id="portfolio-grid", scroll-mt-20) — aria-labelledby="grid-heading"; subtle gold dot grid (30px tile) + side glow orb; centered eyebrow chip (Sparkles + "Katalog") + serif h2 "Semua Proyek" + descriptive subtitle; pill filter row (role="tablist", aria-selected) over PORTFOLIO_CATEGORIES with active = gradient emerald→emeraldMid bg + white text + gold border + shadow, inactive = white/5 glass + white/15 border + white/65 text, hover swaps border→gold/40 and text→goldPale (inline onMouseEnter/onMouseLeave to mutate styles only when !active); 
+   • Grid: motion.div layout with grid-cols-1 md:2 lg:3 gap-6 wrapping AnimatePresence mode="popLayout"; each project = motion.article (key=p.id, layout, initial opacity:0 scale:0.92 y:20 → animate to 1/1/0 → exit opacity:0 scale:0.92, transition delay i*0.04, whileHover y:-6). Card structure: top gradient panel (h-32, categoryColor gradient + radial white overlay + motion.div whileHover scale:1.15 rotate:5 wrapping TrendingUp in glass circle + category pill top-left + year top-right); body (p-5, flex-col) — serif title (group-hover goldPale), location+MapPin (white/50), description (white/60), conditional progress bar for Berlangsung only (label "Progres" + value + ProgressFill animated width via useInView + categoryColor→goldBright gradient), footer (top border-white/10) with value in goldPale serif + status badge (Selesai=emeraldMid/18% bg + #3FAA9C text; Berlangsung=gold/18% bg + #E8C547 text); absolute inset-0 glow span (opacity-0 group-hover:opacity-100) with inset+outer boxShadow in categoryColor for the "border glows in categoryColor" hover effect
+   • Empty state: if filtered.length===0, shows white/40 "Tidak ada proyek pada kategori ini" + "Lihat semua proyek" reset button (goldPale)
+5. CtaBand — title "Punya Proyek yang Ingin Diwujudkan?" subtitle "Diskusikan kebutuhan proyek Anda dengan tim ahli JAC — dari konsep, perencanaan, hingga eksekusi lintas lima bidang usaha."
+
+Custom helper components defined in-file:
+- Counter (requestAnimationFrame cubic-eased count-up, supports prefix/suffix, useInView once margin -50px, duration 2s)
+- FadeIn (motion.div with initial y:30 opacity:0 → animate to y:0 opacity:1, useInView once margin -50px, duration 0.7 ease cubic-bezier)
+- ProgressFill (1px-tall bar, motion.div animates width 0→value% on view, gradient categoryColor→goldBright, duration 1.3s)
+- pickFeatured() (filter Selesai, sort by numeric value desc, fallback first project)
+- STAT_ICONS = [Award, TrendingUp, MapPin, Sparkles] index-mapped for the 4 stat cards
+
+Animation inventory (all required by spec, all implemented):
+- FadeIn scroll entrance on every section header and card cluster ✓
+- Parallax y-transform on stats band background (useScroll + useTransform on target ref) ✓
+- Hover micro-interactions: project cards lift y:-6 (whileHover), icon zoom+rotate (whileHover scale 1.15 rotate 5), border glow in categoryColor (group-hover opacity on inset+outer boxShadow span) ✓
+- Animated counters (custom Counter with cubic ease-out + useInView) ✓
+- AnimatePresence filter transition: motion.div layout parent + AnimatePresence mode="popLayout" + motion.article layout/initial/animate/exit with scale+opacity+y — cards fade/scale out-in smoothly when filter changes ✓
+- Staggered card entrance: delay i*0.04 on each motion.article ✓
+
+Design language compliance:
+- Alternating dark-emerald (Stats band, Grid section) and cream (PageHero, Featured section) sections for rhythm — PageHero(cream) → Stats(emerald) → Featured(cream) → Grid(emerald/charcoal) → CtaBand(green) ✓
+- LUXURY_ACCENTS palette used throughout (emerald, emeraldDeep, emeraldMid, gold, goldLight, goldBright, goldPale, cream, charcoal) ✓
+- Georgia serif headings via PUBLIC_DESIGN.serif ✓
+- rounded-sm corners everywhere ✓
+- Section padding py-20 lg:py-28 ✓
+- Container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ✓
+- Fully responsive: sm/md/lg breakpoints (stats 2-col→4-col; featured 1-col→2-col; grid 1→2→3 cols) ✓
+- Semantic HTML: section/article/h2/h3 with aria-labelledby, role="tablist"+aria-selected on filter, aria-hidden on every decorative element, aria-label on each project article ✓
+- No indigo/blue primary colors anywhere ✓
+- All 7 lucide icons used (MapPin: card+featured location; Calendar: card+featured year; TrendingUp: featured big icon + card top icon; ArrowUpRight: featured "Lihat detail" button; ArrowRight: stats "Pelajari lebih lanjut" link; Sparkles: stats eyebrow + grid eyebrow; Award: featured "Featured" badge + stat icon) ✓
+- All React+framer-motion imports used (useState: cat; useRef: statsRef + counter + fadein + progress refs; useEffect: counter rAF; motion, useInView, useScroll, useTransform, AnimatePresence all used; all 4 chrome imports used; all 4 data imports used) ✓
+
+Verification:
+- `npx tsc --noEmit | grep PortfolioPage`: ZERO TypeScript errors (the only remaining project-wide TS errors are pre-existing in unrelated files: examples/websocket, skills/image-edit, skills/stock-analysis-skill, src/components/modules/JasaModule.tsx, src/components/pages/ServicesPage.tsx — same baseline as Tasks 3-b/3-c)
+- `npx eslint src/components/pages/PortfolioPage.tsx`: ZERO ESLint errors or warnings — no unused imports, no unused vars
+- Fixed one inline-style issue during writing: `border: '1px solid #D4A843/40'` (Tailwind slash syntax invalid in raw CSS) → corrected to `rgba(212,168,67,0.4)`
+
+Stage Summary:
+- PortfolioPage.tsx fully rewritten as 592-line luxury animated showcase (single-file overwrite, 'use client', TypeScript, ES modules)
+- Page reachable when useAppStore().currentView === 'proyek' (no new routes, no new files)
+- 5 sections built: PageHero, animated-stats band with parallax bg + glass counters, featured-project 2-col card (auto-picks highest-value Selesai project = "Ekspor CPO 12.000 Ton"), category-filter grid with AnimatePresence popLayout transitions + staggered entrance + hover lift/glow/icon-zoom + animated progress bars for Berlangsung, CtaBand
+- All 8 PROJECT_PORTFOLIO items render with real data (no placeholder text); filter works across all 6 PORTFOLIO_CATEGORIES with smooth fade/scale AnimatePresence transitions
+- Heavy framer-motion throughout: parallax (useScroll+useTransform), count-up counters, AnimatePresence+layout filter transitions, staggered entrance, hover lifts/glows, animated progress fills
+- TypeScript clean, ESLint clean, no unused imports, no indigo/blue primary colors, matches new landing's luxury dark-emerald+gold design language
+
+---
+Task ID: 6
+Agent: Main (Z.ai Code)
+Task: Create new pages (Layanan + Proyek) and rebuild the landing page as a luxurious, full-animated version with rich colors
+
+Work Log:
+- Read current state (company-data, store, nav, page.tsx) to plan additions
+- Phase 1 — Added rich data exports to company-data.ts:
+  - SERVICE_OFFERINGS: 5 modules each with tagline, overview, 4 offerings, 3 stats
+  - PROJECT_PORTFOLIO: 8 projects across all 5 categories with metrics, status, progress, value
+  - PORTFOLIO_CATEGORIES, PORTFOLIO_STATS (4 animated counters)
+  - LUXURY_HERO_STATS + LUXURY_ACCENTS (emerald/gold luxury token palette)
+- Phase 2 — Wired new pages: added 'layanan' + 'proyek' to AppView & PUBLIC_VIEWS; updated PublicNav links (added Proyek, changed Layanan to navigate to page); wired ServicesPage + PortfolioPage into page.tsx viewComponents
+- Phase 3 — Rewrote LandingPage.tsx as LUXURY ANIMATED version:
+  - LuxuryHero: dark emerald gradient bg + animated gradient orbs (parallax) + 28 gold particle field + gold shimmer headline (gradient text clip) + glass stat chips with animated counters + scroll-based parallax/opacity
+  - TrustMarquee: infinite horizontal scroll on dark charcoal with fade edges
+  - LuxuryServices: dark emerald section with 3D TiltCard (mouse-following perspective rotate) + gold glow hover borders
+  - EcosystemSection: animated SVG connector diagram (5 modules orbiting JAC hub with dashed lines drawing in + rotating dashed ring)
+  - LuxuryStats: dark emerald band with count-up counters
+  - LuxuryInsights: gradient-topped cards with icon zoom on hover
+  - LuxuryCareers: animated rotating concentric circles + floating gold gradient JAC medallion
+- Phase 4 — Created stub ServicesPage + PortfolioPage for compile
+- Phase 5 — Delegated full luxury builds to 2 parallel subagents:
+  - 5-a ServicesPage (615 lines): intro band with parallax orbs + 4 counters, 5 alternating module sections with staggered entrance + hover glow, KBLI detail section, 4-step process section
+  - 5-b PortfolioPage (592 lines): parallax stats band with counters, featured project hero, working category filter with AnimatePresence layout transitions, animated progress bars for ongoing projects, hover lifts/glows
+- Phase 6 — Verification:
+  - `bun run lint`: clean, zero errors
+  - Agent Browser: landing renders luxury hero (Jelajahi Layanan + Lihat Portofolio buttons, gold shimmer headline), Services page renders (Satu Ekosistem Lima Pilar + 5 modules + offerings), Portfolio page renders (Jejak Nyata + featured Ekspor CPO + grid + filter works: 4 articles on Konstruksi), mobile 390px hamburger works, scroll triggers animations without crash, zero console errors across all pages
+
+Stage Summary:
+- 2 NEW pages added: Layanan (luxury animated services showcase) + Proyek (luxury animated portfolio with working filters)
+- Landing page transformed from professional-light to LUXURY: dark emerald + gold palette, 28 gold particles, parallax orbs, 3D tilt cards, animated SVG ecosystem diagram, infinite marquee, count-up counters, gradient text shimmer, rotating geometric medallion
+- Full framer-motion animation suite: parallax (useScroll/useTransform), staggered reveals (useInView), AnimatePresence filter transitions, hover micro-interactions, animated counters (requestAnimationFrame cubic ease)
+- Nav expanded: Beranda, Tentang Kami, Layanan, Proyek, Insights, Karir, Kontak (7 items)
+- All 7 public pages now share consistent luxury chrome (PublicNav/PublicFooter) with alternating dark-emerald/cream rhythm
+- Lint clean; Agent Browser confirms all pages render, interactions work, mobile responsive, zero errors

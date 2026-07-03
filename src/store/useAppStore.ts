@@ -4,6 +4,8 @@ export type AppView =
   // Public pages
   | 'landing'
   | 'about'
+  | 'layanan'
+  | 'proyek'
   | 'insights'
   | 'careers'
   | 'contact'
@@ -25,7 +27,7 @@ export type UserRole =
   | 'mitra'
   | 'pelanggan'
 
-export const PUBLIC_VIEWS: AppView[] = ['landing', 'about', 'insights', 'careers', 'contact']
+export const PUBLIC_VIEWS: AppView[] = ['landing', 'about', 'layanan', 'proyek', 'insights', 'careers', 'contact']
 
 interface AppState {
   currentView: AppView

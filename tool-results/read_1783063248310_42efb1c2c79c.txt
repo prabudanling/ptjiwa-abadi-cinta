@@ -1,0 +1,721 @@
+     1→// Company Data from Akta Pendirian PT JIWA ABDI CINTA
+     2→// Akta No. 310, 21 April 2022, Jakarta Selatan
+     3→
+     4→export const COMPANY = {
+     5→  name: 'PT JIWA ABDI CINTA',
+     6→  shortName: 'JAC',
+     7→  aktaNumber: '310',
+     8→  aktaDate: '21 April 2022',
+     9→  location: 'Jakarta Selatan',
+    10→  notaris: 'Bagas Raffy Raditya, S.H.',
+    11→  modalDasar: 'Rp 20.000.000.000',
+    12→  modalDisetor: 'Rp 5.000.000.000',
+    13→  jumlahSaham: '10.000 lembar',
+    14→  nilaiNominal: 'Rp 2.000.000',
+    15→  sahamDitempatkan: '2.500 lembar',
+    16→}
+    17→
+    18→export const SHAREHOLDERS = [
+    19→  {
+    20→    name: 'Wirono, SE.M.Pd',
+    21→    shares: '50%',
+    22→    position: 'Direktur Utama',
+    23→    birthPlace: 'Pekalongan',
+    24→    birthDate: '24 Mei 1970',
+    25→    nationality: 'WNI',
+    26→    occupation: 'Dosen',
+    27→    address: 'Apartemen Centra Timur Residence Tower Orange 1, Jakarta Timur',
+    28→  },
+    29→  {
+    30→    name: 'Purwanto',
+    31→    shares: '10%',
+    32→    position: 'Direktur',
+    33→    birthPlace: 'Bekasi',
+    34→    birthDate: '19 Juli 1988',
+    35→    nationality: 'WNI',
+    36→    occupation: 'Karyawan Swasta',
+    37→    address: 'Asr Yon Ang Air, Jakarta Utara',
+    38→  },
+    39→  {
+    40→    name: 'Edy Kurniawan',
+    41→    shares: '10%',
+    42→    position: 'Direktur',
+    43→    birthPlace: 'Bekasi',
+    44→    birthDate: '22 Januari 1987',
+    45→    nationality: 'WNI',
+    46→    occupation: 'Karyawan Swasta',
+    47→    address: 'KP. Pondok Rajeg, Kabupaten Bogor',
+    48→  },
+    49→  {
+    50→    name: 'Tegar Ramadhan Wiroputro',
+    51→    shares: '30%',
+    52→    position: 'Komisaris',
+    53→    birthPlace: 'Jakarta',
+    54→    birthDate: '14 November 2002',
+    55→    nationality: 'WNI',
+    56→    occupation: 'Partikelir',
+    57→    address: 'Komp Diskum AD Blok O/7, Jakarta Timur',
+    58→  },
+    59→]
+    60→
+    61→export const MODULES = [
+    62→  {
+    63→    id: 'perdagangan',
+    64→    name: 'Perdagangan',
+    65→    subtitle: 'Marketplace & Trading',
+    66→    icon: 'Package',
+    67→    color: '#d4a843',
+    68→    description: 'Ekspor, impor, supplier, distributor — perdagangan mesin, bahan baku sawit, dan komoditas strategis.',
+    69→    kblis: ['46100', '71102', '46599', '47911', '46202'],
+    70→    kbliNames: [
+    71→      'Perdagangan Besar Atas Dasar Balas Jasa (Fee) Atau Kontrak',
+    72→      'Aktivitas Keinsinyuran dan Konsultasi Teknis YBDI',
+    73→      'Perdagangan Besar Mesin, Peralatan Dan Perlengkapan Lainnya',
+    74→      'Perdagangan Eceran Melalui Media Untuk Komoditi Makanan, Minuman, Tembakau, Kimia, Farmasi, Kosmetik Dan Alat Laboratorium',
+    75→      'Perdagangan Besar Buah Yang Mengandung Minyak',
+    76→    ],
+    77→  },
+    78→  {
+    79→    id: 'jasa',
+    80→    name: 'Jasa',
+    81→    subtitle: 'Consulting & MICE',
+    82→    icon: 'Briefcase',
+    83→    color: '#60a5fa',
+    84→    description: 'Konsultasi manajemen, MICE, pelatihan kerja — jasa profesional untuk pertumbuhan bisnis.',
+    85→    kblis: ['70209', '82301', '78439', '78435'],
+    86→    kbliNames: [
+    87→      'Aktivitas Konsultasi Manajemen Lainnya',
+    88→      'Jasa Penyelenggara Pertemuan, Perjalanan Insentif, Konferensi dan Pameran (MICE)',
+    89→      'Pelatihan Kerja Perusahaan Lainnya',
+    90→      'Pelatihan Kerja Bisnis dan Manajemen Perusahaan',
+    91→    ],
+    92→  },
+    93→  {
+    94→    id: 'konstruksi',
+    95→    name: 'Konstruksi',
+    96→    subtitle: 'Construction & Tender',
+    97→    icon: 'Building2',
+    98→    color: '#f97316',
+    99→    description: 'Tender proyek, konstruksi gedung & sipil, irigasi, jembatan — pembangunan infrastruktur.',
+   100→    kblis: ['41019', '42102', '41012', '42201', '42209', '42202'],
+   101→    kbliNames: [
+   102→      'Konstruksi Gedung Lainnya',
+   103→      'Konstruksi Bangunan Sipil Jembatan, Jalan Layang, Fly Over, dan Underpass',
+   104→      'Konstruksi Gedung Perkantoran',
+   105→      'Konstruksi Jaringan Irigasi dan Drainase',
+   106→      'Konstruksi Jaringan Irigasi, Komunikasi, dan Limbah Lainnya',
+   107→      'Konstruksi Bangunan Sipil Pengolahan Air Bersih',
+   108→    ],
+   109→  },
+   110→  {
+   111→    id: 'industri',
+   112→    name: 'Industri',
+   113→    subtitle: 'Palm Oil & CPO Trading',
+   114→    icon: 'Factory',
+   115→    color: '#4ade80',
+   116→    description: 'Trading CPO, minyak goreng, fraksinasi — industri hilir kelapa sawit terintegrasi.',
+   117→    kblis: ['10433', '10434', '10435', '10436', '10437'],
+   118→    kbliNames: [
+   119→      'Industri Pemisahan/Fraksinasi Minyak Mentah Kelapa Sawit dan Minyak Mentah Inti Kelapa Sawit',
+   120→      'Industri Pemurnian Minyak Mentah Kelapa Sawit dan Minyak Mentah Inti Kelapa Sawit',
+   121→      'Industri Pemisahan/Fraksinasi Minyak Murni Kelapa Sawit',
+   122→      'Industri Pemisahan/Fraksinasi Minyak Murni Inti Kelapa Sawit',
+   123→      'Industri Minyak Goreng Kelapa Sawit',
+   124→    ],
+   125→  },
+   126→  {
+   127→    id: 'pertanian',
+   128→    name: 'Pertanian, Kehutanan & Perikanan',
+   129→    subtitle: 'Agriculture & Fishery',
+   130→    icon: 'Leaf',
+   131→    color: '#22d3ee',
+   132→    description: 'Perkebunan sawit, kehutanan, perikanan — manajemen agrikultur terintegrasi & sertifikasi.',
+   133→    kblis: ['01262'],
+   134→    kbliNames: [
+   135→      'Perkebunan Buah Kelapa Sawit',
+   136→    ],
+   137→  },
+   138→]
+   139→
+   140→export const ROLES = [
+   141→  { id: 'super_admin', name: 'Super Admin', description: 'Akses semua modul & data', defaultUser: 'Wirono' },
+   142→  { id: 'admin_perdagangan', name: 'Admin Perdagangan', description: 'Mengelola modul perdagangan', defaultUser: 'Purwanto' },
+   143→  { id: 'admin_jasa', name: 'Admin Jasa', description: 'Mengelola modul jasa', defaultUser: 'Tegar Ramadhan Wiroputro' },
+   144→  { id: 'admin_konstruksi', name: 'Admin Konstruksi', description: 'Mengelola modul konstruksi', defaultUser: 'Edy Kurniawan' },
+   145→  { id: 'admin_industri', name: 'Admin Industri', description: 'Mengelola modul industri', defaultUser: 'Wirono' },
+   146→  { id: 'admin_pertanian', name: 'Admin Pertanian', description: 'Mengelola modul pertanian', defaultUser: 'Edy Kurniawan' },
+   147→  { id: 'mitra', name: 'Mitra/Supplier/Kontraktor', description: 'Listing produk, ikut tender', defaultUser: '' },
+   148→  { id: 'pelanggan', name: 'Pelanggan', description: 'Beli produk, booking jasa', defaultUser: '' },
+   149→]
+   150→
+   151→// Sample data for demo
+   152→export const SAMPLE_STATS = {
+   153→  totalRevenue: 287_500_000_000,
+   154→  totalTransactions: 12_847,
+   155→  activePartners: 342,
+   156→  activeProjects: 28,
+   157→  cpoPriceToday: 14_850_000,
+   158→  cpoPriceChange: 2.3,
+   159→  plantationArea: 5_200,
+   160→  factoriesActive: 3,
+   161→  warehouseCapacity: 10_000,
+   162→}
+   163→
+   164→export const COMMODITY_PRICES = [
+   165→  { name: 'CPO', price: 14850000, change: 2.3, unit: 'Rp/ton' },
+   166→  { name: 'Minyak Goreng', price: 16200000, change: -0.8, unit: 'Rp/ton' },
+   167→  { name: 'Olein', price: 15500000, change: 1.5, unit: 'Rp/ton' },
+   168→  { name: 'Stearin', price: 13200000, change: -1.2, unit: 'Rp/ton' },
+   169→  { name: 'PKO', price: 18900000, change: 3.1, unit: 'Rp/ton' },
+   170→  { name: 'Fraksinasi', price: 14700000, change: 0.7, unit: 'Rp/ton' },
+   171→]
+   172→
+   173→export const MONTHLY_REVENUE = [
+   174→  { month: 'Jan', perdagangan: 42, jasa: 18, konstruksi: 35, industri: 58, pertanian: 22 },
+   175→  { month: 'Feb', perdagangan: 38, jasa: 22, konstruksi: 40, industri: 62, pertanian: 24 },
+   176→  { month: 'Mar', perdagangan: 45, jasa: 25, konstruksi: 38, industri: 55, pertanian: 28 },
+   177→  { month: 'Apr', perdagangan: 50, jasa: 20, konstruksi: 42, industri: 60, pertanian: 26 },
+   178→  { month: 'Mei', perdagangan: 48, jasa: 28, konstruksi: 45, industri: 65, pertanian: 30 },
+   179→  { month: 'Jun', perdagangan: 52, jasa: 32, konstruksi: 48, industri: 70, pertanian: 32 },
+   180→  { month: 'Jul', perdagangan: 55, jasa: 30, konstruksi: 52, industri: 68, pertanian: 35 },
+   181→  { month: 'Agu', perdagangan: 58, jasa: 35, konstruksi: 50, industri: 72, pertanian: 33 },
+   182→  { month: 'Sep', perdagangan: 53, jasa: 38, konstruksi: 55, industri: 75, pertanian: 36 },
+   183→  { month: 'Okt', perdagangan: 60, jasa: 40, konstruksi: 58, industri: 78, pertanian: 38 },
+   184→  { month: 'Nov', perdagangan: 62, jasa: 42, konstruksi: 60, industri: 82, pertanian: 40 },
+   185→  { month: 'Des', perdagangan: 65, jasa: 45, konstruksi: 65, industri: 85, pertanian: 42 },
+   186→]
+   187→
+   188→// Public-facing data for landing page
+   189→export const PUBLIC_INSIGHTS = [
+   190→  {
+   191→    id: '1',
+   192→    category: 'Industri Sawit',
+   193→    categoryColor: '#2D6A4F',
+   194→    title: 'Masa Depan Industri Sawit Indonesia 2025',
+   195→    excerpt: 'Analisis mendalam tentang tren, tantangan, dan peluang industri kelapa sawit di pasar global yang semakin kompetitif.',
+   196→    date: '15 Desember 2024',
+   197→    readTime: '8 menit',
+   198→    featured: true,
+   199→  },
+   200→  {
+   201→    id: '2',
+   202→    category: 'Konstruksi',
+   203→    categoryColor: '#C75B39',
+   204→    title: 'Infrastruktur Berkelanjutan: Tren Konstruksi Hijau 2025',
+   205→    excerpt: 'Bagaimana praktik konstruksi ramah lingkungan dan material berkelanjutan membentuk masa depan infrastruktur Indonesia.',
+   206→    date: '10 Desember 2024',
+   207→    readTime: '7 menit',
+   208→  },
+   209→  {
+   210→    id: '3',
+   211→    category: 'Strategi',
+   212→    categoryColor: '#1E3A5F',
+   213→    title: 'Strategi Pertumbuhan Bisnis di Era AI',
+   214→    excerpt: 'Memanfaatkan kecerdasan buatan untuk mendorong pertumbuhan bisnis yang berkelanjutan dan kompetitif.',
+   215→    date: '5 Desember 2024',
+   216→    readTime: '10 menit',
+   217→  },
+   218→  {
+   219→    id: '4',
+   220→    category: 'Perdagangan',
+   221→    categoryColor: '#B8860B',
+   222→    title: 'Rantai Pasok Global: Ketahanan di Tenga Ketidakpastian',
+   223→    excerpt: 'Membangun ketahanan rantai pasok melalui diversifikasi, digitalisasi, dan kemitraan strategis lintas wilayah.',
+   224→    date: '28 November 2024',
+   225→    readTime: '6 menit',
+   226→  },
+   227→  {
+   228→    id: '5',
+   229→    category: 'Pertanian',
+   230→    categoryColor: '#1B7A6E',
+   231→    title: 'Sawit Berkelanjutan: Menuju Sertifikasi ISPO & RSPO',
+   232→    excerpt: 'Perjalanan transformasi perkebunan kelapa sawit menuju praktik berkelanjutan dan sertifikasi internasional.',
+   233→    date: '22 November 2024',
+   234→    readTime: '9 menit',
+   235→  },
+   236→  {
+   237→    id: '6',
+   238→    category: 'Jasa',
+   239→    categoryColor: '#1E3A5F',
+   240→    title: 'MICE Pasca-Pandemi: Hibrid sebagai Standar Baru',
+   241→    excerpt: 'Evolusi industri pertemuan, perjalanan insentif, konferensi, dan pameran menuju format hibrida yang efisien.',
+   242→    date: '15 November 2024',
+   243→    readTime: '5 menit',
+   244→  },
+   245→  {
+   246→    id: '7',
+   247→    category: 'Industri Sawit',
+   248→    categoryColor: '#2D6A4F',
+   249→    title: 'Volatilitas Harga CPO: Strategi Hedging untuk Trader',
+   250→    excerpt: 'Instrument dan pendekatan manajemen risiko untuk mengelola volatilitas harga minyak sawit mentah.',
+   251→    date: '8 November 2024',
+   252→    readTime: '8 menit',
+   253→  },
+   254→  {
+   255→    id: '8',
+   256→    category: 'Konstruksi',
+   257→    categoryColor: '#C75B39',
+   258→    title: 'Tender Pemerintah: Panduan Menjadi Pemenang',
+   259→    excerpt: 'Strategi menyusun proposal tender yang kompetitif dan kepatuhan terhadap regulasi pengadaan publik.',
+   260→    date: '1 November 2024',
+   261→    readTime: '7 menit',
+   262→  },
+   263→  {
+   264→    id: '9',
+   265→    category: 'Strategi',
+   266→    categoryColor: '#1E3A5F',
+   267→    title: 'Transformasi Digital Korporat: Peta Jalan 2025',
+   268→    excerpt: 'Langkah praktis mengadopsi teknologi digital untuk efisiensi operasional dan pengalaman pelanggan.',
+   269→    date: '25 Oktober 2024',
+   270→    readTime: '11 menit',
+   271→  },
+   272→]
+   273→
+   274→export const TRUST_LOGOS = [
+   275→  'PT Maju Jaya',
+   276→  'Bank Nasional',
+   277→  'Grup Sawit Nusantara',
+   278→  'Kementerian PUPR',
+   279→  'Universitas Indonesia',
+   280→]
+   281→
+   282→export const CAREERS = [
+   283→  { id: 'c1', title: 'Business Development Manager', department: 'Perdagangan', location: 'Jakarta', type: 'Full-time', level: 'Mid-Senior', summary: 'Mengembangkan kanal penjualan komoditas dan memperluas jaringan mitra distributor.' },
+   284→  { id: 'c2', title: 'Civil Engineer', department: 'Konstruksi', location: 'Surabaya', type: 'Full-time', level: 'Mid-Senior', summary: 'Mengawasi pelaksanaan proyek konstruksi gedung & sipil sesuai standar mutu dan keselamatan.' },
+   285→  { id: 'c3', title: 'CPO Trading Analyst', department: 'Industri', location: 'Jakarta', type: 'Full-time', level: 'Mid-Senior', summary: 'Menganalisis pasar CPO global dan merekomendasikan strategi trading yang menguntungkan.' },
+   286→  { id: 'c4', title: 'Management Consultant', department: 'Jasa', location: 'Jakarta', type: 'Full-time', level: 'Senior', summary: 'Memberikan konsultasi strategis kepada klien korporat di berbagai sektor industri.' },
+   287→  { id: 'c5', title: 'Plantation Manager', department: 'Pertanian', location: 'Riau', type: 'Full-time', level: 'Senior', summary: 'Mengelola operasional perkebunan kelapa sawit untuk produktivitas dan keberlanjutan optimal.' },
+   288→  { id: 'c6', title: 'Supply Chain Specialist', department: 'Perdagangan', location: 'Medan', type: 'Full-time', level: 'Associate', summary: 'Mengoordinasikan logistik ekspor-impor dan manajemen gudang komoditas.' },
+   289→  { id: 'c7', title: 'MICE Event Coordinator', department: 'Jasa', location: 'Jakarta', type: 'Contract', level: 'Mid-Senior', summary: 'Merencanakan dan mengeksekusi konferensi, pameran, dan program insentif perusahaan.' },
+   290→  { id: 'c8', title: 'Finance & Accounting Officer', department: 'Korporat', location: 'Jakarta', type: 'Full-time', level: 'Associate', summary: 'Mengelola pembukuan, pelaporan keuangan, dan kepatuhan pajak lintas modul bisnis.' },
+   291→]
+   292→
+   293→// Public-facing services data (refined colors, no KBLI codes)
+   294→export const PUBLIC_SERVICES = [
+   295→  {
+   296→    id: 'perdagangan',
+   297→    name: 'Perdagangan',
+   298→    subtitle: 'Marketplace & Trading',
+   299→    icon: 'Package',
+   300→    color: '#B8860B',
+   301→    description: 'Ekspor, impor, dan distribusi komoditas strategis — perdagangan mesin, bahan baku sawit, dan produk industri.',
+   302→  },
+   303→  {
+   304→    id: 'jasa',
+   305→    name: 'Jasa & Konsultasi',
+   306→    subtitle: 'Consulting & MICE',
+   307→    icon: 'Briefcase',
+   308→    color: '#1E3A5F',
+   309→    description: 'Konsultasi manajemen, penyelenggaraan MICE, dan pelatihan profesional untuk pertumbuhan bisnis.',
+   310→  },
+   311→  {
+   312→    id: 'konstruksi',
+   313→    name: 'Konstruksi',
+   314→    subtitle: 'Construction & Tender',
+   315→    icon: 'Building2',
+   316→    color: '#C75B39',
+   317→    description: 'Tender proyek, konstruksi gedung & sipil, irigasi, jembatan — pembangunan infrastruktur terpercaya.',
+   318→  },
+   319→  {
+   320→    id: 'industri',
+   321→    name: 'Industri Sawit',
+   322→    subtitle: 'Palm Oil & CPO Trading',
+   323→    icon: 'Factory',
+   324→    color: '#2D6A4F',
+   325→    description: 'Trading CPO, minyak goreng, dan fraksinasi — industri hilir kelapa sawit terintegrasi.',
+   326→  },
+   327→  {
+   328→    id: 'pertanian',
+   329→    name: 'Pertanian & Perikanan',
+   330→    subtitle: 'Agriculture & Fishery',
+   331→    icon: 'Leaf',
+   332→    color: '#1B7A6E',
+   333→    description: 'Perkebunan sawit, kehutanan, perikanan — manajemen agrikultur terintegrasi & sertifikasi.',
+   334→  },
+   335→]
+   336→
+   337→/* ============================================================
+   338→   TENTANG KAMI — Visi, Misi, Nilai, Struktur Organisasi
+   339→   ============================================================ */
+   340→
+   341→export const VISION = 'Menjadi konglomerasi bisnis terintegrasi terkemuka di Indonesia yang menghubungkan hulu ke hilir — dari perkebunan, industri, perdagangan, jasa, hingga konstruksi — dengan komitmen pada keberlanjutan, integritas, dan kepedulian.'
+   342→
+   343→export const MISSION = [
+   344→  'Menyediakan ekosistem bisnis terintegrasi yang efisien dan tepercaya lintas lima bidang usaha.',
+   345→  'Mengedepankan praktik berkelanjutan dan sertifikasi di seluruh rantai nilai kelapa sawit.',
+   346→  'Membangun kemitraan jangka panjang yang saling menguntungkan dengan mitra, supplier, dan klien.',
+   347→  'Mengembangkan kapasitas sumber daya manusia Indonesia melalui pelatihan dan konsultasi profesional.',
+   348→  'Berkontribusi pada pertumbuhan ekonomi nasional melalui investasi infrastruktur dan industri.',
+   349→]
+   350→
+   351→export const COMPANY_VALUES = [
+   352→  { id: 'v1', name: 'Integritas', icon: 'ShieldCheck', color: '#0D503C', description: 'Setiap keputusan dan tindakan dilandasi kejujuran, transparansi, dan kepatuhan hukum.' },
+   353→  { id: 'v2', name: 'Abdi', icon: 'Handshake', color: '#B8860B', description: 'Mengabdi pada kepentingan klien, mitra, dan masyarakat dengan dedikasi tanpa batas.' },
+   354→  { id: 'v3', name: 'Cinta', icon: 'Heart', color: '#C75B39', description: 'Mengutamakan kepedulian pada manusia, lingkungan, dan keberlanjutan dalam berbisnis.' },
+   355→  { id: 'v4', name: 'Kolaborasi', icon: 'Users', color: '#1E3A5F', description: 'Membangun sinergi lintas divisi dan mitra untuk menciptakan nilai yang lebih besar.' },
+   356→  { id: 'v5', name: 'Keberlanjutan', icon: 'Leaf', color: '#1B7A6E', description: 'Berkomitmen pada praktik agrikultur dan industri yang ramah lingkungan dan bertanggung jawab.' },
+   357→  { id: 'v6', name: 'Inovasi', icon: 'Lightbulb', color: '#2D6A4F', description: 'Terus berinovasi dalam layanan, proses, dan teknologi untuk tetap relevan dan kompetitif.' },
+   358→]
+   359→
+   360→/* Struktur Organisasi — berdasarkan Akta Pendirian No. 310 */
+   361→export const ORG_STRUCTURE = {
+   362→  tiers: [
+   363→    {
+   364→      tier: 'Rapat Umum Pemegang Saham',
+   365→      description: 'Organ tertinggi yang menetapkan arah strategis perusahaan',
+   366→      members: [
+   367→        { name: 'Wirono, SE.M.Pd', role: 'Pemegang Saham 50%' },
+   368→        { name: 'Tegar Ramadhan Wiroputro', role: 'Pemegang Saham 30%' },
+   369→        { name: 'Purwanto', role: 'Pemegang Saham 10%' },
+   370→        { name: 'Edy Kurniawan', role: 'Pemegang Saham 10%' },
+   371→      ],
+   372→    },
+   373→    {
+   374→      tier: 'Dewan Komisaris',
+   375→      description: 'Pengawas tata kelola dan arah kebijakan perusahaan',
+   376→      members: [
+   377→        { name: 'Tegar Ramadhan Wiroputro', role: 'Komisaris Utama' },
+   378→      ],
+   379→    },
+   380→    {
+   381→      tier: 'Direksi',
+   382→      description: 'Pelaksana tata kelola dan pengurus harian perusahaan',
+   383→      members: [
+   384→        { name: 'Wirono, SE.M.Pd', role: 'Direktur Utama' },
+   385→        { name: 'Purwanto', role: 'Direktur Operasional' },
+   386→        { name: 'Edy Kurniawan', role: 'Direktur Bisnis & Keuangan' },
+   387→      ],
+   388→    },
+   389→    {
+   390→      tier: 'Kepala Divisi',
+   391→      description: 'Pemimpin unit operasional lima bidang usaha',
+   392→      members: [
+   393→        { name: 'Purwanto', role: 'Kepala Divisi Perdagangan & Supply Chain', dept: 'perdagangan' },
+   394→        { name: 'Tegar Ramadhan Wiroputro', role: 'Kepala Divisi Jasa & Konsultasi', dept: 'jasa' },
+   395→        { name: 'Edy Kurniawan', role: 'Kepala Divisi Konstruksi', dept: 'konstruksi' },
+   396→        { name: 'Wirono, SE.M.Pd', role: 'Kepala Divisi Industri Sawit', dept: 'industri' },
+   397→        { name: 'Edy Kurniawan', role: 'Kepala Divisi Pertanian', dept: 'pertanian' },
+   398→      ],
+   399→    },
+   400→  ],
+   401→}
+   402→
+   403→export const LEADERSHIP = [
+   404→  {
+   405→    name: 'Wirono, SE.M.Pd',
+   406→    position: 'Direktur Utama',
+   407→    shares: '50%',
+   408→    bio: 'Akademisi dan praktisi bisnis dengan dedikasi pada pengembangan ekosistem industri sawit terintegrasi. Memimpin visi strategis JAC.',
+   409→    focus: ['Strategi Korporat', 'Industri Sawit', 'Tata Kelola'],
+   410→  },
+   411→  {
+   412→    name: 'Tegar Ramadhan Wiroputro',
+   413→    position: 'Komisaris Utama',
+   414→    shares: '30%',
+   415→    bio: 'Pengawas tata kelola dengan keahlian dalam pengembangan jasa profesional dan layanan konsultasi strategis.',
+   416→    focus: ['Tata Kelola', 'Jasa & Konsultasi', 'Kepatuhan'],
+   417→  },
+   418→  {
+   419→    name: 'Purwanto',
+   420→    position: 'Direktur Operasional',
+   421→    shares: '10%',
+   422→    bio: 'Mengarahkan operasional harian dan rantai pasok perdagangan komoditas lintas wilayah Indonesia.',
+   423→    focus: ['Operasional', 'Perdagangan', 'Supply Chain'],
+   424→  },
+   425→  {
+   426→    name: 'Edy Kurniawan',
+   427→    position: 'Direktur Bisnis & Keuangan',
+   428→    shares: '10%',
+   429→    bio: 'Mengelola keuangan korporat dan mengawasi pertumbuhan divisi konstruksi serta pertanian berkelanjutan.',
+   430→    focus: ['Keuangan', 'Konstruksi', 'Pertanian'],
+   431→  },
+   432→]
+   433→
+   434→export const TIMELINE = [
+   435→  { year: '2022', title: 'Pendirian PT Jiwa Abdi Cinta', description: 'Akta Pendirian No. 310 ditandatangani di Jakarta Selatan pada 21 April 2022 oleh empat pemegang saham pendiri.' },
+   436→  { year: '2022', title: 'Konfigurasi Lima Bidang Usaha', description: 'Penetapan lima bidang usaha inti: perdagangan, jasa, konstruksi, industri sawit, dan pertanian dengan 17+ KBLI terdaftar.' },
+   437→  { year: '2023', title: 'Ekspansi Operasional', description: 'Pembukaan pabrik fraksinasi di Riau, gudang komoditas strategis, dan perkebunan kelapa sawit di Kalimantan Timur.' },
+   438→  { year: '2023', title: 'Kemitraan Strategis', description: 'Membangun jaringan 340+ mitra, supplier, dan kontraktor terverifikasi lintas wilayah Indonesia.' },
+   439→  { year: '2024', title: 'Digitalisasi Super App', description: 'Peluncuran platform digital terintegrasi yang menyatukan seluruh modul bisnis dalam satu ekosistem.' },
+   440→  { year: '2024', title: 'Komitmen Keberlanjutan', description: 'Percepatan sertifikasi ISPO & RSPO serta praktik agrikultur dan konstruksi berkelanjutan di seluruh operasional.' },
+   441→]
+   442→
+   443→export const LEGAL_FOUNDATION = {
+   444→  aktaNumber: '310',
+   445→  aktaDate: '21 April 2022',
+   446→  notaris: 'Bagas Raffy Raditya, S.H.',
+   447→  location: 'Jakarta Selatan',
+   448→  modalDasar: 'Rp 20.000.000.000',
+   449→  modalDisetor: 'Rp 5.000.000.000',
+   450→  jumlahSaham: '10.000 lembar',
+   451→  nilaiNominal: 'Rp 2.000.000',
+   452→  sahamDitempatkan: '2.500 lembar',
+   453→  kbliCount: '17+',
+   454→  bidangUsaha: '5 bidang usaha terintegrasi',
+   455→}
+   456→
+   457→export const DIFFERENTIATORS = [
+   458→  { id: 'd1', title: 'Ekosistem Terintegrasi', description: 'Lima bidang usaha dalam satu atap — dari hulu perkebunan hingga hilir industri dan distribusi.', icon: 'Network' },
+   459→  { id: 'd2', title: 'Keberlanjutan Terbukti', description: 'Sertifikasi ISPO, RSPO, FSC, dan PEFC di seluruh operasional agrikultur dan kehutanan.', icon: 'Leaf' },
+   460→  { id: 'd3', title: 'Jaringan Mitra Luas', description: '340+ mitra, supplier, dan kontraktor terverifikasi yang tersebar di seluruh Indonesia.', icon: 'Users' },
+   461→  { id: 'd4', title: 'Landasan Hukum Kuat', description: 'Perseroan berbadan hukum dengan Akta Notaris No. 310 dan 17+ KBLI terdaftar resmi.', icon: 'Scale' },
+   462→]
+   463→
+   464→/* ============================================================
+   465→   KONTAK — Departemen & info
+   466→   ============================================================ */
+   467→
+   468→export const CONTACT_DEPARTMENTS = [
+   469→  { id: 'perdagangan', name: 'Perdagangan & Supply Chain', email: 'perdagangan@jiwaabdicinta.co.id', phone: '+62 21 5555 0311', description: 'Pertanyaan produk, pesanan, dan logistik komoditas.' },
+   470→  { id: 'jasa', name: 'Jasa & Konsultasi', email: 'jasa@jiwaabdicinta.co.id', phone: '+62 21 5555 0312', description: 'Konsultasi manajemen, MICE, dan pelatihan profesional.' },
+   471→  { id: 'konstruksi', name: 'Konstruksi & Tender', email: 'konstruksi@jiwaabdicinta.co.id', phone: '+62 21 5555 0313', description: 'Tender proyek, konstruksi gedung & sipil, serta pengawasan.' },
+   472→  { id: 'industri', name: 'Industri Sawit & CPO', email: 'industri@jiwaabdicinta.co.id', phone: '+62 21 5555 0314', description: 'Trading CPO, minyak goreng, dan fraksinasi.' },
+   473→  { id: 'pertanian', name: 'Pertanian & Perikanan', email: 'pertanian@jiwaabdicinta.co.id', phone: '+62 21 5555 0315', description: 'Perkebunan sawit, kehutanan, dan perikanan terintegrasi.' },
+   474→  { id: 'korporat', name: 'Korporat & Umum', email: 'info@jiwaabdicinta.co.id', phone: '+62 21 5555 0310', description: 'Kemitraan, media, dan pertanyaan umum.' },
+   475→]
+   476→
+   477→export const OFFICE_INFO = {
+   478→  address: 'Jakarta Selatan, DKI Jakarta, Indonesia',
+   479→  email: 'info@jiwaabdicinta.co.id',
+   480→  phone: '+62 21 5555 0310',
+   481→  hours: 'Senin – Jumat, 09.00 – 17.00 WIB',
+   482→}
+   483→
+   484→export const CAREER_BENEFITS = [
+   485→  { title: 'Pengembangan Karir', description: 'Jalur karir jelas dan peluang rotasi lintas lima divisi bisnis.', icon: 'TrendingUp' },
+   486→  { title: 'Pelatihan Berkelanjutan', description: 'Program pelatihan internal dan eksternal untuk peningkatan kompetensi.', icon: 'GraduationCap' },
+   487→  { title: 'Kesehatan & Kesejahteraan', description: 'Asuransi kesehatan untuk karyawan dan keluarga, serta program kesejahteraan.', icon: 'HeartPulse' },
+   488→  { title: 'Lingkungan Inklusif', description: 'Budaya kerja yang menghargai keberagaman, kolaborasi, dan integritas.', icon: 'Users' },
+   489→  { title: 'Insentif Berprestasi', description: 'Sistem bonus dan penghargaan berbasis kinerja dan kontribusi.', icon: 'Award' },
+   490→  { title: 'Keseimbangan Hidup', description: 'Kebijakan cuti fleksibel dan program work-life balance.', icon: 'Clock' },
+   491→]
+   492→
+   493→export const INSIGHT_CATEGORIES = ['Semua', 'Industri Sawit', 'Konstruksi', 'Perdagangan', 'Pertanian', 'Jasa', 'Strategi']
+   494→
+   495→/* ============================================================
+   496→   LAYANAN — Penawaran detail per modul (untuk halaman Layanan)
+   497→   ============================================================ */
+   498→
+   499→export const SERVICE_OFFERINGS = [
+   500→  {
+   501→    moduleId: 'perdagangan',
+   502→    name: 'Perdagangan',
+   503→    tagline: 'Marketplace & Trading Komoditas',
+   504→    color: '#B8860B',
+   505→    icon: 'Package',
+   506→    overview: 'Jembatan perdagangan antara produsen dan pasar — ekspor, impor, dan distribusi komoditas strategis dengan jaringan 340+ mitra terverifikasi.',
+   507→    offerings: [
+   508→      { title: 'Trading CPO & Bahan Baku Sawit', desc: 'Perdagangan besar minyak kelapa sawit mentah dan TBS untuk industri hilir.' },
+   509→      { title: 'Ekspor-Impor Mesin Industri', desc: 'Penyediaan mesin produksi, fraksinasi, dan analisis laboratorium sawit.' },
+   510→      { title: 'Distribusi Komoditas', desc: 'Jaringan distribusi lintas wilayah dengan gudang strategis di Riau, Medan, Jakarta.' },
+   511→      { title: 'Marketplace B2B', desc: 'Platform digital untuk transaksi grosir antar perusahaan terverifikasi.' },
+   512→    ],
+   513→    stats: [{ label: 'Mitra Supplier', value: '340+' }, { label: 'Nilai Trading', value: 'Rp 47M' }, { label: 'Komoditas', value: '12+' }],
+   514→  },
+   515→  {
+   516→    moduleId: 'jasa',
+   517→    name: 'Jasa & Konsultasi',
+   518→    tagline: 'Consulting, MICE & Pelatihan',
+   519→    color: '#1E3A5F',
+   520→    icon: 'Briefcase',
+   521→    overview: 'Jasa profesional untuk pertumbuhan bisnis — konsultasi manajemen strategis, penyelenggaraan MICE, dan pelatihan kerja terstruktur.',
+   522→    offerings: [
+   523→      { title: 'Konsultasi Manajemen', desc: 'Strategi pertumbuhan, transformasi digital, dan tata kelola korporat.' },
+   524→      { title: 'MICE', desc: 'Konferensi, pameran, seminar, workshop, dan incentive trip terintegrasi.' },
+   525→      { title: 'Pelatihan Bisnis & Manajemen', desc: 'Program pelatihan kerja bisnis dan manajemen perusahaan bersertifikasi.' },
+   526→      { title: 'Konsultasi Teknis & Hukum Bisnis', desc: 'Pendampingan teknis dan kepatuhan hukum lintas sektor usaha.' },
+   527→    ],
+   528→    stats: [{ label: 'Klien Konsultasi', value: '120+' }, { label: 'Event MICE', value: '48' }, { label: 'Rating', value: '4.8★' }],
+   529→  },
+   530→  {
+   531→    moduleId: 'konstruksi',
+   532→    name: 'Konstruksi',
+   533→    tagline: 'Construction & Tender',
+   534→    color: '#C75B39',
+   535→    icon: 'Building2',
+   536→    overview: 'Pembangun infrastruktur terpercaya — konstruksi gedung, sipil, irigasi, dan jembatan dengan manajemen tender yang transparan.',
+   537→    offerings: [
+   538→      { title: 'Konstruksi Gedung', desc: 'Perkantoran, gedung komersial, dan fasilitas industri multi-lantai.' },
+   539→      { title: 'Konstruksi Sipil', desc: 'Jembatan, jalan layang, fly over, underpass, dan pengolahan air bersih.' },
+   540→      { title: 'Jaringan Irigasi & Drainase', desc: 'Sistem irigasi dan drainase untuk pertanian dan kawasan industri.' },
+   541→      { title: 'Manajemen Tender', desc: 'Penyusunan dan pengelolaan tender proyek pemerintah & swasta.' },
+   542→    ],
+   543→    stats: [{ label: 'Proyek Aktif', value: '28' }, { label: 'Tender Dimenangkan', value: '15+' }, { label: 'Nilai Proyek', value: 'Rp 165M' }],
+   544→  },
+   545→  {
+   546→    moduleId: 'industri',
+   547→    name: 'Industri Sawit',
+   548→    tagline: 'Palm Oil & CPO Trading',
+   549→    color: '#2D6A4F',
+   550→    icon: 'Factory',
+   551→    overview: 'Industri hilir kelapa sawit terintegrasi — trading CPO, minyak goreng, olein, stearin, dan fraksinasi dengan pabrik dan gudang sendiri.',
+   552→    offerings: [
+   553→      { title: 'Trading CPO & PKO', desc: 'Perdagangan minyak sawit mentah dan inti sawit untuk pasar domestik & ekspor.' },
+   554→      { title: 'Produksi Minyak Goreng', desc: 'Pabrik minyak goreng kemasan industri berkapasitas 300 ton/hari.' },
+   555→      { title: 'Fraksinasi & Pemurnian', desc: 'Pemisahan olein dan stearin dari minyak sawit murni.' },
+   556→      { title: 'Manajemen Pabrik & Gudang', desc: '3 pabrik dan 3 gudang strategis dengan kapasitas 10.000 ton.' },
+   557→    ],
+   558→    stats: [{ label: 'Kapasitas Pabrik', value: '1.250 t/h' }, { label: 'Kapasitas Gudang', value: '10K ton' }, { label: 'Harga CPO', value: 'Rp 14.85M' }],
+   559→  },
+   560→  {
+   561→    moduleId: 'pertanian',
+   562→    name: 'Pertanian & Perikanan',
+   563→    tagline: 'Agriculture, Forestry & Fishery',
+   564→    color: '#1B7A6E',
+   565→    icon: 'Leaf',
+   566→    overview: 'Manajemen agrikultur terintegrasi dari hulu — perkebunan sawit bersertifikasi, kehutanan industri, dan perikanan budidaya.',
+   567→    offerings: [
+   568→      { title: 'Perkebunan Kelapa Sawit', desc: '4.500+ hektar kebun bersertifikasi RSPO & ISPO dengan produktivitas optimal.' },
+   569→      { title: 'Kehutanan Industri', desc: 'HTI Eucalyptus dan Akasia bersertifikasi FSC & PEFC untuk pulp & kayu.' },
+   570→      { title: 'Perikanan Budidaya', desc: 'Tambak udang vannamei dan keramba jaring apung ikan nila.' },
+   571→      { title: 'Konsultasi Agrikultur', desc: 'Manajemen perkebunan, sertifikasi, dan praktik berkelanjutan.' },
+   572→    ],
+   573→    stats: [{ label: 'Luas Kebun', value: '5.200 ha' }, { label: 'Sertifikasi', value: '4' }, { label: 'Produksi', value: '2.8K ton' }],
+   574→  },
+   575→]
+   576→
+   577→/* ============================================================
+   578→   PROYEK & PORTOFOLIO — showcase lintas modul
+   579→   ============================================================ */
+   580→
+   581→export const PROJECT_PORTFOLIO = [
+   582→  {
+   583→    id: 'p1',
+   584→    title: 'Gedung Perkantoran Sudirman',
+   585→    category: 'Konstruksi',
+   586→    categoryColor: '#C75B39',
+   587→    location: 'Jakarta Selatan',
+   588→    year: '2024',
+   589→    value: 'Rp 45 M',
+   590→    status: 'Berlangsung',
+   591→    progress: 72,
+   592→    description: 'Pembangunan gedung perkantoran 8 lantai di kawasan bisnis Sudirman dengan standar green building.',
+   593→    metrics: [{ k: 'Lantai', v: '8' }, { k: 'Luas', v: '12.000 m²' }, { k: 'Progres', v: '72%' }],
+   594→  },
+   595→  {
+   596→    id: 'p2',
+   597→    title: 'Jembatan Sungai Mahakam',
+   598→    category: 'Konstruksi',
+   599→    categoryColor: '#C75B39',
+   600→    location: 'Kalimantan Timur',
+   601→    year: '2025',
+   602→    value: 'Rp 120 M',
+   603→    status: 'Berlangsung',
+   604→    progress: 15,
+   605→    description: 'Konstruksi jembatan penghubung strategis sepanjang 1.8 km melintasi Sungai Mahakam.',
+   606→    metrics: [{ k: 'Panjang', v: '1.8 km' }, { k: 'Lajur', v: '4' }, { k: 'Progres', v: '15%' }],
+   607→  },
+   608→  {
+   609→    id: 'p3',
+   610→    title: 'Ekspor CPO 12.000 Ton',
+   611→    category: 'Perdagangan',
+   612→    categoryColor: '#B8860B',
+   613→    location: 'Riau → Rotterdam',
+   614→    year: '2024',
+   615→    value: 'Rp 178 M',
+   616→    status: 'Selesai',
+   617→    progress: 100,
+   618→    description: 'Kontrak ekspor CPO premium 12.000 ton ke pembeli Eropa dengan rantai pasok tersertifikasi ISPO.',
+   619→    metrics: [{ k: 'Volume', v: '12K ton' }, { k: 'Tujuan', v: 'Rotterdam' }, { k: 'Status', v: 'Terkirim' }],
+   620→  },
+   621→  {
+   622→    id: 'p4',
+   623→    title: 'Pabrik Fraksinasi JAC 1',
+   624→    category: 'Industri',
+   625→    categoryColor: '#2D6A4F',
+   626→    location: 'Riau',
+   627→    year: '2023',
+   628→    value: 'Rp 85 M',
+   629→    status: 'Selesai',
+   630→    progress: 100,
+   631→    description: 'Pembangunan pabrik fraksinasi minyak sawit berkapasitas 500 ton/hari dengan teknologi Eropa.',
+   632→    metrics: [{ k: 'Kapasitas', v: '500 t/h' }, { k: 'Investasi', v: 'Rp 85M' }, { k: 'Tenaga Kerja', v: '180' }],
+   633→  },
+   634→  {
+   635→    id: 'p5',
+   636→    title: 'Kebun Sawit Riau Utara',
+   637→    category: 'Pertanian',
+   638→    categoryColor: '#1B7A6E',
+   639→    location: 'Riau',
+   640→    year: '2023',
+   641→    value: 'Rp 32 M',
+   642→    status: 'Selesai',
+   643→    progress: 100,
+   644→    description: 'Pengembangan 1.200 hektar kebun kelapa sawit bersertifikasi RSPO & ISPO dengan produktivitas 4.2 ton/ha/tahun.',
+   645→    metrics: [{ k: 'Luas', v: '1.200 ha' }, { k: 'Sertifikasi', v: 'RSPO+ISPO' }, { k: 'Produktivitas', v: '4.2 t/ha' }],
+   646→  },
+   647→  {
+   648→    id: 'p6',
+   649→    title: 'Indonesia Palm Oil Summit 2024',
+   650→    category: 'Jasa',
+   651→    categoryColor: '#1E3A5F',
+   652→    location: 'Jakarta Convention Center',
+   653→    year: '2024',
+   654→    value: 'Rp 2.5 M',
+   655→    status: 'Selesai',
+   656→    progress: 100,
+   657→    description: 'Penyelenggaraan konferensi industri sawit terbesar dengan 342 peserta dan 28 pembicara internasional.',
+   658→    metrics: [{ k: 'Peserta', v: '342' }, { k: 'Pembicara', v: '28' }, { k: 'Durasi', v: '3 hari' }],
+   659→  },
+   660→  {
+   661→    id: 'p7',
+   662→    title: 'Sistem Irigasi Daerah Aliran',
+   663→    category: 'Konstruksi',
+   664→    categoryColor: '#C75B39',
+   665→    location: 'Jawa Barat',
+   666→    year: '2023',
+   667→    value: 'Rp 28 M',
+   668→    status: 'Selesai',
+   669→    progress: 100,
+   670→    description: 'Pembangunan jaringan irigasi dan drainase untuk 800 hektar kawasan pertanian.',
+   671→    metrics: [{ k: 'Cakupan', v: '800 ha' }, { k: 'Saluran', v: '24 km' }, { k: 'Status', v: 'Operasional' }],
+   672→  },
+   673→  {
+   674→    id: 'p8',
+   675→    title: 'Supply Mesin Fraksinasi Mini',
+   676→    category: 'Perdagangan',
+   677→    categoryColor: '#B8860B',
+   678→    location: 'Medan → Kalimantan',
+   679→    year: '2024',
+   680→    value: 'Rp 18 M',
+   681→    status: 'Selesai',
+   682→    progress: 100,
+   683→    description: 'Penyediaan dan instalasi 6 unit mesin fraksinasi mini untuk pabrik mitra di Kalimantan.',
+   684→    metrics: [{ k: 'Unit', v: '6' }, { k: 'Kapasitas', v: '50 t/h' }, { k: 'Garansi', v: '2 thn' }],
+   685→  },
+   686→]
+   687→
+   688→export const PORTFOLIO_CATEGORIES = ['Semua', 'Konstruksi', 'Perdagangan', 'Industri', 'Pertanian', 'Jasa']
+   689→
+   690→export const PORTFOLIO_STATS = [
+   691→  { label: 'Total Proyek Selesai', value: 47, suffix: '+', color: '#B8860B' },
+   692→  { label: 'Nilai Portofolio', value: 508, prefix: 'Rp ', suffix: ' M', color: '#0D503C' },
+   693→  { label: 'Provinsi Terjangkau', value: 14, suffix: '', color: '#2D6A4F' },
+   694→  { label: 'Mitra Eksekusi', value: 340, suffix: '+', color: '#1B7A6E' },
+   695→]
+   696→
+   697→/* ============================================================
+   698→   LUXURY HERO — statistik untuk landing mewah
+   699→   ============================================================ */
+   700→
+   701→export const LUXURY_HERO_STATS = [
+   702→  { value: 5, suffix: '', label: 'Bidang Usaha', color: '#D4A843' },
+   703→  { value: 17, suffix: '+', label: 'KBLI Terdaftar', color: '#E8C547' },
+   704→  { value: 340, suffix: '+', label: 'Mitra & Klien', color: '#D4A843' },
+   705→  { value: 47, suffix: '+', label: 'Proyek Selesai', color: '#E8C547' },
+   706→]
+   707→
+   708→export const LUXURY_ACCENTS = {
+   709→  emeraldDeep: '#0A2E25',
+   710→  emerald: '#0D503C',
+   711→  emeraldMid: '#1B7A6E',
+   712→  gold: '#B8860B',
+   713→  goldLight: '#D4A843',
+   714→  goldBright: '#E8C547',
+   715→  goldPale: '#F5D061',
+   716→  cream: '#FAFAF7',
+   717→  charcoal: '#0F1B17',
+   718→}
+   719→
+   720→
+   721→
