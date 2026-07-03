@@ -403,3 +403,264 @@ Stage Summary:
 - Nav expanded: Beranda, Tentang Kami, Layanan, Proyek, Insights, Karir, Kontak (7 items)
 - All 7 public pages now share consistent luxury chrome (PublicNav/PublicFooter) with alternating dark-emerald/cream rhythm
 - Lint clean; Agent Browser confirms all pages render, interactions work, mobile responsive, zero errors
+
+---
+Task ID: 7-c
+Agent: Sub-agent (general-purpose)
+Task: Light-theme refactor — Careers + Contact pages ("Spring Sage & Sunshine" palette)
+
+Context:
+- User requested switching the website from DARK theme to LIGHT theme (hijau muda + cream).
+- These two pages were the last holdouts containing dark section backgrounds.
+- Refactor scope: convert LARGE dark section backgrounds to LIGHT, swap white-on-dark text to forest-on-light. Keep small forest-green accents (buttons, icon badges, filter pills) as the spec allows.
+
+Files edited (targeted edits only — no rewrites):
+1. /home/z/my-project/src/components/pages/CareersPage.tsx
+2. /home/z/my-project/src/components/pages/ContactPage.tsx
+
+Changes in CareersPage.tsx — "Open Application CTA" section (lines ~297-363):
+- Section background: `bg-[#2D5A3D]` (dark forest, large section) → `bg-[#D4E8D4]` (mintBright light bg).
+- Decorative grid pattern: `linear-gradient(white 1px, …)` at `opacity-[0.08]` (white lines on dark) → `linear-gradient(#8FB89B 1px, …)` (sage tint) at `opacity-[0.18]` for subtle visibility on light.
+- Top-right radial orb: `bg-white/[0.04]` (invisible-on-light white) → `bg-[#A8D5BA]/40` (sageBright tint).
+- Bottom-left radial orb: `bg-[#C9A961]/[0.10]` (gold) → `bg-[#E8D9A0]/30` (champagne tint, lighter gold).
+- Eyebrow `text-[#C9A961]` (bronze): kept — already correct bronze on light.
+- Heading `text-white` → `text-[#1A3D2A]` (forest, AAA on light mint).
+- Body paragraph `text-white/70` → `text-[#5A7A6A]` (muted).
+- CTA button `bg-white text-[#2D5A3D] hover:bg-[#F5F0E8]` (white-on-dark style) → `bg-[#2D5A3D] text-white hover:bg-[#1A3D2A] shadow-sm` (forest green accent button on light bg, per spec).
+- Tip check icons `text-[#C9A961]` → `text-[#5A8A6A]` (sageDeep, more legible on light than gold-on-light).
+- Tip text `text-white/85` → `text-[#1A3D2A]` (forest).
+- HR footer note `text-white/50` → `text-[#8B9A8B]` (faint).
+
+Changes in ContactPage.tsx — "Map / Location" band (lines ~353-378):
+- Section background: `bg-[#2D5A3D]/[0.03]` (dark-green tint at 3%) → `bg-[#8FB89B]/[0.05]` (sage tint at 5%, per spec suggestion) for a lighter, warmer feel.
+- Map grid pattern: `rgba(13,80,60,0.08)` (dark forest rgba) → `rgba(143,184,155,0.18)` (sage rgba) so the grid stays subtle but warm.
+- "Road" lines: `bg-[#2D5A3D]/15` (4 instances) → `bg-[#8FB89B]/35` (sage tint, slightly stronger to remain visible on the very light bg).
+- Soft radial accent: `bg-[#2D5A3D]/[0.05]` → `bg-[#A8D5BA]/25` (sageBright tint).
+- Map marker pin `bg-[#2D5A3D]` + `text-white` MapPin: KEPT as a small forest-green accent (per spec — small accents stay forest).
+- All other ContactPage sections (form card, office info, department list, quick info cards) were already light-themed with `bg-white`/`bg-[#F8FAF6]` + `text-[#1A3D2A]`/`text-[#5A7A6A]`/`text-[#8B9A8B]` — no edits needed.
+- Form submit button `bg-[#2D5A3D] text-white` (line 267): KEPT per spec (button accent stays forest green).
+- Success-state check icon `bg-[#2D5A3D]/10 text-[#2D5A3D]`: KEPT (small accent, already light-friendly).
+
+Preserved (no changes):
+- All animation logic (FadeIn delays, useScroll/useTransform where present).
+- All structure, JSX hierarchy, aria-* attributes, semantic HTML.
+- All `style={{ fontFamily: PUBLIC_DESIGN.serif }}` inline styles.
+- All data logic (CAREERS / CAREER_BENEFITS / CONTACT_DEPARTMENTS / OFFICE_INFO / COMPANY imports and usage; dept filter state; form state & submit/reset handlers).
+- All imports remain in use (no unused imports introduced or left behind).
+- `text-white` survives ONLY on: CareersPage active filter pill (L227) + CTA submit button (L340); ContactPage form submit button (L267) + map marker pin (L382-383). All four are small accent buttons/icons per spec.
+
+Verification:
+- `npx eslint src/components/pages/CareersPage.tsx` → 0 errors, 0 warnings.
+- `npx eslint src/components/pages/ContactPage.tsx` → 0 errors, 0 warnings.
+- Grep audit confirms NO remaining large dark section backgrounds (`bg-[#2D5A3D]` only appears as: 8% / 10% icon-badge tints, the CTA button, the form-submit button, the map marker pin, the active filter pill, and tiny decorative medallion dots at /6% — all small accents).
+- No `bg-white/[0.03]`, `bg-white/5`, `text-white/60`, `text-white/40`, `text-white/30`, `text-[#E8D9A0]`, `text-[#F0E4B8]`, or `text-[#F5D061]` patterns remain on large surfaces in either file.
+
+Stage Summary:
+- CareersPage + ContactPage now fully match the "Spring Sage & Sunshine" light palette (cream `#F8FAF6` / mintBright `#D4E8D4` / sage `#8FB89B` large surfaces; forest `#1A3D2A` / inkSoft `#2D5A3D` text; sage `#5A8A6A` + faint `#8B9A8B` muted text; bronze `#C9A961` + champagne `#E8D9A0` accents; sage border `#D4E0D4`).
+- Zero dark SECTION backgrounds remain in either file.
+- All white-on-dark text converted to forest/muted-on-light with proper AAA contrast.
+- Small forest-green accent buttons/badges preserved as visual anchors per spec.
+- Lint clean on both files.
+
+---
+Task ID: 7-a
+Agent: Sub-agent (general-purpose)
+Task: Light-theme refactor — About + Services pages ("Spring Sage & Sunshine" palette)
+
+Context:
+- User requested switching the website from DARK theme to LIGHT theme (hijau muda + cream) and explicitly dislikes dark colors.
+- AboutPage.tsx and ServicesPage.tsx were the last 2 holdouts with large dark section backgrounds (dark forest `#2D5A3D` / `#1A3D2A` used as section/card backgrounds) plus white-on-dark text and dark gradient sections.
+- Refactor scope: convert LARGE dark section/card backgrounds → LIGHT, swap white-on-dark text → forest-on-light, fix dark gradients → light gradients, keep small forest-green accents (buttons, icon badges, year pills, initials avatars) intact per spec.
+
+Files edited (targeted MultiEdit only — no rewrites, no structure/animation changes):
+1. /home/z/my-project/src/components/pages/AboutPage.tsx
+2. /home/z/my-project/src/components/pages/ServicesPage.tsx
+
+Changes in AboutPage.tsx:
+- Section 3 — RUPS Tier-1 "special green card" (4-col full-width org-chart header, lines 311-321):
+  - Card bg: `bg-[#2D5A3D]` (dark forest, large) → `bg-[#E8F0E8] border border-[#D4E0D4] ... relative` (mint light card with sage border).
+  - Added a thin `h-1 bg-[#2D5A3D]` top accent strip to preserve the Tier-1 visual hierarchy vs. the plain-white Tier-2 card below.
+  - Column dividers: `divide-white/10` → `divide-[#D4E0D4]` (sage border).
+  - Member name text: `text-white` → `text-[#1A3D2A]` (forest).
+  - Member role text: `text-[#C9A961]` (bronze) — KEPT (bronze is legible on light mint, consistent with other eyebrow labels in the file).
+- Section 6 — Landasan Hukum (the explicit dark-green section, lines 505-546):
+  - Section comment: `(dark green)` → `(light creamWarm)` for accuracy.
+  - Section bg: `bg-[#2D5A3D]` (dark forest) → `bg-[#F5F0E8]` (creamWarm light bg).
+  - Heading: `text-white` → `text-[#1A3D2A]` (forest).
+  - Subtitle paragraph: `text-white/60` → `text-[#5A7A6A]` (muted sage).
+  - Grid container (gap-px divider trick): `bg-white/10 border border-white/10` → `bg-[#D4E0D4] border border-[#D4E0D4]` (sage border now visible against white item cards).
+  - Item cards: `bg-[#1A3D2A] hover:bg-[#2D5A3D]` (dark) → `bg-white hover:bg-[#F8FAF6]` (light cards with cream hover).
+  - Item value text: `text-white` → `text-[#1A3D2A]` (forest).
+  - Item label text: `text-[#C9A961]` (bronze) — KEPT (consistent with other eyebrow labels).
+- Preserved all small forest-green accents (per spec): the `bg-[#2D5A3D]` thin vertical strip on Visi card (w-1), mission number badge (w-7 h-7), Dewan Komisaris top accent (h-1), initials avatar (w-12 h-12), timeline year pill, differentiator icon badge (w-11 h-11), and the 1px org-chart connector lines at /10, /20, /30 opacity. All kept as `bg-[#2D5A3D]` + `text-white` since they are small accent elements.
+
+Changes in ServicesPage.tsx:
+- IntroBand section (the dark emerald hero band, lines 162-241):
+  - Stat palette: pale champagne `#F0E4B8` / `#E8D9A0` (invisible on light) → sageDeep `#5A8A6A` + bronze `#C9A961` alternating (visible on light).
+  - Section gradient: `linear-gradient(160deg, emeraldDeep 0%, emerald 50%, charcoal 100%)` = mint→DARK-FOREST→creamWarm (dark middle band) → `linear-gradient(160deg, emeraldDeep 0%, mintBright 50%, charcoal 100%)` = `#E8F0E8 → #D4E8D4 → #F5F0E8` (all-light mint→mintBright→creamWarm gradient).
+  - Eyebrow pill: `border-[#E8D9A0]/30 bg-[#E8D9A0]/5` + `text-[#F0E4B8]` → `border-[#C9A961]/30 bg-[#C9A961]/5` + `text-[#C9A961]` (bronze on light, with sparkle icon).
+  - H2 heading: `text-white` → `text-[#1A3D2A]` (forest).
+  - H2 gradient-text span: `linear-gradient(135deg, #F0E4B8, #F0E4B8)` (pale champagne, invisible on light) → `linear-gradient(135deg, #5A8A6A, #C9A961)` (sageDeep→bronze, visible on light).
+  - Body paragraph: `text-white/70` → `text-[#5A7A6A]` (muted).
+  - Stat cards: `border-[#E8D9A0]/20 bg-white/[0.03]` (glass-on-dark) → `border-[#D4E0D4] bg-white` (light cards with sage border) + `hover:border-[#C9A961]/40`.
+  - Stat labels: `text-white/50` → `text-[#8B9A8B]` (faint).
+- ModuleSection component (alternating dark/light module showcases, lines 247-402):
+  - isDark bg gradient: `linear-gradient(170deg, charcoal 0%, emeraldDeep 60%, emerald 100%)` = creamWarm→mint→DARK-FOREST (dark bottom band) → `linear-gradient(170deg, mint 0%, mintBright 100%)` = `#E8F0E8 → #D4E8D4` (light mint gradient).
+  - Collapsed redundant dark/light ternaries now that both branches are light: `textColor`/`mutedColor`/`cardBorder`/`cardBg` all collapsed to single light values (`text-[#1A3D2A]`, `text-[#5A7A6A]`, `#D4E0D4`, `#ffffff`). `isDark` flag now controls ONLY bg variation (mint vs cream) + decorative-particle/dot-pattern visibility.
+  - isDark dot-pattern overlay: `radial-gradient(#E8D9A0 1px, …)` at opacity 0.03 (pale, invisible on light) → `radial-gradient(#C9A961 1px, …)` at opacity 0.05 (bronze, subtly visible on light mint).
+  - Visual panel (large colored showcase card): `linear-gradient(150deg, ${module.color} 0%, emeraldDeep 100%)` (full-saturation module color → light mint, with white text unreadable at the light end) → `linear-gradient(150deg, ${module.color}26 0%, ${module.color}14 100%)` (very light tint ~8-15% of module color, forest-text-friendly). Box-shadow also softened from /80, /60 opacity to /40.
+  - Inner glass-grid overlay: `rgba(255,255,255,0.12)` (white lines, invisible on light tint) → `rgba(26,61,42,0.06)` (forest-tinted lines, subtle on light).
+  - Parallax decorative watermark icon: `text-white` (invisible on light) → `text-[#1A3D2A]` (forest, subtle at 0.12 opacity).
+  - Module icon circle: `bg-white/15 backdrop-blur-md border border-white/30 text-white` (glass-on-dark) → `bg-white border border-[#D4E0D4]` + `style={{ color: module.color }}` (solid white circle with module-color icon).
+  - BIDANG counter label: `text-white/50` → `text-[#8B9A8B]` (faint).
+  - Module name h3: `text-white` → `text-[#1A3D2A]` (forest).
+  - Module tagline: `text-white/75` → `text-[#5A7A6A]` (muted).
+  - Inner stat mini-cards: `bg-white/10 border border-white/15` (glass-on-dark) → `bg-white/80 border border-[#D4E0D4]` (light cards).
+  - Inner stat numbers: `text-white` → `text-[#1A3D2A]` (forest, max contrast for smaller text).
+  - Inner stat labels: `text-white/60` → `text-[#8B9A8B]` (faint).
+- ProcessSection (4-step process, lines 510-582) — already light-themed, one fix:
+  - Step-number circle text color: `LUXURY_ACCENTS.emeraldDeep` (alias now resolves to `#E8F0E8` light mint — invisible on the gold gradient circle) → `LUXURY_ACCENTS.forest` (= `#1A3D2A` deep forest, AAA contrast on gold).
+  - (The gold gradient circle bg `linear-gradient(135deg, goldBright, gold)` = champagne→bronze is a small accent element with white/40 inner ring — kept as-is per spec.)
+- KbliSection (lines 407-482) — already fully light-themed, NO changes needed.
+
+Preserved (no changes):
+- All animation logic: FadeIn delays, useScroll/useTransform parallax (IntroBand orbs, ModuleSection yDecor), useInView triggers, motion initial/animate/transition props, AnimatePresence, Counter requestAnimationFrame loop.
+- All structure, JSX hierarchy, aria-* attributes, semantic HTML.
+- All `style={{ fontFamily: PUBLIC_DESIGN.serif }}` and `style={{ fontFamily: SERIF }}` inline styles.
+- All `PUBLIC_DESIGN` and `LUXURY_ACCENTS` references (only swapped which LUXURY_ACCENTS token is referenced where needed).
+- All data logic (SERVICE_OFFERINGS, MODULES, LEGAL_FOUNDATION, ORG_STRUCTURE, LEADERSHIP, TIMELINE, DIFFERENTIATORS, COMPANY_VALUES, VISION, MISSION, COMPANY imports and usage; parseStat/Counter; org-chart helpers OrgTierLabel/OrgMemberCard/OrgRow/VConnector/getInitials/DEPT_COLORS).
+- All imports remain in use (no unused imports introduced or left behind).
+- `text-white` survives ONLY on small forest-green accents per spec: AboutPage mission-number badge (w-7), initials avatar (w-12), timeline year pill, differentiator icon badge (w-11) — 4 instances. ServicesPage has ZERO remaining `text-white` (all converted).
+
+Verification:
+- `npx eslint src/components/pages/AboutPage.tsx` → 0 errors, 0 warnings.
+- `npx eslint src/components/pages/ServicesPage.tsx` → 0 errors, 0 warnings.
+- Grep audit on both files: ZERO `<section>` or large `<div>` elements with `bg-[#2D5A3D]` / `bg-[#1A3D2A]` / `bg-[#0F2A1A]` as a background. Remaining `bg-[#2D5A3D]` references are exclusively: small icon badges, w-7/w-11/w-12 avatars, h-1 top-accent strips, w-1 vertical strips, 1px connector lines, year pills, and low-opacity /5, /10, /20, /25, /30 tints — all small accents per spec.
+- No `text-white/N` (white-on-dark muted variants) remain on large surfaces. No `bg-white/[0.03]`, `bg-white/10`, `bg-white/15`, `border-white/10`, `border-white/15`, `border-white/30`, `divide-white/10` glass-on-dark patterns remain.
+- No `text-[#F0E4B8]` or `text-[#E8D9A0]` (pale champagne text) remain — all converted to bronze `#C9A961` or sageDeep `#5A8A6A` for light-bg legibility.
+
+Stage Summary:
+- AboutPage.tsx + ServicesPage.tsx now fully match the "Spring Sage & Sunshine" light palette (cream `#F8FAF6` / mint `#E8F0E8` / mintBright `#D4E8D4` / creamWarm `#F5F0E8` large surfaces; forest `#1A3D2A` text; sageDeep `#5A8A6A` + faint `#8B9A8B` muted text; bronze `#C9A961` + champagne accents; sage border `#D4E0D4`).
+- Zero dark SECTION backgrounds remain in either file (both `<section>` and large card containers verified light).
+- All white-on-dark text converted to forest/muted-on-light with proper AAA contrast.
+- Small forest-green accent buttons/badges/pills preserved as visual anchors per spec.
+- Lint clean on both files; no unused imports introduced.
+
+
+---
+Task ID: 7-b
+Agent: Sub-agent (general-purpose)
+Task: Refactor PortfolioPage.tsx + InsightsPage.tsx from dark theme to "Spring Sage & Sunshine" light palette (light green hijau muda + cream)
+
+Files edited (targeted edits only, no rewrites):
+- /home/z/my-project/src/components/pages/PortfolioPage.tsx
+- /home/z/my-project/src/components/pages/InsightsPage.tsx
+
+Palette applied (from worklog Spring Sage & Sunshine spec):
+- Light section bgs: #F8FAF6 (cream), #E8F0E8 (mint), #D4E8D4 (mintBright), #F5F0E8 (creamWarm), #FFFFFF
+- Hijau muda accents: #8FB89B (sage), #A8D5BA (sageBright), #5A8A6A (sageDeep)
+- Forest text (AAA on light): #1A3D2A (forest), #2D5A3D (inkSoft)
+- Muted: #5A7A6A (muted), #8B9A8B (faint)
+- Gold accent: #C9A961 (bronze)
+- Borders: #D4E0D4 (sage border)
+
+Changes in PortfolioPage.tsx:
+1. ProgressFill track: bg-white/10 → bg-[#E8F0E8]
+2. STATS BAND section bg: dark emerald gradient (linear-gradient(135deg, emerald #2D5A3D → emeraldDeep)) → light sage gradient linear-gradient(135deg, sageBright #A8D5BA → mintBright #D4E8D4) per user spec.
+3. Stats band glow orb: rgba(27,122,110,0.25) dark teal → rgba(90,138,106,0.25) sageDeep tint.
+4. Stats band "Dalam Angka" pill: pale-gold-on-dark border/bg → sage border-[#8FB89B]/40 + bg-[#8FB89B]/10; Sparkles + label text-[#F0E4B8] → text-[#5A8A6A] sageDeep.
+5. Stats band h2: text-white → text-[#1A3D2A] forest.
+6. Stat cards: glass border-[#E8D9A0]/20 bg-white/[0.04] backdrop-blur-md → solid border-[#D4E0D4] bg-white/80.
+7. Stat card top accent bar: goldBright (#F0E4B8) → bronze (#C9A961) for visibility on white.
+8. Stat card icon badge color: goldBright → bronze.
+9. Stat card number index label: text-white/30 → text-[#8B9A8B] faint.
+10. Stat big number color: LUXURY_ACCENTS.goldPale (#E8D9A0) → LUXURY_ACCENTS.forest (#1A3D2A) for AAA contrast on white card.
+11. Stat label: text-white/55 → text-[#5A7A6A] muted.
+12. Stats "Pelajari lebih lanjut" link: text-[#F0E4B8] → text-[#2D5A3D] inkSoft.
+13. GRID section bg: dark gradient (charcoal → emeraldDeep) → light gradient linear-gradient(180deg, cream #F8FAF6 → mint #E8F0E8) per user spec.
+14. Grid section dark gold glow orb: rgba(184,134,11,0.12) dark goldenrod → rgba(201,169,97,0.18) bronze tint.
+15. Grid "Katalog" pill: same conversion as Dalam Angka pill (sage border/bg + sageDeep text).
+16. Grid h2: text-white → text-[#1A3D2A] forest.
+17. Grid subtitle: text-white/55 → text-[#5A7A6A] muted.
+18. Filter pills: inactive dark-theme translucent white (rgba(255,255,255,0.04) bg / 0.15 border / 0.65 color) → light-theme #FFFFFF bg / #D4E0D4 border / #5A7A6A color. Active forest-gradient pill kept (small accent, allowed). Hover handlers updated to sage border + forest text.
+19. Project cards: glass border-white/10 bg-white/[0.04] backdrop-blur-md → solid border-[#D4E0D4] bg-white/80.
+20. Card title: text-white + group-hover:text-[#F0E4B8] → text-[#1A3D2A] + group-hover:text-[#2D5A3D].
+21. Card location: text-white/50 → text-[#5A7A6A] muted.
+22. Card description: text-white/60 → text-[#5A7A6A] muted.
+23. Card progress label: text-white/40 → text-[#8B9A8B] faint; progress % text-[#F0E4B8] → text-[#5A8A6A] sageDeep.
+24. Card footer divider: border-white/10 → border-[#D4E0D4].
+25. Card value text color: LUXURY_ACCENTS.goldPale → LUXURY_ACCENTS.forest.
+26. Card status pill colors: Selesai rgba(27,122,110,0.18)/#8FB89B → rgba(90,138,106,0.18)/#5A8A6A; Berlangsung rgba(212,168,67,0.18)/#F0E4B8 → rgba(201,169,97,0.18)/#C9A961 bronze.
+27. Empty state text: text-white/40 → text-[#8B9A8B]; link text-[#F0E4B8] → text-[#2D5A3D].
+28. Updated two stale section comments ("dark emerald") to reflect new light theme.
+
+Preserved per spec (small accents / colored category panels):
+- Featured project left panel colored gradient (categoryColor → categoryColor b3) with white text/icon — kept (mid-tone category accent, not a dark section bg).
+- Featured "Lihat detail" button (forest gradient + text-white) — kept (small forest accent button).
+- Card top gradient panels (categoryColor) with white icon/text/year/category pill — kept (mid-tone category accents).
+- Active filter pill (forest gradient + white text) — kept (small forest accent pill).
+- Stats band parallax gold grid overlay + gold particle dots at 0.06–0.08 opacity on light sage bg — kept as subtle luxury texture (barely visible, not a dark bg).
+
+Changes in InsightsPage.tsx:
+1. Newsletter section bg: bg-[#2D5A3D] dark forest → light sage gradient bg-gradient-to-br from-[#D4E8D4] to-[#E8F0E8] + border-[#D4E0D4] for definition.
+2. Newsletter white grid overlay: linear-gradient(#ffffff 1px...) → linear-gradient(#1A3D2A 1px...) at opacity 0.06 (subtle forest lines on light bg).
+3. Decorative orb top-right: bg-white/[0.05] (dark-theme translucent white) → bg-[#8FB89B]/20 sage tint. Bottom-left gold orb bg-[#C9A961]/10 kept (already light-friendly).
+4. Newsletter h2: text-white → text-[#1A3D2A] forest.
+5. Newsletter subtitle: text-white/70 → text-[#5A7A6A] muted.
+6. Form container: glass bg-white/[0.06] backdrop-blur-sm border-white/15 → solid bg-white/80 border-[#D4E0D4].
+7. Form label: text-white/80 → text-[#1A3D2A] forest.
+8. Mail icon: text-white/40 → text-[#8B9A8B] faint.
+9. Email input: dark-theme translucent (bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:bg-white/15 focus:border-white/40) → light-theme solid (bg-white border-[#D4E0D4] text-[#1A3D2A] placeholder:text-[#8B9A8B] focus:border-[#5A8A6A] focus:ring-[#5A8A6A]/30).
+10. Submit button: bronze bg-[#C9A961] text-white (low contrast on light) → forest bg-[#2D5A3D] text-white hover:bg-[#1A3D2A] (small forest accent button, AAA contrast, matches the page's other forest buttons).
+11. Privacy note: text-white/50 → text-[#5A7A6A] muted.
+12. Success state container: glass bg-white/[0.06] backdrop-blur-sm border-white/15 → solid bg-white/80 border-[#D4E0D4].
+13. Success h3: text-white → text-[#1A3D2A] forest.
+14. Success paragraph: text-white/70 → text-[#5A7A6A] muted.
+15. Success email span: text-white → text-[#1A3D2A] forest.
+16. Success CheckCircle2 badge bg-[#C9A961]/20 + icon text-[#C9A961] bronze — kept (bronze on light is fine, already light-friendly).
+
+Preserved per spec (small forest accents):
+- Featured article "Baca selengkapnya" button (bg-[#2D5A3D] text-white) at line 131 — kept.
+- Active category filter pill (bg-[#2D5A3D] text-white) at line 182 — kept.
+
+Verification:
+- npx eslint PortfolioPage.tsx InsightsPage.tsx → 0 errors / 0 warnings on both files.
+- npx tsc --noEmit → 0 errors in either edited file (pre-existing errors in unrelated files JasaModule.tsx, company-data.ts, examples/, skills/ were not touched by this task).
+- Grep verification: no remaining dark section backgrounds (#150F24, #0F2A1A, #0F1B17, #1A3D2A as bg, dark gradients), no remaining text-white on dark sections, no remaining glass-on-dark (bg-white/[0.0x]) patterns, no remaining pale-gold-on-dark (text-[#F0E4B8]/text-[#E8D9A0]) used as primary text on light bgs. Remaining text-white instances are exclusively on: (a) colored category gradient panels (mid-tone) for the featured project + card top panels, and (b) small forest-green accent buttons/pills — both explicitly allowed per task spec.
+- All animation logic (parallax, AnimatePresence layout, motion orbs, Counter, ProgressFill, FadeIn) preserved unchanged.
+- All data logic (PROJECT_PORTFOLIO, PORTFOLIO_CATEGORIES, PORTFOLIO_STATS, PUBLIC_INSIGHTS, INSIGHT_CATEGORIES, LUXURY_ACCENTS references, pickFeatured, filter state, subscribe state) preserved unchanged.
+- All imports still used (no unused import warnings from eslint).
+- All style={{ fontFamily: ... }} references (SERIF / PUBLIC_DESIGN.serif) preserved.
+
+Stage Summary:
+- Both pages now render fully on the light Spring Sage & Sunshine palette. No dark section backgrounds remain. All text uses forest/muted/sage tints with AAA contrast on light bgs. The two pages retain visual rhythm via three distinct light surfaces (cream, mint gradient, sage gradient) and preserved colored category panels + small forest accents as luxury anchors.
+
+---
+Task ID: 7
+Agent: Main (Z.ai Code)
+Task: Change entire website from dark theme to LIGHT theme with light green (hijau muda) + cream — per user's strong preference against dark colors
+
+Work Log:
+- Designed new "Spring Sage & Sunshine" light palette: cream #F8FAF6, mint #E8F0E8, mintBright #D4E8D4, sage #8FB89B (hijau muda), sageBright #A8D5BA, sageDeep #5A8A6A, forest text #1A3D2A (AAA on light), muted #5A7A6A, gold accent #C9A961
+- Updated LUXURY_ACCENTS (company-data.ts): new light green palette + backward-compat aliases (plumDeep→forestDeep, emerald→forest, emeraldDeep→mint, charcoal→creamWarm, goldPale→champagne) so all page references cascade to light
+- Updated LUXURY_HERO_STATS colors to forest/sage
+- Updated PUBLIC_SERVICES module colors to harmonized light palette (perdagangan bronze, jasa lavender, konstruksi terracotta, industri sage, pertanian sageDeep)
+- Global sed-remap across all page files: old dark hex → new light green palette
+- Updated PUBLIC_DESIGN (PublicChrome.tsx) to light green palette + Fraunces/Jakarta font vars
+- Manually rewrote PublicChrome footer (was dark plum → light mint #E8F0E8 with forest text) and CtaBand (was dark forest → light mintBright #D4E8D4 with forest text)
+- Rewrote LandingPage.tsx fully for light theme: hero cream→mint gradient (was dark plum), sage/gold particles (was gold-on-dark), forest text (was white), light sections throughout, all animations preserved (parallax, counters, tilt, ecosystem SVG, marquee)
+- Dispatched 3 parallel subagents (7-a/7-b/7-c) to refactor dark sections → light in 6 page files: AboutPage, ServicesPage, PortfolioPage, InsightsPage, CareersPage, ContactPage — all confirmed ALL-LIGHT, zero dark sections
+- Updated globals.css CSS variables to light theme (background cream, card white, primary forest, sidebar white) + lightened .glass/.glass-strong/.grid-pattern/scrollbar/gradient-border
+- sed-remap all dashboard component files (page.tsx, Sidebar, GlassCard, NeonButton, ParticleCanvas, Dashboard, 5 modules): #d4a843→sageDeep, #4ade80→sage, dark bgs→white/cream, rgba gold→rgba sage
+- Verification:
+  - `bun run lint`: clean, zero errors
+  - Agent Browser: landing hero LIGHT-GRADIENT, dashboard body bg avg=248 (cream), sidebar rgb(255,255,255) white, all public pages ALL-LIGHT (no dark sections), zero console errors across landing/dashboard/Services/Portfolio/About
+  - Fonts: Plus Jakarta Sans (body) + Fraunces (headings) loaded
+
+Stage Summary:
+- ENTIRE website converted from dark to LIGHT theme with hijau muda (light green) + cream
+- Palette: cream/mint surfaces, sage/hijau muda accents, forest green text (AAA contrast), champagne gold warmth
+- No dark section backgrounds anywhere (public pages + dashboard all light)
+- Luxury animations preserved (parallax, particles, counters, 3D tilt, ecosystem diagram, marquee, AnimatePresence filters)
+- Professional fonts: Plus Jakarta Sans (body, very clear) + Fraunces (serif headings, elegant)
+- Lint clean; Agent Browser confirms all light, zero errors

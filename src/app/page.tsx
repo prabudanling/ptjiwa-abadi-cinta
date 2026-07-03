@@ -99,19 +99,19 @@ export default function Home() {
               <div className="flex items-center gap-3">
                 {/* Company badge */}
                 <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(212,168,67,0.05)] border border-[rgba(212,168,67,0.1)]">
-                  <div className="w-5 h-5 rounded bg-[#d4a843] flex items-center justify-center text-[8px] font-bold text-[#0a0a0f]">JAC</div>
+                  <div className="w-5 h-5 rounded bg-[#5A8A6A] flex items-center justify-center text-[8px] font-bold text-[#1A3D2A]">JAC</div>
                   <span className="text-xs text-muted-foreground">{COMPANY.name}</span>
                 </div>
 
                 {/* Notifications */}
                 <button className="relative p-2 rounded-lg hover:bg-[rgba(212,168,67,0.05)] transition-colors">
                   <Bell className="w-5 h-5 text-muted-foreground" />
-                  <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#d4a843] animate-pulse-neon" />
+                  <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#5A8A6A] animate-pulse-neon" />
                 </button>
 
                 {/* User */}
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#d4a843]/20 flex items-center justify-center text-[#d4a843] text-xs font-bold">
+                  <div className="w-8 h-8 rounded-full bg-[#5A8A6A]/20 flex items-center justify-center text-[#5A8A6A] text-xs font-bold">
                     W
                   </div>
                   <div className="hidden lg:block">

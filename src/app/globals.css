@@ -52,92 +52,91 @@
   --radius: 0.625rem;
 
   /* ============================================================
-     MIDNIGHT PLUM & CHAMPAGNE — elegant corporate palette
-     Dark surface = Midnight Plum family (deep, regal, AA+ with cream text)
-     Accent = Champagne Gold (soft, refined — not amber/orange)
-     Light surface = Warm Ivory
+     SPRING SAGE & SUNSHINE — light green (hijau muda) theme
+     Light surface = cream/mint family (bright, AAA with forest text)
+     Accent = sage green + champagne gold
      ============================================================ */
 
-  /* Dark dashboard base (kept dark for app chrome) */
-  --background: #15101F;
-  --foreground: #F5F0E8;
-  --card: #1F1733;
-  --card-foreground: #F5F0E8;
-  --popover: #1F1733;
-  --popover-foreground: #F5F0E8;
-  --primary: #C9A961;
-  --primary-foreground: #15101F;
-  --secondary: #2A1F4A;
-  --secondary-foreground: #F5F0E8;
-  --muted: #2A1F4A;
-  --muted-foreground: #B8AEC4;
-  --accent: #3A2D5C;
-  --accent-foreground: #E8D9A0;
+  /* Light dashboard base */
+  --background: #F8FAF6;
+  --foreground: #1A3D2A;
+  --card: #FFFFFF;
+  --card-foreground: #1A3D2A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A3D2A;
+  --primary: #2D5A3D;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E8F0E8;
+  --secondary-foreground: #1A3D2A;
+  --muted: #E8F0E8;
+  --muted-foreground: #5A7A6A;
+  --accent: #D4E8D4;
+  --accent-foreground: #2D5A3D;
   --destructive: #E05A7A;
-  --border: rgba(201, 169, 97, 0.18);
-  --input: rgba(201, 169, 97, 0.12);
-  --ring: #C9A961;
+  --border: rgba(90, 138, 106, 0.18);
+  --input: rgba(90, 138, 106, 0.12);
+  --ring: #5A8A6A;
 
-  /* Neon/refined corporate colors */
-  --neon-gold: #E8D9A0;
-  --neon-green: #8FB89B;
-  --neon-gold-dim: rgba(232, 217, 160, 0.16);
-  --neon-green-dim: rgba(143, 184, 155, 0.12);
+  /* Neon/refined corporate colors (now sage/gold) */
+  --neon-gold: #C9A961;
+  --neon-green: #5A8A6A;
+  --neon-gold-dim: rgba(201, 169, 97, 0.16);
+  --neon-green-dim: rgba(90, 138, 106, 0.12);
 
-  /* Charts — harmonized to new palette */
-  --chart-1: #E8D9A0;
+  /* Charts — harmonized to light green palette */
+  --chart-1: #5A8A6A;
   --chart-2: #8FB89B;
-  --chart-3: #B89BD9;
-  --chart-4: #D99BAA;
-  --chart-5: #9BB8D9;
+  --chart-3: #C9A961;
+  --chart-4: #D99B7A;
+  --chart-5: #9B8FB8;
 
   /* Sidebar */
-  --sidebar: #1A1430;
-  --sidebar-foreground: #F5F0E8;
-  --sidebar-primary: #E8D9A0;
-  --sidebar-primary-foreground: #15101F;
-  --sidebar-accent: #2A1F4A;
-  --sidebar-accent-foreground: #F5F0E8;
-  --sidebar-border: rgba(201, 169, 97, 0.12);
-  --sidebar-ring: #C9A961;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A3D2A;
+  --sidebar-primary: #2D5A3D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E8F0E8;
+  --sidebar-accent-foreground: #1A3D2A;
+  --sidebar-border: rgba(90, 138, 106, 0.15);
+  --sidebar-ring: #5A8A6A;
 }
 
 .dark {
-  --background: #15101F;
-  --foreground: #F5F0E8;
-  --card: #1F1733;
-  --card-foreground: #F5F0E8;
-  --popover: #1F1733;
-  --popover-foreground: #F5F0E8;
-  --primary: #C9A961;
-  --primary-foreground: #15101F;
-  --secondary: #2A1F4A;
-  --secondary-foreground: #F5F0E8;
-  --muted: #2A1F4A;
-  --muted-foreground: #B8AEC4;
-  --accent: #3A2D5C;
-  --accent-foreground: #E8D9A0;
+  --background: #F8FAF6;
+  --foreground: #1A3D2A;
+  --card: #FFFFFF;
+  --card-foreground: #1A3D2A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A3D2A;
+  --primary: #2D5A3D;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E8F0E8;
+  --secondary-foreground: #1A3D2A;
+  --muted: #E8F0E8;
+  --muted-foreground: #5A7A6A;
+  --accent: #D4E8D4;
+  --accent-foreground: #2D5A3D;
   --destructive: #E05A7A;
-  --border: rgba(201, 169, 97, 0.18);
-  --input: rgba(201, 169, 97, 0.12);
-  --ring: #C9A961;
-  --neon-gold: #E8D9A0;
-  --neon-green: #8FB89B;
-  --neon-gold-dim: rgba(232, 217, 160, 0.16);
-  --neon-green-dim: rgba(143, 184, 155, 0.12);
-  --chart-1: #E8D9A0;
+  --border: rgba(90, 138, 106, 0.18);
+  --input: rgba(90, 138, 106, 0.12);
+  --ring: #5A8A6A;
+  --neon-gold: #C9A961;
+  --neon-green: #5A8A6A;
+  --neon-gold-dim: rgba(201, 169, 97, 0.16);
+  --neon-green-dim: rgba(90, 138, 106, 0.12);
+  --chart-1: #5A8A6A;
   --chart-2: #8FB89B;
-  --chart-3: #B89BD9;
-  --chart-4: #D99BAA;
-  --chart-5: #9BB8D9;
-  --sidebar: #1A1430;
-  --sidebar-foreground: #F5F0E8;
-  --sidebar-primary: #E8D9A0;
-  --sidebar-primary-foreground: #15101F;
-  --sidebar-accent: #2A1F4A;
-  --sidebar-accent-foreground: #F5F0E8;
-  --sidebar-border: rgba(201, 169, 97, 0.12);
-  --sidebar-ring: #C9A961;
+  --chart-3: #C9A961;
+  --chart-4: #D99B7A;
+  --chart-5: #9B8FB8;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A3D2A;
+  --sidebar-primary: #2D5A3D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E8F0E8;
+  --sidebar-accent-foreground: #1A3D2A;
+  --sidebar-border: rgba(90, 138, 106, 0.15);
+  --sidebar-ring: #5A8A6A;
 }
 
 @layer base {
@@ -163,14 +162,14 @@
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #15101F;
+  background: #E8F0E8;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(201, 169, 97, 0.3);
+  background: rgba(90, 138, 106, 0.3);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 169, 97, 0.5);
+  background: rgba(90, 138, 106, 0.5);
 }
 
 /* Landing page scrollbar override (ivory background) */
@@ -185,39 +184,39 @@
   background: rgba(63, 46, 92, 0.35);
 }
 
-/* Glassmorphism utility (dashboard only) — plum-tinted glass */
+/* Glassmorphism utility (dashboard) — light sage-tinted glass */
 .glass {
-  background: rgba(31, 23, 51, 0.7);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(201, 169, 97, 0.12);
+  border: 1px solid rgba(90, 138, 106, 0.15);
 }
 
 .glass-strong {
-  background: rgba(31, 23, 51, 0.88);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(201, 169, 97, 0.18);
+  border: 1px solid rgba(90, 138, 106, 0.2);
 }
 
-/* Refined glow effects (dashboard only) */
+/* Refined glow effects (dashboard) */
 .neon-gold-glow {
-  box-shadow: 0 0 15px rgba(232, 217, 160, 0.28), 0 0 30px rgba(232, 217, 160, 0.1);
+  box-shadow: 0 0 15px rgba(201, 169, 97, 0.25), 0 0 30px rgba(201, 169, 97, 0.1);
 }
 
 .neon-green-glow {
-  box-shadow: 0 0 15px rgba(143, 184, 155, 0.28), 0 0 30px rgba(143, 184, 155, 0.1);
+  box-shadow: 0 0 15px rgba(90, 138, 106, 0.25), 0 0 30px rgba(90, 138, 106, 0.1);
 }
 
 .neon-text-gold {
-  text-shadow: 0 0 10px rgba(232, 217, 160, 0.45), 0 0 20px rgba(232, 217, 160, 0.25);
+  text-shadow: 0 0 10px rgba(201, 169, 97, 0.3);
 }
 
 .neon-text-green {
-  text-shadow: 0 0 10px rgba(143, 184, 155, 0.45), 0 0 20px rgba(143, 184, 155, 0.25);
+  text-shadow: 0 0 10px rgba(90, 138, 106, 0.3);
 }
 
-/* Animated gradient border (dashboard only) — champagne + sage */
+/* Animated gradient border (dashboard) — sage + gold */
 .gradient-border {
   position: relative;
   border-radius: 0.75rem;
@@ -229,7 +228,7 @@
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(232, 217, 160, 0.5), rgba(143, 184, 155, 0.3), rgba(232, 217, 160, 0.5));
+  background: linear-gradient(135deg, rgba(90, 138, 106, 0.4), rgba(201, 169, 97, 0.3), rgba(90, 138, 106, 0.4));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -263,16 +262,16 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(232, 217, 160, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(90, 138, 106, 0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
 
-/* Grid pattern background (dashboard only) */
+/* Grid pattern background (dashboard) */
 .grid-pattern {
   background-image:
-    linear-gradient(rgba(232, 217, 160, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232, 217, 160, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(90, 138, 106, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 138, 106, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 

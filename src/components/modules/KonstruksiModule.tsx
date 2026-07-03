@@ -43,8 +43,8 @@ export default function KonstruksiModule() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Proyek Aktif" value="12" change="+2" icon={<Building2 className="w-5 h-5 text-[#f97316]" />} color="#f97316" />
-        <StatCard title="Tender Terbuka" value="5" change="+1" icon={<Gavel className="w-5 h-5 text-[#d4a843]" />} color="#d4a843" />
-        <StatCard title="Kontraktor" value="34" change="+4" icon={<HardHat className="w-5 h-5 text-[#4ade80]" />} color="#4ade80" />
+        <StatCard title="Tender Terbuka" value="5" change="+1" icon={<Gavel className="w-5 h-5 text-[#5A8A6A]" />} color="#5A8A6A" />
+        <StatCard title="Kontraktor" value="34" change="+4" icon={<HardHat className="w-5 h-5 text-[#8FB89B]" />} color="#8FB89B" />
         <StatCard title="Nilai Proyek" value="Rp 293M" change="+Rp 45M" icon={<TrendingUp className="w-5 h-5 text-[#60a5fa]" />} color="#60a5fa" />
       </div>
 
@@ -94,8 +94,8 @@ export default function KonstruksiModule() {
                         <p className="text-xs">{tender.closingDate}</p>
                       </div>
                       <Badge className={`text-[10px] border-0 ${
-                        tender.status === 'open' ? 'bg-[#4ade80]/20 text-[#4ade80]' :
-                        tender.status === 'evaluation' ? 'bg-[#d4a843]/20 text-[#d4a843]' :
+                        tender.status === 'open' ? 'bg-[#8FB89B]/20 text-[#8FB89B]' :
+                        tender.status === 'evaluation' ? 'bg-[#5A8A6A]/20 text-[#5A8A6A]' :
                         'bg-[#60a5fa]/20 text-[#60a5fa]'
                       }`}>
                         {tender.status}
@@ -122,7 +122,7 @@ export default function KonstruksiModule() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#f97316]/10 flex items-center justify-center">
-                        {project.status === 'completed' ? <CheckCircle className="w-5 h-5 text-[#4ade80]" /> : <Clock className="w-5 h-5 text-[#f97316]" />}
+                        {project.status === 'completed' ? <CheckCircle className="w-5 h-5 text-[#8FB89B]" /> : <Clock className="w-5 h-5 text-[#f97316]" />}
                       </div>
                       <div>
                         <h4 className="font-semibold text-sm">{project.name}</h4>
@@ -130,7 +130,7 @@ export default function KonstruksiModule() {
                       </div>
                     </div>
                     <Badge className={`text-[10px] border-0 ${
-                      project.status === 'completed' ? 'bg-[#4ade80]/20 text-[#4ade80]' : 'bg-[#f97316]/20 text-[#f97316]'
+                      project.status === 'completed' ? 'bg-[#8FB89B]/20 text-[#8FB89B]' : 'bg-[#f97316]/20 text-[#f97316]'
                     }`}>
                       {project.status === 'completed' ? 'Selesai' : 'Berjalan'}
                     </Badge>
@@ -145,7 +145,7 @@ export default function KonstruksiModule() {
                       animate={{ width: `${project.progress}%` }}
                       transition={{ duration: 1.5, ease: 'easeOut' }}
                       className="h-full rounded-full"
-                      style={{ backgroundColor: project.progress === 100 ? '#4ade80' : '#f97316' }}
+                      style={{ backgroundColor: project.progress === 100 ? '#8FB89B' : '#f97316' }}
                     />
                   </div>
                 </GlassCard>
@@ -175,7 +175,7 @@ export default function KonstruksiModule() {
                 <div className="flex items-center gap-1 text-xs">
                   <span>Rating:</span>
                   {Array.from({ length: 5 }).map((_, idx) => (
-                    <span key={idx} className={`w-3 h-3 rounded-full ${idx < Math.floor(c.rating) ? 'bg-[#d4a843]' : 'bg-[rgba(212,168,67,0.2)]'}`} />
+                    <span key={idx} className={`w-3 h-3 rounded-full ${idx < Math.floor(c.rating) ? 'bg-[#5A8A6A]' : 'bg-[rgba(212,168,67,0.2)]'}`} />
                   ))}
                   <span className="ml-1">{c.rating}</span>
                 </div>

@@ -699,28 +699,49 @@ export const PORTFOLIO_STATS = [
    ============================================================ */
 
 export const LUXURY_HERO_STATS = [
-  { value: 5, suffix: '', label: 'Bidang Usaha', color: '#E8D9A0' },
-  { value: 17, suffix: '+', label: 'KBLI Terdaftar', color: '#F0E4B8' },
-  { value: 340, suffix: '+', label: 'Mitra & Klien', color: '#E8D9A0' },
-  { value: 47, suffix: '+', label: 'Proyek Selesai', color: '#F0E4B8' },
+  { value: 5, suffix: '', label: 'Bidang Usaha', color: '#2D5A3D' },
+  { value: 17, suffix: '+', label: 'KBLI Terdaftar', color: '#5A8A6A' },
+  { value: 340, suffix: '+', label: 'Mitra & Klien', color: '#2D5A3D' },
+  { value: 47, suffix: '+', label: 'Proyek Selesai', color: '#5A8A6A' },
 ]
 
 export const LUXURY_ACCENTS = {
-  plumDeep: '#150F24',      // deepest dark surface
-  plum: '#1A1430',          // primary dark surface
-  plumMid: '#2A1F4A',       // mid dark surface
-  plumLight: '#3A2D5C',     // lighter dark surface
-  champagne: '#E8D9A0',     // primary gold accent (soft, elegant)
-  champagneBright: '#F0E4B8', // brighter champagne for highlights
-  bronze: '#C9A961',         // deeper gold for borders/active
-  sage: '#8FB89B',           // refined sage green accent
-  sageDeep: '#6A9A7F',       // deeper sage
-  cream: '#F8F4ED',          // warm ivory light surface
-  creamWarm: '#F5F0E8',      // warm cream text on dark
-  ink: '#1A1430',            // dark ink text on light (AAA contrast)
-  inkSoft: '#3A2D5C',        // softer dark text
-  muted: '#6B5E80',          // muted plum-gray text on light
-  mutedLight: '#B8AEC4',     // muted text on dark
+  // Light surfaces (bright theme)
+  cream: '#F8FAF6',          // green-tinted ivory — main light bg
+  creamWarm: '#F5F0E8',      // warm cream
+  mint: '#E8F0E8',           // very light mint — section variation
+  mintBright: '#D4E8D4',     // brighter mint
+  // Hijau muda (light green) — the primary accent family
+  sage: '#8FB89B',           // soft sage (hijau muda)
+  sageBright: '#A8D5BA',     // bright mint sage
+  sageDeep: '#5A8A6A',       // deeper sage for accents/borders
+  // Forest green for text (AAA contrast on light)
+  forest: '#1A3D2A',         // deep forest — primary dark text
+  forestDeep: '#0F2A1A',     // deepest forest
+  ink: '#1A3D2A',            // ink = forest (text on light)
+  inkSoft: '#2D5A3D',        // softer forest text
+  muted: '#5A7A6A',          // muted sage-gray text
+  mutedLight: '#8B9A8B',     // faint text
+  // Gold accent (kept for luxury warmth)
+  gold: '#C9A961',           // champagne bronze
+  goldLight: '#E8D9A0',      // light champagne
+  goldBright: '#F0E4B8',     // brightest champagne
+  // Backward-compatible aliases (map old names → new light values so
+  // existing references in page files cascade to the light theme)
+  plumDeep: '#0F2A1A',       // now deepest forest (for dark text/gradients)
+  plum: '#1A3D2A',           // now forest
+  plumMid: '#5A8A6A',        // now sageDeep
+  plumLight: '#8FB89B',      // now sage
+  champagne: '#A8D5BA',      // now sageBright (hijau muda as primary accent)
+  champagneBright: '#C8E6D0',// bright mint
+  bronze: '#C9A961',         // gold accent kept
+  sageDeep: '#5A8A6A',
+  // Legacy name aliases (used by subagent-built page files)
+  emerald: '#2D5A3D',        // forest green (accents/text)
+  emeraldDeep: '#E8F0E8',    // mint (light — for former dark gradient sections)
+  charcoal: '#F5F0E8',       // creamWarm (light — for former dark section bgs)
+  goldPale: '#E8D9A0',       // champagne
+  goldBright: '#F0E4B8',     // champagneBright
 }
 
 

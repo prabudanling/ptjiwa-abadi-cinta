@@ -37,8 +37,8 @@ export default function JasaModule() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Layanan Aktif" value="48" change="+6" icon={<Briefcase className="w-5 h-5 text-[#60a5fa]" />} color="#60a5fa" />
-        <StatCard title="Booking Bulan Ini" value="234" change="+18%" icon={<Calendar className="w-5 h-5 text-[#4ade80]" />} color="#4ade80" />
-        <StatCard title="Konsultan" value="15" change="+3" icon={<Users className="w-5 h-5 text-[#d4a843]" />} color="#d4a843" />
+        <StatCard title="Booking Bulan Ini" value="234" change="+18%" icon={<Calendar className="w-5 h-5 text-[#8FB89B]" />} color="#8FB89B" />
+        <StatCard title="Konsultan" value="15" change="+3" icon={<Users className="w-5 h-5 text-[#5A8A6A]" />} color="#5A8A6A" />
         <StatCard title="Rating Rata-rata" value="4.7" change="+0.2" icon={<Star className="w-5 h-5 text-[#f97316]" />} color="#f97316" />
       </div>
 
@@ -54,7 +54,7 @@ export default function JasaModule() {
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input placeholder="Cari layanan konsultasi..." className="pl-10 bg-[#12121a] border-[rgba(96,165,250,0.15)]" />
+              <Input placeholder="Cari layanan konsultasi..." className="pl-10 bg-[#FFFFFF] border-[rgba(96,165,250,0.15)]" />
             </div>
             <NeonButton variant="outline" size="sm" onClick={() => {}} style={{ color: '#60a5fa', borderColor: '#60a5fa' }}>
               <Plus className="w-4 h-4" /> Tambah Layanan
@@ -81,7 +81,7 @@ export default function JasaModule() {
                       <Badge variant="outline" className="text-[10px] border-[#60a5fa]/30 text-[#60a5fa]">{service.kbli}</Badge>
                     </div>
                     {service.online && (
-                      <Badge variant="outline" className="text-[10px] border-[#4ade80]/30 text-[#4ade80]">
+                      <Badge variant="outline" className="text-[10px] border-[#8FB89B]/30 text-[#8FB89B]">
                         <Video className="w-3 h-3 mr-1" /> Online
                       </Badge>
                     )}
@@ -99,7 +99,7 @@ export default function JasaModule() {
 
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1">
-                      <Star className="w-3 h-3 fill-[#d4a843] text-[#d4a843]" />
+                      <Star className="w-3 h-3 fill-[#5A8A6A] text-[#5A8A6A]" />
                       <span>{service.rating}</span>
                       <span className="text-muted-foreground">({service.reviews})</span>
                     </div>
@@ -134,7 +134,7 @@ export default function JasaModule() {
                     </div>
                     <div className="flex items-center gap-2">
                       {event.virtual && (
-                        <Badge variant="outline" className="text-[10px] border-[#4ade80]/30 text-[#4ade80]">
+                        <Badge variant="outline" className="text-[10px] border-[#8FB89B]/30 text-[#8FB89B]">
                           <Video className="w-3 h-3 mr-1" /> Virtual
                         </Badge>
                       )}
@@ -175,7 +175,7 @@ export default function JasaModule() {
                 <p className="text-xs text-muted-foreground mb-2">{training.provider} • {training.duration}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-bold text-[#60a5fa]">{training.price}</span>
-                  <div className="flex items-center gap-1 text-xs"><Star className="w-3 h-3 fill-[#d4a843] text-[#d4a843]" /> {training.rating}</div>
+                  <div className="flex items-center gap-1 text-xs"><Star className="w-3 h-3 fill-[#5A8A6A] text-[#5A8A6A]" /> {training.rating}</div>
                 </div>
               </GlassCard>
             ))}
@@ -202,7 +202,7 @@ export default function JasaModule() {
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-1 text-sm">
-                      <Star className="w-4 h-4 fill-[#d4a843] text-[#d4a843]" />
+                      <Star className="w-4 h-4 fill-[#5A8A6A] text-[#5A8A6A]" />
                       <span className="font-bold">{consultant.rating}</span>
                     </div>
                     <p className="text-xs text-muted-foreground">{consultant.sessions} sesi</p>

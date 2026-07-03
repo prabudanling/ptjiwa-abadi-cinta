@@ -1,0 +1,616 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import { useRef, useState, useEffect, useMemo } from 'react'
+     4→     4→import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+     5→     5→import { PublicNav, PublicFooter, CtaBand, PageHero, PUBLIC_DESIGN } from '@/components/public/PublicChrome'
+     6→     6→import { SERVICE_OFFERINGS, MODULES, LUXURY_ACCENTS } from '@/lib/company-data'
+     7→     7→import { Package, Briefcase, Building2, Factory, Leaf, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react'
+     8→     8→
+     9→     9→const ICONS: Record<string, React.ReactNode> = {
+    10→    10→  Package: <Package className="w-6 h-6" />,
+    11→    11→  Briefcase: <Briefcase className="w-6 h-6" />,
+    12→    12→  Building2: <Building2 className="w-6 h-6" />,
+    13→    13→  Factory: <Factory className="w-6 h-6" />,
+    14→    14→  Leaf: <Leaf className="w-6 h-6" />,
+    15→    15→}
+    16→    16→
+    17→    17→const SERIF = PUBLIC_DESIGN.serif
+    18→    18→
+    19→    19→/* ============================================================
+    20→    20→   STAT PARSER — extract prefix/number/suffix from stat strings
+    21→    21→   like "340+", "Rp 47M", "5.200 ha", "4.8★", "1.250 t/h"
+    22→    22→   ============================================================ */
+    23→    23→type ParsedStat = {
+    24→    24→  prefix: string
+    25→    25→  num: number | null
+    26→    26→  suffix: string
+    27→    27→  format: (n: number) => string
+    28→    28→  raw: string
+    29→    29→}
+    30→    30→
+    31→    31→function parseStat(value: string): ParsedStat {
+    32→    32→  const m = value.match(/^(\D*)(\d[\d\.,]*)(.*)$/)
+    33→    33→  if (!m) return { prefix: '', num: null, suffix: '', format: () => value, raw: value }
+    34→    34→  const [, prefix, numStr, suffix] = m
+    35→    35→
+    36→    36→  // Indonesian thousand-separated integer: "5.200", "1.250", "10.000"
+    37→    37→  const isThousandSeparated = /^\d{1,3}(\.\d{3})+$/.test(numStr)
+    38→    38→  if (isThousandSeparated) {
+    39→    39→    const num = parseInt(numStr.replace(/\./g, ''), 10)
+    40→    40→    return {
+    41→    41→      prefix, num, suffix,
+    42→    42→      format: (n) => Math.round(n).toLocaleString('id-ID'),
+    43→    43→      raw: value,
+    44→    44→    }
+    45→    45→  }
+    46→    46→
+    47→    47→  // Comma decimal: "4,8"
+    48→    48→  if (numStr.includes(',')) {
+    49→    49→    const num = parseFloat(numStr.replace(',', '.'))
+    50→    50→    const decimals = (numStr.split(',')[1] || '').length
+    51→    51→    return {
+    52→    52→      prefix, num, suffix,
+    53→    53→      format: (n) => n.toFixed(decimals).replace('.', ','),
+    54→    54→      raw: value,
+    55→    55→    }
+    56→    56→  }
+    57→    57→
+    58→    58→  // Dot decimal: "4.8", "14.85"
+    59→    59→  const num = parseFloat(numStr)
+    60→    60→  const decimals = (numStr.split('.')[1] || '').length
+    61→    61→  return {
+    62→    62→    prefix, num, suffix,
+    63→    63→    format: (n) => decimals > 0 ? n.toFixed(decimals) : Math.round(n).toString(),
+    64→    64→    raw: value,
+    65→    65→  }
+    66→    66→}
+    67→    67→
+    68→    68→/* ============================================================
+    69→    69→   ANIMATED COUNTER — counts up when in view
+    70→    70→   ============================================================ */
+    71→    71→function Counter({ value, duration = 1.8 }: { value: string; duration?: number }) {
+    72→    72→  const ref = useRef<HTMLSpanElement>(null)
+    73→    73→  const inView = useInView(ref, { once: true, margin: '-50px' })
+    74→    74→  const parsed = useMemo(() => parseStat(value), [value])
+    75→    75→  const [display, setDisplay] = useState<string>(parsed.num !== null ? parsed.format(0) : parsed.raw)
+    76→    76→
+    77→    77→  useEffect(() => {
+    78→    78→    const target = parsed.num
+    79→    79→    if (target === null || !inView) return
+    80→    80→    let raf = 0
+    81→    81→    const start = performance.now()
+    82→    82→    const tick = (now: number) => {
+    83→    83→      const t = Math.min((now - start) / (duration * 1000), 1)
+    84→    84→      const eased = 1 - Math.pow(1 - t, 3)
+    85→    85→      setDisplay(parsed.format(eased * target))
+    86→    86→      if (t < 1) raf = requestAnimationFrame(tick)
+    87→    87→    }
+    88→    88→    raf = requestAnimationFrame(tick)
+    89→    89→    return () => cancelAnimationFrame(raf)
+    90→    90→  }, [inView, parsed, duration])
+    91→    91→
+    92→    92→  if (parsed.num === null) return <span ref={ref}>{parsed.raw}</span>
+    93→    93→  return <span ref={ref}>{parsed.prefix}{display}{parsed.suffix}</span>
+    94→    94→}
+    95→    95→
+    96→    96→/* ============================================================
+    97→    97→   FADE IN ON SCROLL — local luxury wrapper
+    98→    98→   ============================================================ */
+    99→    99→function FadeIn({
+   100→   100→  children, delay = 0, className = '',
+   101→   101→}: { children: React.ReactNode; delay?: number; className?: string }) {
+   102→   102→  const ref = useRef(null)
+   103→   103→  const inView = useInView(ref, { once: true, margin: '-50px' })
+   104→   104→  return (
+   105→   105→    <motion.div
+   106→   106→      ref={ref}
+   107→   107→      initial={{ opacity: 0, y: 30 }}
+   108→   108→      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+   109→   109→      transition={{ duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] }}
+   110→   110→      className={className}
+   111→   111→    >
+   112→   112→      {children}
+   113→   113→    </motion.div>
+   114→   114→  )
+   115→   115→}
+   116→   116→
+   117→   117→/* ============================================================
+   118→   118→   GOLD PARTICLES — luxury floating dots
+   119→   119→   ============================================================ */
+   120→   120→function GoldParticles({ count = 22 }: { count?: number }) {
+   121→   121→  const particles = useMemo(() => Array.from({ length: count }).map((_, i) => ({
+   122→   122→    id: i,
+   123→   123→    x: Math.random() * 100,
+   124→   124→    y: Math.random() * 100,
+   125→   125→    size: Math.random() * 2.5 + 1,
+   126→   126→    duration: Math.random() * 8 + 6,
+   127→   127→    delay: Math.random() * 5,
+   128→   128→    opacity: Math.random() * 0.5 + 0.2,
+   129→   129→  })), [count])
+   130→   130→  return (
+   131→   131→    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+   132→   132→      {particles.map(p => (
+   133→   133→        <motion.span
+   134→   134→          key={p.id}
+   135→   135→          className="absolute rounded-full"
+   136→   136→          style={{
+   137→   137→            left: `${p.x}%`, top: `${p.y}%`,
+   138→   138→            width: p.size, height: p.size,
+   139→   139→            background: 'radial-gradient(circle, #F0E4B8, #C9A961)',
+   140→   140→            boxShadow: '0 0 6px rgba(245,208,97,0.6)',
+   141→   141→          }}
+   142→   142→          animate={{ y: [0, -30, 0], opacity: [p.opacity, p.opacity * 1.8, p.opacity] }}
+   143→   143→          transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'easeInOut' }}
+   144→   144→        />
+   145→   145→      ))}
+   146→   146→    </div>
+   147→   147→  )
+   148→   148→}
+   149→   149→
+   150→   150→/* ============================================================
+   151→   151→   INTRO BAND — dark emerald with gold particles + counters
+   152→   152→   ============================================================ */
+   153→   153→function IntroBand() {
+   154→   154→  const sectionRef = useRef<HTMLElement>(null)
+   155→   155→  const { scrollYProgress } = useScroll({
+   156→   156→    target: sectionRef,
+   157→   157→    offset: ['start end', 'end start'],
+   158→   158→  })
+   159→   159→  const yOrb1 = useTransform(scrollYProgress, [0, 1], [80, -80])
+   160→   160→  const yOrb2 = useTransform(scrollYProgress, [0, 1], [-60, 60])
+   161→   161→
+   162→   162→  const stats = [
+   163→   163→    { value: '5', label: 'Bidang Usaha', color: '#F0E4B8' },
+   164→   164→    { value: '17+', label: 'KBLI Terdaftar', color: '#E8D9A0' },
+   165→   165→    { value: '340+', label: 'Mitra & Klien', color: '#F0E4B8' },
+   166→   166→    { value: '47+', label: 'Proyek Selesai', color: '#E8D9A0' },
+   167→   167→  ]
+   168→   168→
+   169→   169→  return (
+   170→   170→    <section
+   171→   171→      ref={sectionRef}
+   172→   172→      className="relative py-24 lg:py-32 overflow-hidden"
+   173→   173→      style={{
+   174→   174→        background: `linear-gradient(160deg, ${LUXURY_ACCENTS.emeraldDeep} 0%, ${LUXURY_ACCENTS.emerald} 50%, ${LUXURY_ACCENTS.charcoal} 100%)`,
+   175→   175→      }}
+   176→   176→    >
+   177→   177→      {/* Parallax orbs */}
+   178→   178→      <motion.div style={{ y: yOrb1 }} className="absolute top-1/4 right-1/4 w-[480px] h-[480px] rounded-full pointer-events-none" aria-hidden
+   179→   179→        animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
+   180→   180→        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+   181→   181→      >
+   182→   182→        <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, rgba(212,168,67,0.25), transparent 70%)', filter: 'blur(40px)' }} />
+   183→   183→      </motion.div>
+   184→   184→      <motion.div style={{ y: yOrb2 }} className="absolute bottom-1/4 left-1/4 w-[520px] h-[520px] rounded-full pointer-events-none" aria-hidden
+   185→   185→        animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.35, 0.2] }}
+   186→   186→        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+   187→   187→      >
+   188→   188→        <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, rgba(27,122,110,0.3), transparent 70%)', filter: 'blur(50px)' }} />
+   189→   189→      </motion.div>
+   190→   190→
+   191→   191→      <GoldParticles />
+   192→   192→
+   193→   193→      {/* Grid overlay */}
+   194→   194→      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" aria-hidden style={{
+   195→   195→        backgroundImage: `linear-gradient(#F0E4B8 1px, transparent 1px), linear-gradient(90deg, #F0E4B8 1px, transparent 1px)`,
+   196→   196→        backgroundSize: '80px 80px',
+   197→   197→      }} />
+   198→   198→
+   199→   199→      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   200→   200→        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+   201→   201→          <FadeIn>
+   202→   202→            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E8D9A0]/30 bg-[#E8D9A0]/5 backdrop-blur-sm">
+   203→   203→              <Sparkles className="w-3.5 h-3.5 text-[#F0E4B8]" />
+   204→   204→              <span className="text-[#F0E4B8] text-xs font-semibold tracking-[0.2em] uppercase">Ekosistem Terintegrasi</span>
+   205→   205→            </span>
+   206→   206→            <h2
+   207→   207→              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-5 mb-6 leading-[1.15]"
+   208→   208→              style={{ fontFamily: SERIF }}
+   209→   209→            >
+   210→   210→              Satu Ekosistem,
+   211→   211→              <br />
+   212→   212→              <span style={{
+   213→   213→                background: 'linear-gradient(135deg, #F0E4B8 0%, #F0E4B8 100%)',
+   214→   214→                WebkitBackgroundClip: 'text',
+   215→   215→                WebkitTextFillColor: 'transparent',
+   216→   216→                backgroundClip: 'text',
+   217→   217→              }}>
+   218→   218→                Lima Pilar Bisnis
+   219→   219→              </span>
+   220→   220→            </h2>
+   221→   221→            <p className="text-white/70 text-base sm:text-lg leading-relaxed max-w-xl">
+   222→   222→              PT Jiwa Abdi Cinta menyatukan perdagangan, jasa, konstruksi, industri sawit, dan pertanian dalam satu rantai nilai terintegrasi — dari hulu perkebunan hingga hilir industri, diperkuat jaringan mitra terverifikasi dan kepatuhan penuh terhadap 17+ klasifikasi KBLI.
+   223→   223→            </p>
+   224→   224→          </FadeIn>
+   225→   225→
+   226→   226→          <div className="grid grid-cols-2 gap-4 sm:gap-5">
+   227→   227→            {stats.map((s, i) => (
+   228→   228→              <FadeIn key={i} delay={0.1 + i * 0.1}>
+   229→   229→                <div className="rounded-sm border border-[#E8D9A0]/20 bg-white/[0.03] backdrop-blur-md p-5 sm:p-6 h-full transition-colors hover:border-[#E8D9A0]/40">
+   230→   230→                  <p className="text-4xl lg:text-5xl font-bold mb-1" style={{ fontFamily: SERIF, color: s.color }}>
+   231→   231→                    <Counter value={s.value} />
+   232→   232→                  </p>
+   233→   233→                  <p className="text-white/50 text-xs sm:text-sm">{s.label}</p>
+   234→   234→                </div>
+   235→   235→              </FadeIn>
+   236→   236→            ))}
+   237→   237→          </div>
+   238→   238→        </div>
+   239→   239→      </div>
+   240→   240→    </section>
+   241→   241→  )
+   242→   242→}
+   243→   243→
+   244→   244→/* ============================================================
+   245→   245→   MODULE SHOWCASE SECTION — alternating visual/content
+   246→   246→   ============================================================ */
+   247→   247→function ModuleSection({
+   248→   248→  module, index,
+   249→   249→}: {
+   250→   250→  module: typeof SERVICE_OFFERINGS[number]
+   251→   251→  index: number
+   252→   252→}) {
+   253→   253→  const ref = useRef<HTMLDivElement>(null)
+   254→   254→  const inView = useInView(ref, { once: true, margin: '-80px' })
+   255→   255→  const isDark = index % 2 === 1
+   256→   256→  const isReversed = index % 2 === 1
+   257→   257→
+   258→   258→  const { scrollYProgress } = useScroll({
+   259→   259→    target: ref,
+   260→   260→    offset: ['start end', 'end start'],
+   261→   261→  })
+   262→   262→  const yDecor = useTransform(scrollYProgress, [0, 1], [60, -60])
+   263→   263→
+   264→   264→  const bgStyle: React.CSSProperties = isDark
+   265→   265→    ? { background: `linear-gradient(170deg, ${LUXURY_ACCENTS.charcoal} 0%, ${LUXURY_ACCENTS.emeraldDeep} 60%, ${LUXURY_ACCENTS.emerald} 100%)` }
+   266→   266→    : { background: LUXURY_ACCENTS.cream }
+   267→   267→
+   268→   268→  const textColor = isDark ? 'text-white' : 'text-[#1A3D2A]'
+   269→   269→  const mutedColor = isDark ? 'text-white/65' : 'text-[#5A7A6A]'
+   270→   270→  const cardBorder = isDark ? 'rgba(212,168,67,0.15)' : '#D4E0D4'
+   271→   271→  const cardBg = isDark ? 'rgba(255,255,255,0.03)' : '#ffffff'
+   272→   272→
+   273→   273→  return (
+   274→   274→    <section ref={ref} className="relative py-20 lg:py-28 overflow-hidden" style={bgStyle}>
+   275→   275→      {isDark && <GoldParticles count={14} />}
+   276→   276→      {isDark && (
+   277→   277→        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" aria-hidden style={{
+   278→   278→          backgroundImage: `radial-gradient(#E8D9A0 1px, transparent 1px)`,
+   279→   279→          backgroundSize: '40px 40px',
+   280→   280→        }} />
+   281→   281→      )}
+   282→   282→
+   283→   283→      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   284→   284→        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center`}>
+   285→   285→          {/* Visual panel */}
+   286→   286→          <motion.div
+   287→   287→            initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
+   288→   288→            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isReversed ? 50 : -50 }}
+   289→   289→            transition={{ duration: 0.85, ease: [0.25, 0.4, 0.25, 1] }}
+   290→   290→            className={`relative ${isReversed ? 'lg:order-2' : ''}`}
+   291→   291→          >
+   292→   292→            <div
+   293→   293→              className="relative rounded-sm p-8 lg:p-10 overflow-hidden"
+   294→   294→              style={{
+   295→   295→                background: `linear-gradient(150deg, ${module.color} 0%, ${LUXURY_ACCENTS.emeraldDeep} 100%)`,
+   296→   296→                boxShadow: isDark
+   297→   297→                  ? `0 30px 80px -30px ${module.color}80, inset 0 1px 0 rgba(255,255,255,0.1)`
+   298→   298→                  : `0 30px 80px -30px ${module.color}60, inset 0 1px 0 rgba(255,255,255,0.1)`,
+   299→   299→              }}
+   300→   300→            >
+   301→   301→              {/* Glass grid overlay */}
+   302→   302→              <div className="absolute inset-0 opacity-20 pointer-events-none" aria-hidden style={{
+   303→   303→                backgroundImage: `linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)`,
+   304→   304→                backgroundSize: '40px 40px',
+   305→   305→              }} />
+   306→   306→
+   307→   307→              {/* Parallax decorative icon */}
+   308→   308→              <motion.div
+   309→   309→                style={{ y: yDecor }}
+   310→   310→                className="absolute -top-8 -right-8 opacity-[0.12] pointer-events-none"
+   311→   311→                aria-hidden
+   312→   312→              >
+   313→   313→                <div className="scale-[7] origin-top-right text-white">
+   314→   314→                  {ICONS[module.icon]}
+   315→   315→                </div>
+   316→   316→              </motion.div>
+   317→   317→
+   318→   318→              <div className="relative z-10">
+   319→   319→                <div className="flex items-center justify-between mb-8">
+   320→   320→                  <div className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center text-white">
+   321→   321→                    {ICONS[module.icon]}
+   322→   322→                  </div>
+   323→   323→                  <span className="text-white/50 text-xs font-mono tracking-widest">
+   324→   324→                    BIDANG 0{index + 1} / 05
+   325→   325→                  </span>
+   326→   326→                </div>
+   327→   327→
+   328→   328→                <h3 className="text-3xl lg:text-4xl font-bold text-white mb-2 leading-tight" style={{ fontFamily: SERIF }}>
+   329→   329→                  {module.name}
+   330→   330→                </h3>
+   331→   331→                <p className="text-white/75 text-sm mb-8">{module.tagline}</p>
+   332→   332→
+   333→   333→                <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+   334→   334→                  {module.stats.map((stat, j) => (
+   335→   335→                    <motion.div
+   336→   336→                      key={j}
+   337→   337→                      initial={{ opacity: 0, y: 16 }}
+   338→   338→                      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+   339→   339→                      transition={{ duration: 0.5, delay: 0.4 + j * 0.12 }}
+   340→   340→                      className="rounded-sm bg-white/10 backdrop-blur-sm border border-white/15 p-3"
+   341→   341→                    >
+   342→   342→                      <p className="text-base sm:text-lg lg:text-xl font-bold text-white leading-tight" style={{ fontFamily: SERIF }}>
+   343→   343→                        <Counter value={stat.value} />
+   344→   344→                      </p>
+   345→   345→                      <p className="text-white/60 text-[10px] mt-1 leading-tight">{stat.label}</p>
+   346→   346→                    </motion.div>
+   347→   347→                  ))}
+   348→   348→                </div>
+   349→   349→              </div>
+   350→   350→            </div>
+   351→   351→          </motion.div>
+   352→   352→
+   353→   353→          {/* Content */}
+   354→   354→          <motion.div
+   355→   355→            initial={{ opacity: 0, x: isReversed ? -50 : 50 }}
+   356→   356→            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isReversed ? -50 : 50 }}
+   357→   357→            transition={{ duration: 0.85, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+   358→   358→            className={isReversed ? 'lg:order-1' : ''}
+   359→   359→          >
+   360→   360→            <span
+   361→   361→              className="inline-block text-xs font-semibold tracking-[0.2em] uppercase"
+   362→   362→              style={{ color: isDark ? module.color : module.color }}
+   363→   363→            >
+   364→   364→              {module.tagline}
+   365→   365→            </span>
+   366→   366→            <h3 className={`text-2xl sm:text-3xl lg:text-4xl font-bold mt-3 mb-5 leading-tight ${textColor}`} style={{ fontFamily: SERIF }}>
+   367→   367→              {module.name}
+   368→   368→            </h3>
+   369→   369→            <p className={`text-base lg:text-lg leading-relaxed mb-8 ${mutedColor}`}>
+   370→   370→              {module.overview}
+   371→   371→            </p>
+   372→   372→
+   373→   373→            <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+   374→   374→              {module.offerings.map((o, j) => (
+   375→   375→                <motion.div
+   376→   376→                  key={j}
+   377→   377→                  initial={{ opacity: 0, y: 20 }}
+   378→   378→                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+   379→   379→                  transition={{ duration: 0.5, delay: 0.3 + j * 0.1 }}
+   380→   380→                  whileHover={{ y: -4, boxShadow: `0 14px 40px -12px ${module.color}70` }}
+   381→   381→                  className="group rounded-sm p-5 border transition-colors h-full"
+   382→   382→                  style={{ borderColor: cardBorder, backgroundColor: cardBg }}
+   383→   383→                >
+   384→   384→                  <div className="flex items-start gap-3">
+   385→   385→                    <div
+   386→   386→                      className="w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 transition-transform group-hover:scale-150"
+   387→   387→                      style={{ backgroundColor: module.color }}
+   388→   388→                    />
+   389→   389→                    <div>
+   390→   390→                      <h4 className={`font-semibold text-sm mb-1.5 ${textColor}`}>{o.title}</h4>
+   391→   391→                      <p className={`text-xs leading-relaxed ${mutedColor}`}>{o.desc}</p>
+   392→   392→                    </div>
+   393→   393→                  </div>
+   394→   394→                </motion.div>
+   395→   395→              ))}
+   396→   396→            </div>
+   397→   397→          </motion.div>
+   398→   398→        </div>
+   399→   399→      </div>
+   400→   400→    </section>
+   401→   401→  )
+   402→   402→}
+   403→   403→
+   404→   404→/* ============================================================
+   405→   405→   KBLI / LEGAL SECTION — cream, grouped by module
+   406→   406→   ============================================================ */
+   407→   407→function KbliSection() {
+   408→   408→  return (
+   409→   409→    <section className="py-20 lg:py-28 bg-[#F8FAF6] relative overflow-hidden">
+   410→   410→      {/* Subtle gold dot pattern */}
+   411→   411→      <div className="absolute inset-0 opacity-[0.025] pointer-events-none" aria-hidden style={{
+   412→   412→        backgroundImage: `radial-gradient(#C9A961 1px, transparent 1px)`,
+   413→   413→        backgroundSize: '32px 32px',
+   414→   414→      }} />
+   415→   415→
+   416→   416→      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   417→   417→        <FadeIn>
+   418→   418→          <div className="text-center mb-14">
+   419→   419→            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#C9A961]/30 bg-[#C9A961]/5 mb-5">
+   420→   420→              <Sparkles className="w-3.5 h-3.5 text-[#C9A961]" />
+   421→   421→              <span className="text-[#C9A961] text-xs font-semibold tracking-[0.2em] uppercase">Kepatuhan & Klasifikasi</span>
+   422→   422→            </span>
+   423→   423→            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A3D2A] mb-4" style={{ fontFamily: SERIF }}>
+   424→   424→              17+ KBLI Terdaftar, Satu Entitas Hukum
+   425→   425→            </h2>
+   426→   426→            <p className="text-[#5A7A6A] max-w-2xl mx-auto leading-relaxed">
+   427→   427→              Setiap bidang usaha didukung klasifikasi KBLI resmi sesuai Akta Pendirian No. 310 — memastikan kepatuhan regulasi dan ruang lingkup operasional yang transparan.
+   428→   428→            </p>
+   429→   429→          </div>
+   430→   430→        </FadeIn>
+   431→   431→
+   432→   432→        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+   433→   433→          {MODULES.map((mod, i) => (
+   434→   434→            <FadeIn key={mod.id} delay={i * 0.08}>
+   435→   435→              <div className="bg-white rounded-sm border border-[#D4E0D4] overflow-hidden h-full transition-shadow hover:shadow-xl"
+   436→   436→                style={{ boxShadow: '0 1px 0 rgba(15,27,23,0.02)' }}
+   437→   437→              >
+   438→   438→                {/* Color stripe */}
+   439→   439→                <div className="h-1.5" style={{ background: `linear-gradient(90deg, ${mod.color}, ${LUXURY_ACCENTS.gold})` }} />
+   440→   440→                <div className="p-6">
+   441→   441→                  <div className="flex items-center gap-3 mb-5">
+   442→   442→                    <div
+   443→   443→                      className="w-11 h-11 rounded-sm flex items-center justify-center"
+   444→   444→                      style={{ backgroundColor: `${mod.color}15`, color: mod.color }}
+   445→   445→                    >
+   446→   446→                      {ICONS[mod.icon]}
+   447→   447→                    </div>
+   448→   448→                    <div>
+   449→   449→                      <h3 className="font-bold text-[#1A3D2A] text-base leading-tight" style={{ fontFamily: SERIF }}>
+   450→   450→                        {mod.name}
+   451→   451→                      </h3>
+   452→   452→                      <p className="text-[#8B9A8B] text-xs mt-0.5">{mod.subtitle}</p>
+   453→   453→                    </div>
+   454→   454→                  </div>
+   455→   455→
+   456→   456→                  <ul className="space-y-3">
+   457→   457→                    {mod.kbliNames.map((name, j) => (
+   458→   458→                      <li key={j} className="flex items-start gap-2.5">
+   459→   459→                        <CheckCircle2
+   460→   460→                          className="w-4 h-4 mt-0.5 flex-shrink-0"
+   461→   461→                          style={{ color: mod.color }}
+   462→   462→                        />
+   463→   463→                        <div className="flex-1 min-w-0">
+   464→   464→                          <span className="block text-xs font-mono font-semibold mb-0.5" style={{ color: mod.color }}>
+   465→   465→                            KBLI {mod.kblis[j]}
+   466→   466→                          </span>
+   467→   467→                          <span className="block text-xs text-[#5A7A6A] leading-relaxed">
+   468→   468→                            {name}
+   469→   469→                          </span>
+   470→   470→                        </div>
+   471→   471→                      </li>
+   472→   472→                    ))}
+   473→   473→                  </ul>
+   474→   474→                </div>
+   475→   475→              </div>
+   476→   476→            </FadeIn>
+   477→   477→          ))}
+   478→   478→        </div>
+   479→   479→      </div>
+   480→   480→    </section>
+   481→   481→  )
+   482→   482→}
+   483→   483→
+   484→   484→/* ============================================================
+   485→   485→   PROCESS / HOW WE WORK — 4 elegant numbered steps
+   486→   486→   ============================================================ */
+   487→   487→const PROCESS_STEPS = [
+   488→   488→  {
+   489→   489→    no: '01',
+   490→   490→    title: 'Konsultasi & Discovery',
+   491→   491→    desc: 'Memahami kebutuhan, audit menyeluruh, analisis kelayakan, dan pemetaan ruang lingkup bersama tim ahli lintas divisi.',
+   492→   492→  },
+   493→   493→  {
+   494→   494→    no: '02',
+   495→   495→    title: 'Perencanaan & Strategi',
+   496→   496→    desc: 'Penyusunan proposal teknis, RAB terperinci, timeline proyek, dan alokasi sumber daya yang terukur dan transparan.',
+   497→   497→  },
+   498→   498→  {
+   499→   499→    no: '03',
+   500→   500→    title: 'Eksekusi & Implementasi',
+   501→   501→    desc: 'Pelaksanaan terkoordinasi lintas divisi dengan monitoring real-time, kontrol kualitas berlapis, dan pelaporan berkala.',
+   502→   502→  },
+   503→   503→  {
+   504→   504→    no: '04',
+   505→   505→    title: 'Evaluasi & Penyerahan',
+   506→   506→    desc: 'Inspeksi akhir, dokumentasi lengkap, serah terima, dan dukungan after-sales untuk memastikan keberlanjutan operasional.',
+   507→   507→  },
+   508→   508→]
+   509→   509→
+   510→   510→function ProcessSection() {
+   511→   511→  const ref = useRef(null)
+   512→   512→  const inView = useInView(ref, { once: true, margin: '-80px' })
+   513→   513→  return (
+   514→   514→    <section
+   515→   515→      ref={ref}
+   516→   516→      className="relative py-20 lg:py-28 overflow-hidden"
+   517→   517→      style={{ background: `linear-gradient(180deg, ${LUXURY_ACCENTS.cream} 0%, #F5F0E8 100%)` }}
+   518→   518→    >
+   519→   519→      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   520→   520→        <FadeIn>
+   521→   521→          <div className="text-center mb-14">
+   522→   522→            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#2D5A3D]/25 bg-[#2D5A3D]/5 mb-5">
+   523→   523→              <Sparkles className="w-3.5 h-3.5 text-[#2D5A3D]" />
+   524→   524→              <span className="text-[#2D5A3D] text-xs font-semibold tracking-[0.2em] uppercase">Cara Kami Bekerja</span>
+   525→   525→            </span>
+   526→   526→            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A3D2A] mb-4" style={{ fontFamily: SERIF }}>
+   527→   527→              Proses Empat Langkah, Hasil Berkelas
+   528→   528→            </h2>
+   529→   529→            <p className="text-[#5A7A6A] max-w-2xl mx-auto leading-relaxed">
+   530→   530→              Dari diskusi awal hingga serah terima — metodologi terstruktur yang memastikan setiap proyek tuntas tepat waktu, sesuai anggaran, dan melampaui ekspektasi.
+   531→   531→            </p>
+   532→   532→          </div>
+   533→   533→        </FadeIn>
+   534→   534→
+   535→   535→        <div className="relative">
+   536→   536→          {/* Connecting horizontal line (lg only) */}
+   537→   537→          <div className="hidden lg:block absolute top-[34px] left-[12.5%] right-[12.5%] h-px" aria-hidden
+   538→   538→            style={{ background: `linear-gradient(90deg, transparent, ${LUXURY_ACCENTS.gold} 20%, ${LUXURY_ACCENTS.gold} 80%, transparent)` }}
+   539→   539→          />
+   540→   540→
+   541→   541→          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5">
+   542→   542→            {PROCESS_STEPS.map((step, i) => (
+   543→   543→              <motion.div
+   544→   544→                key={i}
+   545→   545→                initial={{ opacity: 0, y: 30 }}
+   546→   546→                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+   547→   547→                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+   548→   548→                className="relative text-center lg:text-left"
+   549→   549→              >
+   550→   550→                <div className="flex lg:justify-start justify-center mb-5">
+   551→   551→                  <div
+   552→   552→                    className="relative w-[68px] h-[68px] rounded-full flex items-center justify-center font-bold text-xl"
+   553→   553→                    style={{
+   554→   554→                      fontFamily: SERIF,
+   555→   555→                      color: LUXURY_ACCENTS.emeraldDeep,
+   556→   556→                      background: `linear-gradient(135deg, ${LUXURY_ACCENTS.goldBright}, ${LUXURY_ACCENTS.gold})`,
+   557→   557→                      boxShadow: `0 8px 24px -8px ${LUXURY_ACCENTS.gold}80`,
+   558→   558→                    }}
+   559→   559→                  >
+   560→   560→                    {step.no}
+   561→   561→                    <span className="absolute inset-0 rounded-full border-2 border-white/40" aria-hidden />
+   562→   562→                  </div>
+   563→   563→                </div>
+   564→   564→                <h3 className="font-bold text-[#1A3D2A] text-lg mb-2.5" style={{ fontFamily: SERIF }}>
+   565→   565→                  {step.title}
+   566→   566→                </h3>
+   567→   567→                <p className="text-[#5A7A6A] text-sm leading-relaxed">
+   568→   568→                  {step.desc}
+   569→   569→                </p>
+   570→   570→                {i < PROCESS_STEPS.length - 1 && (
+   571→   571→                  <div className="lg:hidden flex justify-center my-4" aria-hidden>
+   572→   572→                    <ArrowRight className="w-4 h-4 text-[#C9A961] rotate-90" />
+   573→   573→                  </div>
+   574→   574→                )}
+   575→   575→              </motion.div>
+   576→   576→            ))}
+   577→   577→          </div>
+   578→   578→        </div>
+   579→   579→      </div>
+   580→   580→    </section>
+   581→   581→  )
+   582→   582→}
+   583→   583→
+   584→   584→/* ============================================================
+   585→   585→   PAGE — Services
+   586→   586→   ============================================================ */
+   587→   587→export default function ServicesPage() {
+   588→   588→  return (
+   589→   589→    <div className="min-h-screen flex flex-col bg-[#F8FAF6] landing-page">
+   590→   590→      <PublicNav />
+   591→   591→      <main className="flex-1">
+   592→   592→        <PageHero
+   593→   593→          label="Layanan"
+   594→   594→          title="Lima Bidang Usaha Terintegrasi"
+   595→   595→          subtitle="Dari hulu ke hilir — ekosistem bisnis lengkap dalam satu atap, dirancang untuk pertumbuhan jangka panjang yang berkelanjutan."
+   596→   596→        />
+   597→   597→
+   598→   598→        <IntroBand />
+   599→   599→
+   600→   600→        {/* Module showcase — alternating cream/dark sections */}
+   601→   601→        {SERVICE_OFFERINGS.map((mod, i) => (
+   602→   602→          <ModuleSection key={mod.moduleId} module={mod} index={i} />
+   603→   603→        ))}
+   604→   604→
+   605→   605→        <KbliSection />
+   606→   606→        <ProcessSection />
+   607→   607→      </main>
+   608→   608→      <CtaBand
+   609→   609→        title="Siap Memulai Proyek Anda?"
+   610→   610→        subtitle="Tim spesialis lintas divisi siap mendampingi dari konsultasi awal hingga serah terima — hubungi divisi yang relevan dengan kebutuhan Anda."
+   611→   611→      />
+   612→   612→      <PublicFooter />
+   613→   613→    </div>
+   614→   614→  )
+   615→   615→}
+   616→   616→

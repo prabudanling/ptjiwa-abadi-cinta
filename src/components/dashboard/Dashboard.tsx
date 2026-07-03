@@ -16,20 +16,20 @@ import {
 } from 'recharts'
 
 const PIE_DATA = [
-  { name: 'Perdagangan', value: 35, color: '#d4a843' },
-  { name: 'Industri', value: 28, color: '#4ade80' },
+  { name: 'Perdagangan', value: 35, color: '#5A8A6A' },
+  { name: 'Industri', value: 28, color: '#8FB89B' },
   { name: 'Konstruksi', value: 18, color: '#f97316' },
   { name: 'Jasa', value: 12, color: '#60a5fa' },
   { name: 'Pertanian', value: 7, color: '#22d3ee' },
 ]
 
 const ACTIVITIES = [
-  { type: 'order', message: 'Pesanan baru #ORD-2847 — CPO 500 ton', time: '2 menit lalu', color: '#d4a843' },
+  { type: 'order', message: 'Pesanan baru #ORD-2847 — CPO 500 ton', time: '2 menit lalu', color: '#5A8A6A' },
   { type: 'tender', message: 'Tender konstruksi gedung kantor won — PT JAC', time: '15 menit lalu', color: '#f97316' },
   { type: 'permit', message: 'Kontrak B2B baru — Minyak Goreng 800 ton', time: '1 jam lalu', color: '#a78bfa' },
   { type: 'booking', message: 'Booking MICE Conference — 200 peserta', time: '2 jam lalu', color: '#60a5fa' },
   { type: 'harvest', message: 'Panen kelapa sawit — 120 ton dari Kebun A', time: '3 jam lalu', color: '#22d3ee' },
-  { type: 'trade', message: 'CPO trading — jual 1.000 ton @ Rp 14.850.000', time: '4 jam lalu', color: '#4ade80' },
+  { type: 'trade', message: 'CPO trading — jual 1.000 ton @ Rp 14.850.000', time: '4 jam lalu', color: '#8FB89B' },
 ]
 
 const formatCurrency = (val: number) => {
@@ -44,7 +44,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <ModuleHeader title="Dashboard" subtitle="Ringkasan seluruh kegiatan usaha PT Jiwa Abdi Cinta" color="#d4a843" />
+      <ModuleHeader title="Dashboard" subtitle="Ringkasan seluruh kegiatan usaha PT Jiwa Abdi Cinta" color="#5A8A6A" />
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -52,15 +52,15 @@ export default function Dashboard() {
           title="Total Pendapatan"
           value={formatCurrency(SAMPLE_STATS.totalRevenue)}
           change="+12.5%"
-          icon={<DollarSign className="w-5 h-5 text-[#d4a843]" />}
-          color="#d4a843"
+          icon={<DollarSign className="w-5 h-5 text-[#5A8A6A]" />}
+          color="#5A8A6A"
         />
         <StatCard
           title="Total Transaksi"
           value={SAMPLE_STATS.totalTransactions.toLocaleString('id-ID')}
           change="+8.3%"
-          icon={<Activity className="w-5 h-5 text-[#4ade80]" />}
-          color="#4ade80"
+          icon={<Activity className="w-5 h-5 text-[#8FB89B]" />}
+          color="#8FB89B"
         />
         <StatCard
           title="Mitra Aktif"
@@ -93,27 +93,27 @@ export default function Dashboard() {
               <AreaChart data={MONTHLY_REVENUE}>
                 <defs>
                   <linearGradient id="colorPerdagangan" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#d4a843" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#d4a843" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#5A8A6A" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#5A8A6A" stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorIndustri" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#4ade80" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#4ade80" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#8FB89B" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#8FB89B" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(212,168,67,0.1)" />
-                <XAxis dataKey="month" stroke="#8a8a9a" fontSize={10} />
-                <YAxis stroke="#8a8a9a" fontSize={10} />
+                <XAxis dataKey="month" stroke="#8B9A8B" fontSize={10} />
+                <YAxis stroke="#8B9A8B" fontSize={10} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#12121a',
+                    backgroundColor: '#FFFFFF',
                     border: '1px solid rgba(212,168,67,0.2)',
                     borderRadius: '8px',
                     fontSize: '12px',
                   }}
                 />
-                <Area type="monotone" dataKey="industri" stackId="1" stroke="#4ade80" fill="url(#colorIndustri)" />
-                <Area type="monotone" dataKey="perdagangan" stackId="1" stroke="#d4a843" fill="url(#colorPerdagangan)" />
+                <Area type="monotone" dataKey="industri" stackId="1" stroke="#8FB89B" fill="url(#colorIndustri)" />
+                <Area type="monotone" dataKey="perdagangan" stackId="1" stroke="#5A8A6A" fill="url(#colorPerdagangan)" />
                 <Area type="monotone" dataKey="konstruksi" stackId="1" stroke="#f97316" fillOpacity={0.1} />
                 <Area type="monotone" dataKey="jasa" stackId="1" stroke="#60a5fa" fillOpacity={0.1} />
                 <Area type="monotone" dataKey="pertanian" stackId="1" stroke="#22d3ee" fillOpacity={0.1} />
@@ -143,7 +143,7 @@ export default function Dashboard() {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#12121a',
+                    backgroundColor: '#FFFFFF',
                     border: '1px solid rgba(212,168,67,0.2)',
                     borderRadius: '8px',
                     fontSize: '12px',
@@ -178,8 +178,8 @@ export default function Dashboard() {
             {COMMODITY_PRICES.map((c) => (
               <div key={c.name} className="flex items-center justify-between py-2 border-b border-[rgba(212,168,67,0.05)] last:border-0">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#4ade80]/10 flex items-center justify-center">
-                    <Factory className="w-4 h-4 text-[#4ade80]" />
+                  <div className="w-8 h-8 rounded-lg bg-[#8FB89B]/10 flex items-center justify-center">
+                    <Factory className="w-4 h-4 text-[#8FB89B]" />
                   </div>
                   <div>
                     <p className="text-sm font-medium">{c.name}</p>
@@ -264,7 +264,7 @@ export default function Dashboard() {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span>Pesanan pending</span>
-              <span className="text-[#d4a843] font-bold">23</span>
+              <span className="text-[#5A8A6A] font-bold">23</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span>Tender berakhir</span>
@@ -285,36 +285,36 @@ export default function Dashboard() {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span>Pesanan dikirim</span>
-              <span className="text-[#4ade80] font-bold">187</span>
+              <span className="text-[#8FB89B] font-bold">187</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span>Proyek selesai</span>
-              <span className="text-[#4ade80] font-bold">4</span>
+              <span className="text-[#8FB89B] font-bold">4</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span>Booking jasa selesai</span>
-              <span className="text-[#4ade80] font-bold">42</span>
+              <span className="text-[#8FB89B] font-bold">42</span>
             </div>
           </div>
         </GlassCard>
 
         <GlassCard>
           <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="w-4 h-4 text-[#d4a843]" />
+            <TrendingUp className="w-4 h-4 text-[#5A8A6A]" />
             <h4 className="text-sm font-semibold">Pertumbuhan</h4>
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span>Revenue MoM</span>
-              <span className="text-[#4ade80] font-bold">+12.5%</span>
+              <span className="text-[#8FB89B] font-bold">+12.5%</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span>Mitra baru</span>
-              <span className="text-[#4ade80] font-bold">+15</span>
+              <span className="text-[#8FB89B] font-bold">+15</span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span>CPO price WoW</span>
-              <span className="text-[#4ade80] font-bold">+2.3%</span>
+              <span className="text-[#8FB89B] font-bold">+2.3%</span>
             </div>
           </div>
         </GlassCard>

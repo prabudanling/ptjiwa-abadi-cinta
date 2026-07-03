@@ -32,7 +32,7 @@ export default function ParticleCanvas() {
     resize()
     window.addEventListener('resize', resize)
 
-    const colors = ['#d4a843', '#4ade80', '#60a5fa', '#a78bfa']
+    const colors = ['#5A8A6A', '#8FB89B', '#60a5fa', '#a78bfa']
     
     // Initialize particles
     const particleCount = Math.min(80, Math.floor(window.innerWidth / 15))

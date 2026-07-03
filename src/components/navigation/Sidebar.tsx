@@ -19,7 +19,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 }
 
 const NAV_ITEMS: { id: AppView; label: string; icon: React.ReactNode; color: string }[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" />, color: '#d4a843' },
+  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" />, color: '#5A8A6A' },
   ...MODULES.map(m => ({
     id: m.id as AppView,
     label: m.name,
@@ -62,17 +62,17 @@ export default function Sidebar() {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={cn(
           'fixed left-0 top-0 h-full z-50 w-[260px] flex flex-col',
-          'bg-[#0d0d14] border-r border-[rgba(212,168,67,0.1)]'
+          'bg-[#FFFFFF] border-r border-[rgba(212,168,67,0.1)]'
         )}
       >
         {/* Logo */}
         <div className="p-4 border-b border-[rgba(212,168,67,0.1)]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#d4a843] flex items-center justify-center font-bold text-[#0a0a0f] text-sm neon-gold-glow">
+            <div className="w-10 h-10 rounded-lg bg-[#5A8A6A] flex items-center justify-center font-bold text-[#1A3D2A] text-sm neon-gold-glow">
               JAC
             </div>
             <div>
-              <h1 className="text-sm font-bold text-[#d4a843] neon-text-gold">{COMPANY.shortName}</h1>
+              <h1 className="text-sm font-bold text-[#5A8A6A] neon-text-gold">{COMPANY.shortName}</h1>
               <p className="text-[10px] text-muted-foreground">Super App</p>
             </div>
           </div>
@@ -120,8 +120,8 @@ export default function Sidebar() {
         {/* Footer */}
         <div className="p-3 border-t border-[rgba(212,168,67,0.1)]">
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 rounded-full bg-[#d4a843]/20 flex items-center justify-center">
-              <Crown className="w-4 h-4 text-[#d4a843]" />
+            <div className="w-8 h-8 rounded-full bg-[#5A8A6A]/20 flex items-center justify-center">
+              <Crown className="w-4 h-4 text-[#5A8A6A]" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium truncate">Wirono</p>
@@ -146,7 +146,7 @@ export default function Sidebar() {
           onClick={() => setSidebarOpen(true)}
           className="fixed top-4 left-4 z-50 p-2 rounded-lg glass hover:neon-gold-glow transition-all hidden lg:flex"
         >
-          <ChevronRight className="w-5 h-5 text-[#d4a843]" />
+          <ChevronRight className="w-5 h-5 text-[#5A8A6A]" />
         </motion.button>
       )}
     </>

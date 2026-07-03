@@ -52,8 +52,8 @@ export default function PertanianModule() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total Lahan" value="5,200 Ha" change="+700 Ha" icon={<MapPin className="w-5 h-5 text-[#22d3ee]" />} color="#22d3ee" />
-        <StatCard title="Produksi TBS/bln" value="530 ton" change="+8%" icon={<Sprout className="w-5 h-5 text-[#4ade80]" />} color="#4ade80" />
-        <StatCard title="Sertifikasi" value="4 Aktif" change="+1" icon={<Award className="w-5 h-5 text-[#d4a843]" />} color="#d4a843" />
+        <StatCard title="Produksi TBS/bln" value="530 ton" change="+8%" icon={<Sprout className="w-5 h-5 text-[#8FB89B]" />} color="#8FB89B" />
+        <StatCard title="Sertifikasi" value="4 Aktif" change="+1" icon={<Award className="w-5 h-5 text-[#5A8A6A]" />} color="#5A8A6A" />
         <StatCard title="Perikanan" value="3 Unit" icon={<Fish className="w-5 h-5 text-[#60a5fa]" />} color="#60a5fa" />
       </div>
 
@@ -94,7 +94,7 @@ export default function PertanianModule() {
                       </div>
                     </div>
                     <Badge className={`text-[10px] border-0 ${
-                      p.status === 'Produksi' ? 'bg-[#4ade80]/20 text-[#4ade80]' : 'bg-[#d4a843]/20 text-[#d4a843]'
+                      p.status === 'Produksi' ? 'bg-[#8FB89B]/20 text-[#8FB89B]' : 'bg-[#5A8A6A]/20 text-[#5A8A6A]'
                     }`}>
                       {p.status}
                     </Badge>
@@ -140,9 +140,9 @@ export default function PertanianModule() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(34,211,238,0.1)" />
-                  <XAxis dataKey="month" stroke="#8a8a9a" fontSize={10} />
-                  <YAxis stroke="#8a8a9a" fontSize={10} />
-                  <Tooltip contentStyle={{ backgroundColor: '#12121a', border: '1px solid rgba(34,211,238,0.2)', borderRadius: '8px', fontSize: '12px' }} />
+                  <XAxis dataKey="month" stroke="#8B9A8B" fontSize={10} />
+                  <YAxis stroke="#8B9A8B" fontSize={10} />
+                  <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(34,211,238,0.2)', borderRadius: '8px', fontSize: '12px' }} />
                   <Area type="monotone" dataKey="tonnage" stroke="#22d3ee" fill="url(#colorHarvest)" name="TBS (ton)" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -174,8 +174,8 @@ export default function PertanianModule() {
                     <div className="flex justify-between"><span className="text-muted-foreground">Tipe</span><span>{f.type}</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Spesies</span><span>{f.species}</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Kapasitas</span><span>{f.capacity}</span></div>
-                    <div className="flex justify-between"><span className="text-muted-foreground">Produksi</span><span className="text-[#4ade80]">{f.production}</span></div>
-                    <div className="flex justify-between"><span className="text-muted-foreground">Sertifikasi</span><span className="text-[#d4a843]">{f.certification}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Produksi</span><span className="text-[#8FB89B]">{f.production}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Sertifikasi</span><span className="text-[#5A8A6A]">{f.certification}</span></div>
                   </div>
                 </GlassCard>
               </motion.div>
@@ -207,7 +207,7 @@ export default function PertanianModule() {
                     <div className="flex justify-between"><span className="text-muted-foreground">Luas</span><span>{f.area.toLocaleString()} Ha</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Tipe</span><span>{f.type}</span></div>
                     <div className="flex justify-between"><span className="text-muted-foreground">Spesies</span><span>{f.species}</span></div>
-                    <div className="flex justify-between"><span className="text-muted-foreground">Sertifikasi</span><span className="text-[#d4a843]">{f.certification || '-'}</span></div>
+                    <div className="flex justify-between"><span className="text-muted-foreground">Sertifikasi</span><span className="text-[#5A8A6A]">{f.certification || '-'}</span></div>
                   </div>
                 </GlassCard>
               </motion.div>
@@ -219,8 +219,8 @@ export default function PertanianModule() {
           <h3 className="text-sm font-semibold">Sertifikasi Keberlanjutan</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { name: 'RSPO', fullName: 'Roundtable on Sustainable Palm Oil', status: 'Aktif', validUntil: '2026-12-31', areas: ['Kebun Sawit Riau Utara'], color: '#4ade80' },
-              { name: 'ISPO', fullName: 'Indonesian Sustainable Palm Oil', status: 'Aktif', validUntil: '2025-06-30', areas: ['Kebun Sawit Riau Utara', 'Kebun Sawit Kalimantan Timur', 'Kebun Sawit Sumatera Utara'], color: '#d4a843' },
+              { name: 'RSPO', fullName: 'Roundtable on Sustainable Palm Oil', status: 'Aktif', validUntil: '2026-12-31', areas: ['Kebun Sawit Riau Utara'], color: '#8FB89B' },
+              { name: 'ISPO', fullName: 'Indonesian Sustainable Palm Oil', status: 'Aktif', validUntil: '2025-06-30', areas: ['Kebun Sawit Riau Utara', 'Kebun Sawit Kalimantan Timur', 'Kebun Sawit Sumatera Utara'], color: '#5A8A6A' },
               { name: 'FSC', fullName: 'Forest Stewardship Council', status: 'Aktif', validUntil: '2026-03-15', areas: ['HTI Eucalyptus Riau', 'HTI Akasia Kalimantan'], color: '#22d3ee' },
               { name: 'ASC', fullName: 'Aquaculture Stewardship Council', status: 'Aktif', validUntil: '2025-09-20', areas: ['Tambak Udang Vannamei'], color: '#60a5fa' },
               { name: 'PEFC', fullName: 'Programme for Endorsement of Forest Certification', status: 'Pending', validUntil: '-', areas: ['HTI Akasia Kalimantan'], color: '#a78bfa' },
@@ -237,7 +237,7 @@ export default function PertanianModule() {
                       style={{ backgroundColor: `${cert.color}15` }}>
                       <FileCheck className="w-6 h-6" style={{ color: cert.color }} />
                     </div>
-                    <Badge className={`text-[10px] border-0 ${cert.status === 'Aktif' ? 'bg-[#4ade80]/20 text-[#4ade80]' : 'bg-[#d4a843]/20 text-[#d4a843]'}`}>
+                    <Badge className={`text-[10px] border-0 ${cert.status === 'Aktif' ? 'bg-[#8FB89B]/20 text-[#8FB89B]' : 'bg-[#5A8A6A]/20 text-[#5A8A6A]'}`}>
                       {cert.status}
                     </Badge>
                   </div>

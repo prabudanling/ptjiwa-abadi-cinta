@@ -33,7 +33,7 @@ const statusColors: Record<string, string> = {
   pending: '#eab308',
   confirmed: '#60a5fa',
   negotiated: '#a78bfa',
-  shipped: '#4ade80',
+  shipped: '#8FB89B',
   delivered: '#22d3ee',
   cancelled: '#ef4444',
 }
@@ -49,12 +49,12 @@ export default function PerdaganganModule() {
 
   return (
     <div className="space-y-6">
-      <ModuleHeader title="Modul Perdagangan" subtitle="Marketplace ekspor/impor, supplier, distributor — KBLI 46100, 46599, 47911, 46202, 71102" color="#d4a843" />
+      <ModuleHeader title="Modul Perdagangan" subtitle="Marketplace ekspor/impor, supplier, distributor — KBLI 46100, 46599, 47911, 46202, 71102" color="#5A8A6A" />
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Total Produk" value="1,247" change="+28" icon={<Package className="w-5 h-5 text-[#d4a843]" />} color="#d4a843" />
-        <StatCard title="Pesanan Aktif" value="156" change="+12" icon={<ShoppingCart className="w-5 h-5 text-[#4ade80]" />} color="#4ade80" />
+        <StatCard title="Total Produk" value="1,247" change="+28" icon={<Package className="w-5 h-5 text-[#5A8A6A]" />} color="#5A8A6A" />
+        <StatCard title="Pesanan Aktif" value="156" change="+12" icon={<ShoppingCart className="w-5 h-5 text-[#8FB89B]" />} color="#8FB89B" />
         <StatCard title="Supplier Terverifikasi" value="89" change="+5" icon={<Users className="w-5 h-5 text-[#60a5fa]" />} color="#60a5fa" />
         <StatCard title="Nilai Trading" value="Rp 47.2M" change="+18.5%" icon={<TrendingUp className="w-5 h-5 text-[#f97316]" />} color="#f97316" />
       </div>
@@ -77,7 +77,7 @@ export default function PerdaganganModule() {
                 placeholder="Cari produk, kategori, KBLI..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-[#12121a] border-[rgba(212,168,67,0.15)]"
+                className="pl-10 bg-[#FFFFFF] border-[rgba(212,168,67,0.15)]"
               />
             </div>
             <NeonButton variant="outline" size="sm">
@@ -102,29 +102,29 @@ export default function PerdaganganModule() {
                   <GlassCard className="h-full group">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-lg bg-[#d4a843]/10 flex items-center justify-center">
-                          <Package className="w-5 h-5 text-[#d4a843]" />
+                        <div className="w-10 h-10 rounded-lg bg-[#5A8A6A]/10 flex items-center justify-center">
+                          <Package className="w-5 h-5 text-[#5A8A6A]" />
                         </div>
                         <div>
-                          <Badge variant="outline" className="text-[10px] border-[#d4a843]/30 text-[#d4a843]">
+                          <Badge variant="outline" className="text-[10px] border-[#5A8A6A]/30 text-[#5A8A6A]">
                             {product.kbli}
                           </Badge>
                         </div>
                       </div>
                       {product.verified && (
-                        <div className="flex items-center gap-1 text-[10px] text-[#4ade80]">
-                          <Star className="w-3 h-3 fill-[#4ade80]" /> Verified
+                        <div className="flex items-center gap-1 text-[10px] text-[#8FB89B]">
+                          <Star className="w-3 h-3 fill-[#8FB89B]" /> Verified
                         </div>
                       )}
                     </div>
 
-                    <h4 className="font-semibold text-sm mb-1 group-hover:text-[#d4a843] transition-colors">{product.name}</h4>
+                    <h4 className="font-semibold text-sm mb-1 group-hover:text-[#5A8A6A] transition-colors">{product.name}</h4>
                     <p className="text-xs text-muted-foreground mb-3">{product.category}</p>
 
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-bold text-[#d4a843]">{product.price}</span>
+                      <span className="text-sm font-bold text-[#5A8A6A]">{product.price}</span>
                       <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <Star className="w-3 h-3 fill-[#d4a843] text-[#d4a843]" /> {product.rating}
+                        <Star className="w-3 h-3 fill-[#5A8A6A] text-[#5A8A6A]" /> {product.rating}
                       </div>
                     </div>
 
@@ -157,8 +157,8 @@ export default function PerdaganganModule() {
               <GlassCard key={order.id} className="!p-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#d4a843]/10 flex items-center justify-center">
-                      <ShoppingCart className="w-4 h-4 text-[#d4a843]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#5A8A6A]/10 flex items-center justify-center">
+                      <ShoppingCart className="w-4 h-4 text-[#5A8A6A]" />
                     </div>
                     <div>
                       <p className="text-sm font-medium">{order.id} — {order.buyer}</p>
@@ -191,20 +191,20 @@ export default function PerdaganganModule() {
             ].map((supplier, i) => (
               <GlassCard key={i}>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-full bg-[#d4a843]/10 flex items-center justify-center text-[#d4a843] font-bold">
+                  <div className="w-12 h-12 rounded-full bg-[#5A8A6A]/10 flex items-center justify-center text-[#5A8A6A] font-bold">
                     {supplier.name.charAt(3)}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <h4 className="font-semibold text-sm">{supplier.name}</h4>
-                      {supplier.verified && <Star className="w-3 h-3 fill-[#4ade80] text-[#4ade80]" />}
+                      {supplier.verified && <Star className="w-3 h-3 fill-[#8FB89B] text-[#8FB89B]" />}
                     </div>
                     <p className="text-xs text-muted-foreground">{supplier.type}</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span>{supplier.products} produk</span>
-                  <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-[#d4a843] text-[#d4a843]" /> {supplier.rating}</span>
+                  <span className="flex items-center gap-1"><Star className="w-3 h-3 fill-[#5A8A6A] text-[#5A8A6A]" /> {supplier.rating}</span>
                 </div>
               </GlassCard>
             ))}
@@ -222,16 +222,16 @@ export default function PerdaganganModule() {
               <GlassCard key={shipment.id}>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <Truck className="w-4 h-4 text-[#d4a843]" />
+                    <Truck className="w-4 h-4 text-[#5A8A6A]" />
                     <span className="text-sm font-medium">{shipment.id}</span>
                   </div>
-                  <Badge variant="outline" className="text-[10px]" style={{ borderColor: shipment.progress === 100 ? '#4ade80' : '#d4a843', color: shipment.progress === 100 ? '#4ade80' : '#d4a843' }}>
+                  <Badge variant="outline" className="text-[10px]" style={{ borderColor: shipment.progress === 100 ? '#8FB89B' : '#5A8A6A', color: shipment.progress === 100 ? '#8FB89B' : '#5A8A6A' }}>
                     {shipment.status}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-2 text-xs mb-2">
                   <span>{shipment.from}</span>
-                  <ArrowUpRight className="w-3 h-3 text-[#d4a843]" />
+                  <ArrowUpRight className="w-3 h-3 text-[#5A8A6A]" />
                   <span>{shipment.to}</span>
                   <span className="text-muted-foreground ml-auto">ETA: {shipment.eta}</span>
                 </div>
@@ -241,7 +241,7 @@ export default function PerdaganganModule() {
                     animate={{ width: `${shipment.progress}%` }}
                     transition={{ duration: 1, ease: 'easeOut' }}
                     className="h-full rounded-full"
-                    style={{ backgroundColor: shipment.progress === 100 ? '#4ade80' : '#d4a843' }}
+                    style={{ backgroundColor: shipment.progress === 100 ? '#8FB89B' : '#5A8A6A' }}
                   />
                 </div>
               </GlassCard>

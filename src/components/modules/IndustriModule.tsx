@@ -53,11 +53,11 @@ export default function IndustriModule() {
 
   return (
     <div className="space-y-6">
-      <ModuleHeader title="Modul Industri Sawit" subtitle="Trading CPO, minyak goreng, fraksinasi — KBLI 10433, 10434, 10435, 10436, 10437" color="#4ade80" />
+      <ModuleHeader title="Modul Industri Sawit" subtitle="Trading CPO, minyak goreng, fraksinasi — KBLI 10433, 10434, 10435, 10436, 10437" color="#8FB89B" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Harga CPO Hari Ini" value="Rp 14.85Jt/ton" change="+2.3%" icon={<DollarSign className="w-5 h-5 text-[#4ade80]" />} color="#4ade80" />
-        <StatCard title="Trading Volume" value="12,500 ton" change="+15%" icon={<BarChart3 className="w-5 h-5 text-[#d4a843]" />} color="#d4a843" />
+        <StatCard title="Harga CPO Hari Ini" value="Rp 14.85Jt/ton" change="+2.3%" icon={<DollarSign className="w-5 h-5 text-[#8FB89B]" />} color="#8FB89B" />
+        <StatCard title="Trading Volume" value="12,500 ton" change="+15%" icon={<BarChart3 className="w-5 h-5 text-[#5A8A6A]" />} color="#5A8A6A" />
         <StatCard title="Pabrik Aktif" value="3" icon={<Factory className="w-5 h-5 text-[#f97316]" />} color="#f97316" />
         <StatCard title="Kapasitas Gudang" value="12,500 ton" change="+2.1K" icon={<Warehouse className="w-5 h-5 text-[#60a5fa]" />} color="#60a5fa" />
       </div>
@@ -66,9 +66,9 @@ export default function IndustriModule() {
       <GlassCard>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold flex items-center gap-2">
-            <Activity className="w-4 h-4 text-[#4ade80] animate-pulse" /> Dashboard Harga Komoditas Real-Time
+            <Activity className="w-4 h-4 text-[#8FB89B] animate-pulse" /> Dashboard Harga Komoditas Real-Time
           </h3>
-          <Badge variant="outline" className="text-[10px] border-[#4ade80]/30 text-[#4ade80]">LIVE</Badge>
+          <Badge variant="outline" className="text-[10px] border-[#8FB89B]/30 text-[#8FB89B]">LIVE</Badge>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {COMMODITY_PRICES.map((c) => (
@@ -108,13 +108,13 @@ export default function IndustriModule() {
                 <GlassCard>
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#4ade80]/10 flex items-center justify-center">
-                        <Package className="w-5 h-5 text-[#4ade80]" />
+                      <div className="w-10 h-10 rounded-lg bg-[#8FB89B]/10 flex items-center justify-center">
+                        <Package className="w-5 h-5 text-[#8FB89B]" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="font-semibold text-sm">{trade.id}</h4>
-                          <Badge className={`text-[10px] border-0 ${trade.type === 'Jual' ? 'bg-[#4ade80]/20 text-[#4ade80]' : 'bg-[#60a5fa]/20 text-[#60a5fa]'}`}>
+                          <Badge className={`text-[10px] border-0 ${trade.type === 'Jual' ? 'bg-[#8FB89B]/20 text-[#8FB89B]' : 'bg-[#60a5fa]/20 text-[#60a5fa]'}`}>
                             {trade.type}
                           </Badge>
                         </div>
@@ -127,10 +127,10 @@ export default function IndustriModule() {
                         <p className="text-xs text-muted-foreground">@ {trade.price}</p>
                       </div>
                       <Badge className={`text-[10px] border-0 ${
-                        trade.status === 'confirmed' ? 'bg-[#d4a843]/20 text-[#d4a843]' :
+                        trade.status === 'confirmed' ? 'bg-[#5A8A6A]/20 text-[#5A8A6A]' :
                         trade.status === 'shipped' ? 'bg-[#60a5fa]/20 text-[#60a5fa]' :
-                        trade.status === 'delivered' ? 'bg-[#4ade80]/20 text-[#4ade80]' :
-                        'bg-[#8a8a9a]/20 text-[#8a8a9a]'
+                        trade.status === 'delivered' ? 'bg-[#8FB89B]/20 text-[#8FB89B]' :
+                        'bg-[#8B9A8B]/20 text-[#8B9A8B]'
                       }`}>
                         {trade.status}
                       </Badge>
@@ -150,24 +150,24 @@ export default function IndustriModule() {
                 <AreaChart data={PRICE_HISTORY}>
                   <defs>
                     <linearGradient id="colorCPO" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#4ade80" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#4ade80" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#8FB89B" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#8FB89B" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorMG" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d4a843" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#d4a843" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#5A8A6A" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#5A8A6A" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(74,222,128,0.1)" />
-                  <XAxis dataKey="month" stroke="#8a8a9a" fontSize={10} />
-                  <YAxis stroke="#8a8a9a" fontSize={10} />
+                  <XAxis dataKey="month" stroke="#8B9A8B" fontSize={10} />
+                  <YAxis stroke="#8B9A8B" fontSize={10} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#12121a', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '8px', fontSize: '12px' }}
+                    contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '8px', fontSize: '12px' }}
                     formatter={(value: number) => [`Rp ${(value).toLocaleString('id-ID')}`, '']}
                   />
-                  <Area type="monotone" dataKey="minyakGoreng" stroke="#d4a843" fill="url(#colorMG)" name="Minyak Goreng" />
+                  <Area type="monotone" dataKey="minyakGoreng" stroke="#5A8A6A" fill="url(#colorMG)" name="Minyak Goreng" />
                   <Area type="monotone" dataKey="olein" stroke="#60a5fa" fillOpacity={0.1} name="Olein" />
-                  <Area type="monotone" dataKey="cpo" stroke="#4ade80" fill="url(#colorCPO)" name="CPO" />
+                  <Area type="monotone" dataKey="cpo" stroke="#8FB89B" fill="url(#colorCPO)" name="CPO" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -183,8 +183,8 @@ export default function IndustriModule() {
                 {FACTORIES.map((f, i) => (
                   <GlassCard key={i}>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#4ade80]/10 flex items-center justify-center">
-                        <Factory className="w-5 h-5 text-[#4ade80]" />
+                      <div className="w-10 h-10 rounded-lg bg-[#8FB89B]/10 flex items-center justify-center">
+                        <Factory className="w-5 h-5 text-[#8FB89B]" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-sm">{f.name}</h4>
@@ -193,14 +193,14 @@ export default function IndustriModule() {
                     </div>
                     <div className="flex items-center justify-between text-xs mb-2">
                       <span>Kapasitas: {f.capacity}</span>
-                      <span className="font-bold text-[#4ade80]">{f.utilization}%</span>
+                      <span className="font-bold text-[#8FB89B]">{f.utilization}%</span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-[rgba(74,222,128,0.1)]">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${f.utilization}%` }}
                         transition={{ duration: 1.5 }}
-                        className="h-full rounded-full bg-[#4ade80]"
+                        className="h-full rounded-full bg-[#8FB89B]"
                       />
                     </div>
                   </GlassCard>
@@ -227,7 +227,7 @@ export default function IndustriModule() {
                       </div>
                       <div className="flex items-center justify-between text-xs mb-2">
                         <span>Stok: {w.stock} / {w.capacity}</span>
-                        <span className={`font-bold ${stockPercent > 80 ? 'text-red-400' : stockPercent > 50 ? 'text-[#d4a843]' : 'text-[#4ade80]'}`}>
+                        <span className={`font-bold ${stockPercent > 80 ? 'text-red-400' : stockPercent > 50 ? 'text-[#5A8A6A]' : 'text-[#8FB89B]'}`}>
                           {stockPercent.toFixed(0)}%
                         </span>
                       </div>
@@ -237,7 +237,7 @@ export default function IndustriModule() {
                           animate={{ width: `${stockPercent}%` }}
                           transition={{ duration: 1.5 }}
                           className="h-full rounded-full"
-                          style={{ backgroundColor: stockPercent > 80 ? '#ef4444' : stockPercent > 50 ? '#d4a843' : '#4ade80' }}
+                          style={{ backgroundColor: stockPercent > 80 ? '#ef4444' : stockPercent > 50 ? '#5A8A6A' : '#8FB89B' }}
                         />
                       </div>
                     </GlassCard>

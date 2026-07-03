@@ -1,0 +1,593 @@
+     1→'use client'
+     2→
+     3→import { useState, useRef, useEffect } from 'react'
+     4→import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+     5→import { PublicNav, PublicFooter, CtaBand, PageHero, PUBLIC_DESIGN } from '@/components/public/PublicChrome'
+     6→import { PROJECT_PORTFOLIO, PORTFOLIO_CATEGORIES, PORTFOLIO_STATS, LUXURY_ACCENTS } from '@/lib/company-data'
+     7→import { MapPin, Calendar, TrendingUp, ArrowUpRight, ArrowRight, Sparkles, Award } from 'lucide-react'
+     8→
+     9→const SERIF = PUBLIC_DESIGN.serif
+    10→
+    11→/* ============================================================
+    12→   ANIMATED COUNTER — counts up when in view, with prefix + suffix
+    13→   ============================================================ */
+    14→function Counter({
+    15→  value, prefix = '', suffix = '', duration = 2,
+    16→}: { value: number; prefix?: string; suffix?: string; duration?: number }) {
+    17→  const ref = useRef<HTMLSpanElement>(null)
+    18→  const inView = useInView(ref, { once: true, margin: '-50px' })
+    19→  const [display, setDisplay] = useState(0)
+    20→
+    21→  useEffect(() => {
+    22→    if (!inView) return
+    23→    let raf = 0
+    24→    const start = performance.now()
+    25→    const tick = (now: number) => {
+    26→      const t = Math.min((now - start) / (duration * 1000), 1)
+    27→      const eased = 1 - Math.pow(1 - t, 3)
+    28→      setDisplay(Math.round(eased * value))
+    29→      if (t < 1) raf = requestAnimationFrame(tick)
+    30→    }
+    31→    raf = requestAnimationFrame(tick)
+    32→    return () => cancelAnimationFrame(raf)
+    33→  }, [inView, value, duration])
+    34→
+    35→  return <span ref={ref}>{prefix}{display}{suffix}</span>
+    36→}
+    37→
+    38→/* ============================================================
+    39→   FADE-IN ON SCROLL — shared luxury entrance wrapper
+    40→   ============================================================ */
+    41→function FadeIn({
+    42→  children, delay = 0, className = '',
+    43→}: { children: React.ReactNode; delay?: number; className?: string }) {
+    44→  const ref = useRef(null)
+    45→  const inView = useInView(ref, { once: true, margin: '-50px' })
+    46→  return (
+    47→    <motion.div
+    48→      ref={ref}
+    49→      initial={{ opacity: 0, y: 30 }}
+    50→      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+    51→      transition={{ duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] }}
+    52→      className={className}
+    53→    >
+    54→      {children}
+    55→    </motion.div>
+    56→  )
+    57→}
+    58→
+    59→/* ============================================================
+    60→   ANIMATED PROGRESS BAR — fills on view
+    61→   ============================================================ */
+    62→function ProgressFill({ value, color }: { value: number; color: string }) {
+    63→  const ref = useRef<HTMLDivElement>(null)
+    64→  const inView = useInView(ref, { once: true, margin: '-30px' })
+    65→  return (
+    66→    <div ref={ref} className="w-full h-1 rounded-full bg-white/10 overflow-hidden" aria-hidden>
+    67→      <motion.div
+    68→        initial={{ width: 0 }}
+    69→        animate={inView ? { width: `${value}%` } : { width: 0 }}
+    70→        transition={{ duration: 1.3, ease: [0.25, 0.4, 0.25, 1] }}
+    71→        className="h-full rounded-full"
+    72→        style={{ background: `linear-gradient(90deg, ${color}, ${LUXURY_ACCENTS.goldBright})` }}
+    73→      />
+    74→    </div>
+    75→  )
+    76→}
+    77→
+    78→/* ============================================================
+    79→   FEATURED PICK — highest-value 'Selesai' project (fallback: first)
+    80→   ============================================================ */
+    81→function pickFeatured() {
+    82→  const numeric = (s: string) => parseFloat(s.replace(/[^\d.]/g, '')) || 0
+    83→  const done = PROJECT_PORTFOLIO.filter(p => p.status === 'Selesai')
+    84→  const pool = done.length > 0 ? done : PROJECT_PORTFOLIO
+    85→  return [...pool].sort((a, b) => numeric(b.value) - numeric(a.value))[0]
+    86→}
+    87→
+    88→const STAT_ICONS = [Award, TrendingUp, MapPin, Sparkles]
+    89→
+    90→/* ============================================================
+    91→   MAIN
+    92→   ============================================================ */
+    93→export default function PortfolioPage() {
+    94→  const [cat, setCat] = useState('Semua')
+    95→  const featured = pickFeatured()
+    96→  const filtered = cat === 'Semua'
+    97→    ? PROJECT_PORTFOLIO
+    98→    : PROJECT_PORTFOLIO.filter(p => p.category === cat)
+    99→
+   100→  /* Parallax for the stats band background */
+   101→  const statsRef = useRef<HTMLDivElement>(null)
+   102→  const { scrollYProgress: statsProgress } = useScroll({
+   103→    target: statsRef,
+   104→    offset: ['start end', 'end start'],
+   105→  })
+   106→  const yBg = useTransform(statsProgress, [0, 1], [-50, 70])
+   107→  const yGrid = useTransform(statsProgress, [0, 1], [-30, 30])
+   108→
+   109→  return (
+   110→    <div className="min-h-screen flex flex-col bg-[#F8FAF6] landing-page">
+   111→      <PublicNav />
+   112→      <main className="flex-1">
+   113→        <PageHero
+   114→          label="Proyek & Portofolio"
+   115→          title="Karya Nyata Lintas Indonesia"
+   116→          subtitle="Showcase proyek dan pencapaian nyata di lima bidang usaha — dari konstruksi infrastruktur strategis hingga ekspor komoditas bersertifikasi, tersebar di 14 provinsi penjuru Nusantara."
+   117→        />
+   118→
+   119→        {/* ============== STATS BAND (dark emerald + parallax) ============== */}
+   120→        <section
+   121→          ref={statsRef}
+   122→          className="relative py-20 lg:py-28 overflow-hidden"
+   123→          style={{ background: `linear-gradient(135deg, ${LUXURY_ACCENTS.emerald} 0%, ${LUXURY_ACCENTS.emeraldDeep} 100%)` }}
+   124→          aria-labelledby="stats-heading"
+   125→        >
+   126→          {/* Parallax gold grid overlay */}
+   127→          <motion.div
+   128→            style={{ y: yBg }}
+   129→            className="absolute inset-0 opacity-[0.06] pointer-events-none"
+   130→            aria-hidden
+   131→          >
+   132→            <div
+   133→              className="absolute inset-0"
+   134→              style={{
+   135→                backgroundImage: `linear-gradient(${LUXURY_ACCENTS.goldPale} 1px, transparent 1px), linear-gradient(90deg, ${LUXURY_ACCENTS.goldPale} 1px, transparent 1px)`,
+   136→                backgroundSize: '60px 60px',
+   137→              }}
+   138→            />
+   139→          </motion.div>
+   140→          {/* Gold particle dots overlay */}
+   141→          <div
+   142→            className="absolute inset-0 opacity-[0.08] pointer-events-none"
+   143→            aria-hidden
+   144→            style={{
+   145→              backgroundImage: 'radial-gradient(#F0E4B8 1.5px, transparent 1.5px)',
+   146→              backgroundSize: '40px 40px',
+   147→            }}
+   148→          />
+   149→          {/* Floating glow orbs */}
+   150→          <motion.div
+   151→            animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.45, 0.2] }}
+   152→            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+   153→            className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+   154→            style={{ background: 'radial-gradient(circle, rgba(212,168,67,0.18), transparent 70%)', filter: 'blur(40px)' }}
+   155→            aria-hidden
+   156→          />
+   157→          <motion.div
+   158→            animate={{ scale: [1.1, 1, 1.1], opacity: [0.15, 0.35, 0.15] }}
+   159→            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+   160→            className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+   161→            style={{ background: 'radial-gradient(circle, rgba(27,122,110,0.25), transparent 70%)', filter: 'blur(50px)' }}
+   162→            aria-hidden
+   163→          />
+   164→
+   165→          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   166→            <FadeIn>
+   167→              <div className="text-center mb-14">
+   168→                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E8D9A0]/30 bg-[#E8D9A0]/5 backdrop-blur-sm mb-5">
+   169→                  <Sparkles className="w-3.5 h-3.5 text-[#F0E4B8]" />
+   170→                  <span className="text-[#F0E4B8] text-xs font-semibold tracking-[0.2em] uppercase">Dalam Angka</span>
+   171→                </span>
+   172→                <h2
+   173→                  id="stats-heading"
+   174→                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white"
+   175→                  style={{ fontFamily: SERIF }}
+   176→                >
+   177→                  Jejak Nyata yang Terukur
+   178→                </h2>
+   179→              </div>
+   180→            </FadeIn>
+   181→
+   182→            <motion.div
+   183→              style={{ y: yGrid }}
+   184→              className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
+   185→            >
+   186→              {PORTFOLIO_STATS.map((st, i) => {
+   187→                const Icon = STAT_ICONS[i] || Sparkles
+   188→                return (
+   189→                  <FadeIn key={i} delay={i * 0.1}>
+   190→                    <div className="relative h-full rounded-sm border border-[#E8D9A0]/20 bg-white/[0.04] backdrop-blur-md p-6 lg:p-7 overflow-hidden">
+   191→                      {/* Gold accent top bar */}
+   192→                      <span
+   193→                        className="absolute top-0 left-0 right-0 h-0.5"
+   194→                        style={{ background: `linear-gradient(90deg, transparent, ${LUXURY_ACCENTS.goldBright}, transparent)` }}
+   195→                        aria-hidden
+   196→                      />
+   197→                      <div className="flex items-center justify-between mb-4">
+   198→                        <div
+   199→                          className="w-10 h-10 rounded-sm flex items-center justify-center"
+   200→                          style={{ backgroundColor: `${LUXURY_ACCENTS.gold}20`, color: LUXURY_ACCENTS.goldBright }}
+   201→                        >
+   202→                          <Icon className="w-4 h-4" />
+   203→                        </div>
+   204→                        <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/30">
+   205→                          0{i + 1}
+   206→                        </span>
+   207→                      </div>
+   208→                      <p
+   209→                        className="text-3xl lg:text-4xl font-bold mb-1"
+   210→                        style={{ fontFamily: SERIF, color: LUXURY_ACCENTS.goldPale }}
+   211→                      >
+   212→                        <Counter value={st.value} prefix={st.prefix} suffix={st.suffix} />
+   213→                      </p>
+   214→                      <p className="text-xs sm:text-sm text-white/55 leading-snug">{st.label}</p>
+   215→                    </div>
+   216→                  </FadeIn>
+   217→                )
+   218→              })}
+   219→            </motion.div>
+   220→
+   221→            <FadeIn delay={0.3}>
+   222→              <div className="text-center mt-12">
+   223→                <button
+   224→                  onClick={() => document.getElementById('portfolio-grid')?.scrollIntoView({ behavior: 'smooth' })}
+   225→                  className="inline-flex items-center gap-2 text-[#F0E4B8] text-sm font-medium hover:gap-3 transition-all duration-300"
+   226→                >
+   227→                  Pelajari lebih lanjut
+   228→                  <ArrowRight className="w-4 h-4" />
+   229→                </button>
+   230→              </div>
+   231→            </FadeIn>
+   232→          </div>
+   233→        </section>
+   234→
+   235→        {/* ============== FEATURED PROJECT (cream) ============== */}
+   236→        <section
+   237→          className="py-20 lg:py-28 bg-[#F8FAF6] relative overflow-hidden"
+   238→          aria-labelledby="featured-heading"
+   239→        >
+   240→          {/* Soft gold glow corner */}
+   241→          <div
+   242→            className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
+   243→            style={{ background: 'radial-gradient(circle, rgba(212,168,67,0.07), transparent 70%)', filter: 'blur(40px)' }}
+   244→            aria-hidden
+   245→          />
+   246→          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   247→            <FadeIn>
+   248→              <div className="mb-10 max-w-2xl">
+   249→                <span className="text-[#C9A961] text-xs font-semibold tracking-[0.2em] uppercase">
+   250→                  Proyek Unggulan
+   251→                </span>
+   252→                <h2
+   253→                  id="featured-heading"
+   254→                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A3D2A] mt-3"
+   255→                  style={{ fontFamily: SERIF }}
+   256→                >
+   257→                  Sorotan Eksekusi Terbesar
+   258→                </h2>
+   259→              </div>
+   260→            </FadeIn>
+   261→
+   262→            <FadeIn delay={0.15}>
+   263→              <article className="grid grid-cols-1 lg:grid-cols-2 rounded-sm overflow-hidden border border-[#D4E0D4] bg-white shadow-xl">
+   264→                {/* Left: rich gradient panel */}
+   265→                <div
+   266→                  className="relative min-h-[280px] lg:min-h-[540px] flex items-center justify-center p-10 overflow-hidden"
+   267→                  style={{ background: `linear-gradient(135deg, ${featured.categoryColor}, ${featured.categoryColor}b3)` }}
+   268→                  aria-hidden
+   269→                >
+   270→                  {/* Featured badge */}
+   271→                  <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/30">
+   272→                    <Award className="w-3.5 h-3.5 text-[#F0E4B8]" />
+   273→                    <span className="text-white text-[10px] font-bold tracking-[0.25em] uppercase">Featured</span>
+   274→                  </div>
+   275→                  {/* Decorative pattern overlays */}
+   276→                  <div
+   277→                    className="absolute inset-0 opacity-25"
+   278→                    style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white, transparent 60%)' }}
+   279→                  />
+   280→                  <div
+   281→                    className="absolute inset-0 opacity-[0.1]"
+   282→                    style={{
+   283→                      backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)',
+   284→                      backgroundSize: '40px 40px',
+   285→                    }}
+   286→                  />
+   287→                  {/* Big floating icon */}
+   288→                  <motion.div
+   289→                    animate={{ y: [0, -8, 0] }}
+   290→                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+   291→                    className="relative w-32 h-32 rounded-full flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/30"
+   292→                  >
+   293→                    <TrendingUp className="w-14 h-14 text-white" />
+   294→                  </motion.div>
+   295→                  {/* Bottom meta */}
+   296→                  <div className="absolute bottom-6 left-6">
+   297→                    <span className="text-white/80 text-xs font-semibold tracking-[0.25em] uppercase">
+   298→                      {featured.category}
+   299→                    </span>
+   300→                  </div>
+   301→                  <div className="absolute bottom-6 right-6 flex items-center gap-1.5 text-white/70 text-xs">
+   302→                    <Calendar className="w-3 h-3" />
+   303→                    <span>{featured.year}</span>
+   304→                  </div>
+   305→                </div>
+   306→
+   307→                {/* Right: content panel */}
+   308→                <div className="p-8 lg:p-12 flex flex-col">
+   309→                  <div className="flex flex-wrap items-center gap-3 mb-4">
+   310→                    <span
+   311→                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[10px] font-bold tracking-[0.15em] uppercase"
+   312→                      style={{ backgroundColor: `${featured.categoryColor}15`, color: featured.categoryColor }}
+   313→                    >
+   314→                      {featured.category}
+   315→                    </span>
+   316→                    <span className="flex items-center gap-1 text-xs text-[#8B9A8B]">
+   317→                      <Calendar className="w-3 h-3" />
+   318→                      {featured.year}
+   319→                    </span>
+   320→                  </div>
+   321→
+   322→                  <h3
+   323→                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A3D2A] mb-3 leading-tight"
+   324→                    style={{ fontFamily: SERIF }}
+   325→                  >
+   326→                    {featured.title}
+   327→                  </h3>
+   328→                  <p className="flex items-center gap-1.5 text-sm text-[#5A7A6A] mb-4">
+   329→                    <MapPin className="w-3.5 h-3.5 text-[#C9A961]" />
+   330→                    {featured.location}
+   331→                  </p>
+   332→                  <p className="text-sm text-[#5A7A6A] leading-relaxed mb-6">
+   333→                    {featured.description}
+   334→                  </p>
+   335→
+   336→                  {/* Metrics mini-cards */}
+   337→                  <div className="grid grid-cols-3 gap-3 mb-6">
+   338→                    {featured.metrics.map((m, i) => (
+   339→                      <div
+   340→                        key={i}
+   341→                        className="rounded-sm border border-[#D4E0D4] bg-[#F8FAF6] p-3 text-center"
+   342→                      >
+   343→                        <p
+   344→                          className="text-base lg:text-lg font-bold text-[#2D5A3D]"
+   345→                          style={{ fontFamily: SERIF }}
+   346→                        >
+   347→                          {m.v}
+   348→                        </p>
+   349→                        <p className="text-[10px] text-[#8B9A8B] mt-0.5 uppercase tracking-wider">
+   350→                          {m.k}
+   351→                        </p>
+   352→                      </div>
+   353→                    ))}
+   354→                  </div>
+   355→
+   356→                  {/* Footer row */}
+   357→                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[#D4E0D4]">
+   358→                    <div>
+   359→                      <p className="text-[10px] text-[#8B9A8B] uppercase tracking-[0.15em]">Nilai Proyek</p>
+   360→                      <p
+   361→                        className="text-2xl font-bold text-[#2D5A3D]"
+   362→                        style={{ fontFamily: SERIF }}
+   363→                      >
+   364→                        {featured.value}
+   365→                      </p>
+   366→                    </div>
+   367→                    <span
+   368→                      className="inline-flex items-center px-3 py-1 rounded-sm text-xs font-bold tracking-wide uppercase"
+   369→                      style={{ backgroundColor: '#6A9A7F20', color: '#6A9A7F' }}
+   370→                    >
+   371→                      {featured.status}
+   372→                    </span>
+   373→                    <button
+   374→                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-sm text-sm font-medium text-white transition-all duration-300 group"
+   375→                      style={{ background: 'linear-gradient(135deg, #2D5A3D, #6A9A7F)' }}
+   376→                      onClick={() => document.getElementById('portfolio-grid')?.scrollIntoView({ behavior: 'smooth' })}
+   377→                    >
+   378→                      Lihat detail
+   379→                      <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+   380→                    </button>
+   381→                  </div>
+   382→                </div>
+   383→              </article>
+   384→            </FadeIn>
+   385→          </div>
+   386→        </section>
+   387→
+   388→        {/* ============== GRID: ALL PROJECTS (dark emerald) ============== */}
+   389→        <section
+   390→          id="portfolio-grid"
+   391→          className="relative py-20 lg:py-28 overflow-hidden scroll-mt-20"
+   392→          style={{ background: `linear-gradient(180deg, ${LUXURY_ACCENTS.charcoal} 0%, ${LUXURY_ACCENTS.emeraldDeep} 100%)` }}
+   393→          aria-labelledby="grid-heading"
+   394→        >
+   395→          <div
+   396→            className="absolute inset-0 opacity-[0.04] pointer-events-none"
+   397→            aria-hidden
+   398→            style={{
+   399→              backgroundImage: 'radial-gradient(#F0E4B8 1px, transparent 1px)',
+   400→              backgroundSize: '30px 30px',
+   401→            }}
+   402→          />
+   403→          <div
+   404→            className="absolute top-1/3 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+   405→            style={{ background: 'radial-gradient(circle, rgba(184,134,11,0.12), transparent 70%)', filter: 'blur(50px)' }}
+   406→            aria-hidden
+   407→          />
+   408→
+   409→          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   410→            <FadeIn>
+   411→              <div className="text-center mb-10">
+   412→                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E8D9A0]/30 bg-[#E8D9A0]/5 backdrop-blur-sm mb-5">
+   413→                  <Sparkles className="w-3.5 h-3.5 text-[#F0E4B8]" />
+   414→                  <span className="text-[#F0E4B8] text-xs font-semibold tracking-[0.2em] uppercase">Katalog</span>
+   415→                </span>
+   416→                <h2
+   417→                  id="grid-heading"
+   418→                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3"
+   419→                  style={{ fontFamily: SERIF }}
+   420→                >
+   421→                  Semua Proyek
+   422→                </h2>
+   423→                <p className="text-white/55 max-w-xl mx-auto text-sm sm:text-base">
+   424→                  Jelajahi portofolio lengkap kami — filter berdasarkan bidang usaha untuk melihat eksekusi lintas industri.
+   425→                </p>
+   426→              </div>
+   427→            </FadeIn>
+   428→
+   429→            {/* Filter pills */}
+   430→            <FadeIn delay={0.1}>
+   431→              <div
+   432→                className="flex flex-wrap items-center justify-center gap-2 mb-12"
+   433→                role="tablist"
+   434→                aria-label="Filter proyek berdasarkan kategori"
+   435→              >
+   436→                {PORTFOLIO_CATEGORIES.map(c => {
+   437→                  const active = cat === c
+   438→                  return (
+   439→                    <button
+   440→                      key={c}
+   441→                      role="tab"
+   442→                      aria-selected={active}
+   443→                      onClick={() => setCat(c)}
+   444→                      className="px-4 py-2 rounded-sm text-xs font-medium tracking-wide transition-all duration-300"
+   445→                      style={active
+   446→                        ? { background: 'linear-gradient(135deg, #2D5A3D, #6A9A7F)', color: '#FFFFFF', border: '1px solid rgba(212,168,67,0.4)', boxShadow: '0 4px 16px rgba(13,80,60,0.4)' }
+   447→                        : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.65)' }
+   448→                      }
+   449→                      onMouseEnter={(e) => {
+   450→                        if (!active) {
+   451→                          e.currentTarget.style.borderColor = 'rgba(212,168,67,0.4)'
+   452→                          e.currentTarget.style.color = '#F0E4B8'
+   453→                        }
+   454→                      }}
+   455→                      onMouseLeave={(e) => {
+   456→                        if (!active) {
+   457→                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
+   458→                          e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
+   459→                        }
+   460→                      }}
+   461→                    >
+   462→                      {c}
+   463→                    </button>
+   464→                  )
+   465→                })}
+   466→              </div>
+   467→            </FadeIn>
+   468→
+   469→            {/* Grid with AnimatePresence */}
+   470→            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+   471→              <AnimatePresence mode="popLayout">
+   472→                {filtered.map((p, i) => (
+   473→                  <motion.article
+   474→                    key={p.id}
+   475→                    layout
+   476→                    initial={{ opacity: 0, scale: 0.92, y: 20 }}
+   477→                    animate={{ opacity: 1, scale: 1, y: 0 }}
+   478→                    exit={{ opacity: 0, scale: 0.92 }}
+   479→                    transition={{ duration: 0.35, delay: i * 0.04, ease: [0.25, 0.4, 0.25, 1] }}
+   480→                    whileHover={{ y: -6 }}
+   481→                    className="group relative rounded-sm overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-md flex flex-col"
+   482→                    aria-label={`${p.title} — ${p.category}, ${p.location}`}
+   483→                  >
+   484→                    {/* Top gradient panel with decorative icon */}
+   485→                    <div
+   486→                      className="relative h-32 overflow-hidden flex items-center justify-center"
+   487→                      style={{ background: `linear-gradient(135deg, ${p.categoryColor}, ${p.categoryColor}b3)` }}
+   488→                      aria-hidden
+   489→                    >
+   490→                      <div
+   491→                        className="absolute inset-0 opacity-25"
+   492→                        style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, white, transparent 60%)' }}
+   493→                      />
+   494→                      <motion.div
+   495→                        whileHover={{ scale: 1.15, rotate: 5 }}
+   496→                        transition={{ duration: 0.4 }}
+   497→                        className="relative w-14 h-14 rounded-full flex items-center justify-center bg-white/20 backdrop-blur-sm border border-white/30"
+   498→                      >
+   499→                        <TrendingUp className="w-6 h-6 text-white" />
+   500→                      </motion.div>
+   501→                      {/* Category pill top-left */}
+   502→                      <span className="absolute top-3 left-3 text-[10px] font-bold tracking-[0.15em] uppercase text-white/95 px-2 py-0.5 rounded-sm bg-black/25 backdrop-blur-sm">
+   503→                        {p.category}
+   504→                      </span>
+   505→                      {/* Year top-right */}
+   506→                      <span className="absolute top-3 right-3 flex items-center gap-1 text-[10px] text-white/85">
+   507→                        <Calendar className="w-3 h-3" />
+   508→                        {p.year}
+   509→                      </span>
+   510→                    </div>
+   511→
+   512→                    {/* Body */}
+   513→                    <div className="p-5 flex-1 flex flex-col">
+   514→                      <h3
+   515→                        className="text-base lg:text-lg font-bold text-white mb-1.5 leading-snug group-hover:text-[#F0E4B8] transition-colors duration-300"
+   516→                        style={{ fontFamily: SERIF }}
+   517→                      >
+   518→                        {p.title}
+   519→                      </h3>
+   520→                      <p className="flex items-center gap-1 text-xs text-white/50 mb-2">
+   521→                        <MapPin className="w-3 h-3" />
+   522→                        {p.location}
+   523→                      </p>
+   524→                      <p className="text-xs text-white/60 leading-relaxed mb-3 flex-1">
+   525→                        {p.description}
+   526→                      </p>
+   527→
+   528→                      {/* Progress bar for Berlangsung */}
+   529→                      {p.status === 'Berlangsung' && (
+   530→                        <div className="mb-3">
+   531→                          <div className="flex items-center justify-between mb-1.5">
+   532→                            <span className="text-[10px] text-white/40 uppercase tracking-[0.15em]">Progres</span>
+   533→                            <span className="text-[10px] font-bold text-[#F0E4B8]">{p.progress}%</span>
+   534→                          </div>
+   535→                          <ProgressFill value={p.progress} color={p.categoryColor} />
+   536→                        </div>
+   537→                      )}
+   538→
+   539→                      {/* Footer */}
+   540→                      <div className="flex items-center justify-between pt-3 border-t border-white/10">
+   541→                        <span
+   542→                          className="text-sm font-bold"
+   543→                          style={{ fontFamily: SERIF, color: LUXURY_ACCENTS.goldPale }}
+   544→                        >
+   545→                          {p.value}
+   546→                        </span>
+   547→                        <span
+   548→                          className="inline-flex items-center px-2 py-0.5 rounded-sm text-[10px] font-bold tracking-wide uppercase"
+   549→                          style={p.status === 'Selesai'
+   550→                            ? { backgroundColor: 'rgba(27,122,110,0.18)', color: '#8FB89B' }
+   551→                            : { backgroundColor: 'rgba(212,168,67,0.18)', color: '#F0E4B8' }
+   552→                          }
+   553→                        >
+   554→                          {p.status}
+   555→                        </span>
+   556→                      </div>
+   557→                    </div>
+   558→
+   559→                    {/* Border glow on hover */}
+   560→                    <span
+   561→                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-sm"
+   562→                      style={{ boxShadow: `inset 0 0 30px ${p.categoryColor}30, 0 8px 30px ${p.categoryColor}25` }}
+   563→                      aria-hidden
+   564→                    />
+   565→                  </motion.article>
+   566→                ))}
+   567→              </AnimatePresence>
+   568→            </motion.div>
+   569→
+   570→            {/* Empty state */}
+   571→            {filtered.length === 0 && (
+   572→              <div className="text-center py-16">
+   573→                <p className="text-white/40 text-sm">Tidak ada proyek pada kategori ini.</p>
+   574→                <button
+   575→                  onClick={() => setCat('Semua')}
+   576→                  className="mt-3 text-[#F0E4B8] text-sm font-medium hover:underline transition-colors"
+   577→                >
+   578→                  Lihat semua proyek
+   579→                </button>
+   580→              </div>
+   581→            )}
+   582→          </div>
+   583→        </section>
+   584→      </main>
+   585→      <CtaBand
+   586→        title="Punya Proyek yang Ingin Diwujudkan?"
+   587→        subtitle="Diskusikan kebutuhan proyek Anda dengan tim ahli JAC — dari konsep, perencanaan, hingga eksekusi lintas lima bidang usaha."
+   588→      />
+   589→      <PublicFooter />
+   590→    </div>
+   591→  )
+   592→}
+   593→

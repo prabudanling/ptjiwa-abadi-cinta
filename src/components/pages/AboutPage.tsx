@@ -34,8 +34,8 @@ const diffIcons: Record<string, React.ReactNode> = {
    ============================================================ */
 const DEPT_COLORS: Record<string, string> = {
   perdagangan: '#C9A961',
-  jasa: '#1E3A5F',
-  konstruksi: '#C75B39',
+  jasa: '#9B8FB8',
+  konstruksi: '#D99B7A',
   industri: '#8FB89B',
   pertanian: '#6A9A7F',
 }
@@ -71,15 +71,15 @@ function OrgTierLabel({ index, name, description, center }: {
         <span className="text-[#C9A961] text-[10px] font-bold tracking-[0.2em] uppercase">
           Tingkat {index}
         </span>
-        <span className="w-8 h-px bg-[#E0D8C8]" aria-hidden="true" />
+        <span className="w-8 h-px bg-[#D4E0D4]" aria-hidden="true" />
       </div>
       <h3
-        className="text-lg sm:text-xl font-bold text-[#1A1430] mt-1.5"
+        className="text-lg sm:text-xl font-bold text-[#1A3D2A] mt-1.5"
         style={{ fontFamily: PUBLIC_DESIGN.serif }}
       >
         {name}
       </h3>
-      <p className="text-xs sm:text-sm text-[#6B5E80] mt-1 max-w-xl mx-auto leading-relaxed">
+      <p className="text-xs sm:text-sm text-[#5A7A6A] mt-1 max-w-xl mx-auto leading-relaxed">
         {description}
       </p>
     </div>
@@ -90,7 +90,7 @@ function OrgTierLabel({ index, name, description, center }: {
 function OrgMemberCard({ member, withDept }: { member: OrgMember; withDept?: boolean }) {
   const deptColor = withDept && member.dept ? DEPT_COLORS[member.dept] : null
   return (
-    <div className="bg-white border border-[#E0D8C8] rounded-sm p-5 relative overflow-hidden h-full hover:shadow-md hover:border-[#3A2D5C]/30 transition-all">
+    <div className="bg-white border border-[#D4E0D4] rounded-sm p-5 relative overflow-hidden h-full hover:shadow-md hover:border-[#2D5A3D]/30 transition-all">
       {deptColor && (
         <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: deptColor }} aria-hidden="true" />
       )}
@@ -104,13 +104,13 @@ function OrgMemberCard({ member, withDept }: { member: OrgMember; withDept?: boo
             <Building2 className="w-4 h-4" />
           </div>
         ) : (
-          <div className="w-9 h-9 rounded-sm bg-[#3A2D5C]/10 text-[#3A2D5C] flex items-center justify-center flex-shrink-0" aria-hidden="true">
+          <div className="w-9 h-9 rounded-sm bg-[#2D5A3D]/10 text-[#2D5A3D] flex items-center justify-center flex-shrink-0" aria-hidden="true">
             <Building2 className="w-4 h-4" />
           </div>
         )}
         <div className="min-w-0">
-          <div className="text-sm font-bold text-[#1A1430] leading-tight">{member.name}</div>
-          <div className="text-xs text-[#6B5E80] mt-1 leading-snug">{member.role}</div>
+          <div className="text-sm font-bold text-[#1A3D2A] leading-tight">{member.name}</div>
+          <div className="text-xs text-[#5A7A6A] mt-1 leading-snug">{member.role}</div>
         </div>
       </div>
     </div>
@@ -134,14 +134,14 @@ function OrgRow({ members, withDept, layout }: {
     <div className="relative">
       {/* Horizontal connector bar (visible only on lg for a clean org-chart look) */}
       <div
-        className={`hidden lg:block absolute top-0 h-px bg-[#3A2D5C]/30 ${barCls}`}
+        className={`hidden lg:block absolute top-0 h-px bg-[#2D5A3D]/30 ${barCls}`}
         aria-hidden="true"
       />
       <div className={`grid gap-4 ${gridCls}`}>
         {members.map((m, i) => (
           <div key={i} className="flex flex-col items-center">
             {/* Vertical drop above each card */}
-            <div className="w-px h-7 bg-[#3A2D5C]/30" aria-hidden="true" />
+            <div className="w-px h-7 bg-[#2D5A3D]/30" aria-hidden="true" />
             <div className="w-full">
               <OrgMemberCard member={m} withDept={withDept} />
             </div>
@@ -154,7 +154,7 @@ function OrgRow({ members, withDept, layout }: {
 
 /** Vertical connector between org chart tiers. */
 function VConnector() {
-  return <div className="w-px h-10 bg-[#3A2D5C]/30 mx-auto" aria-hidden="true" />
+  return <div className="w-px h-10 bg-[#2D5A3D]/30 mx-auto" aria-hidden="true" />
 }
 
 /* ============================================================
@@ -176,7 +176,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F4ED] landing-page">
+    <div className="min-h-screen flex flex-col bg-[#F8FAF6] landing-page">
       <PublicNav />
       <main className="flex-1">
         <PageHero
@@ -195,7 +195,7 @@ export default function AboutPage() {
                 <SectionLabel>Visi &amp; Misi</SectionLabel>
                 <h2
                   id="visi-misi-heading"
-                  className="text-3xl sm:text-4xl font-bold text-[#1A1430] mt-3"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Arah Strategis &amp; Tujuan Perusahaan
@@ -204,13 +204,13 @@ export default function AboutPage() {
             </FadeIn>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               <FadeIn>
-                <div className="bg-white border border-[#E0D8C8] rounded-sm p-8 lg:p-10 h-full relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-[#3A2D5C]" aria-hidden="true" />
+                <div className="bg-white border border-[#D4E0D4] rounded-sm p-8 lg:p-10 h-full relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-[#2D5A3D]" aria-hidden="true" />
                   <div className="text-[#C9A961] text-xs font-semibold tracking-[0.2em] uppercase mb-5">
                     Visi
                   </div>
                   <p
-                    className="text-xl sm:text-2xl text-[#1A1430] leading-relaxed"
+                    className="text-xl sm:text-2xl text-[#1A3D2A] leading-relaxed"
                     style={{ fontFamily: PUBLIC_DESIGN.serif }}
                   >
                     &ldquo;{VISION}&rdquo;
@@ -218,7 +218,7 @@ export default function AboutPage() {
                 </div>
               </FadeIn>
               <FadeIn delay={0.1}>
-                <div className="bg-white border border-[#E0D8C8] rounded-sm p-8 lg:p-10 h-full">
+                <div className="bg-white border border-[#D4E0D4] rounded-sm p-8 lg:p-10 h-full">
                   <div className="text-[#C9A961] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
                     Misi
                   </div>
@@ -226,12 +226,12 @@ export default function AboutPage() {
                     {MISSION.map((m, i) => (
                       <li key={i} className="flex gap-4">
                         <span
-                          className="flex-shrink-0 w-7 h-7 rounded-sm bg-[#3A2D5C] text-white text-xs font-bold flex items-center justify-center"
+                          className="flex-shrink-0 w-7 h-7 rounded-sm bg-[#2D5A3D] text-white text-xs font-bold flex items-center justify-center"
                           style={{ fontFamily: PUBLIC_DESIGN.serif }}
                         >
                           {i + 1}
                         </span>
-                        <span className="text-[#3A2D5C] leading-relaxed text-sm sm:text-base pt-0.5">
+                        <span className="text-[#2D5A3D] leading-relaxed text-sm sm:text-base pt-0.5">
                           {m}
                         </span>
                       </li>
@@ -246,14 +246,14 @@ export default function AboutPage() {
         {/* ====================================================
             Section 2: Nilai-Nilai Perusahaan
             ==================================================== */}
-        <section className="py-20 lg:py-28 bg-white border-y border-[#E0D8C8]" aria-labelledby="nilai-heading">
+        <section className="py-20 lg:py-28 bg-white border-y border-[#D4E0D4]" aria-labelledby="nilai-heading">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="mb-12 max-w-2xl">
                 <SectionLabel>Nilai-Nilai Perusahaan</SectionLabel>
                 <h2
                   id="nilai-heading"
-                  className="text-3xl sm:text-4xl font-bold text-[#1A1430] mt-3"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Enam Pilar Karakter JAC
@@ -263,7 +263,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {COMPANY_VALUES.map((v, i) => (
                 <FadeIn key={v.id} delay={(i % 3) * 0.05}>
-                  <div className="bg-[#F8F4ED] border border-[#E0D8C8] rounded-sm p-7 h-full hover:shadow-md hover:border-[#3A2D5C]/30 transition-all">
+                  <div className="bg-[#F8FAF6] border border-[#D4E0D4] rounded-sm p-7 h-full hover:shadow-md hover:border-[#2D5A3D]/30 transition-all">
                     <div
                       className="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
                       style={{ backgroundColor: `${v.color}18`, color: v.color }}
@@ -272,12 +272,12 @@ export default function AboutPage() {
                       {valueIcons[v.icon]}
                     </div>
                     <h3
-                      className="text-lg font-bold text-[#1A1430] mb-2"
+                      className="text-lg font-bold text-[#1A3D2A] mb-2"
                       style={{ fontFamily: PUBLIC_DESIGN.serif }}
                     >
                       {v.name}
                     </h3>
-                    <p className="text-sm text-[#6B5E80] leading-relaxed">{v.description}</p>
+                    <p className="text-sm text-[#5A7A6A] leading-relaxed">{v.description}</p>
                   </div>
                 </FadeIn>
               ))}
@@ -308,11 +308,12 @@ export default function AboutPage() {
                   description="Organ tertinggi yang menetapkan arah strategis perusahaan."
                   center
                 />
-                <div className="bg-[#3A2D5C] rounded-sm shadow-md overflow-hidden">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+                <div className="bg-[#E8F0E8] border border-[#D4E0D4] rounded-sm shadow-md overflow-hidden relative">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#2D5A3D]" aria-hidden="true" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#D4E0D4]">
                     {ORG_STRUCTURE.tiers[0].members.map((m, i) => (
                       <div key={i} className="p-5 text-center">
-                        <div className="text-white font-semibold text-sm leading-tight">{m.name}</div>
+                        <div className="text-[#1A3D2A] font-semibold text-sm leading-tight">{m.name}</div>
                         <div className="text-[#C9A961] text-xs font-medium mt-1.5 tracking-wide">{m.role}</div>
                       </div>
                     ))}
@@ -329,15 +330,15 @@ export default function AboutPage() {
                   center
                 />
                 <div className="flex justify-center">
-                  <div className="bg-white border border-[#E0D8C8] rounded-sm p-6 max-w-md w-full text-center relative shadow-sm">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#3A2D5C]" aria-hidden="true" />
+                  <div className="bg-white border border-[#D4E0D4] rounded-sm p-6 max-w-md w-full text-center relative shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#2D5A3D]" aria-hidden="true" />
                     <div
-                      className="text-base font-bold text-[#1A1430] mt-1"
+                      className="text-base font-bold text-[#1A3D2A] mt-1"
                       style={{ fontFamily: PUBLIC_DESIGN.serif }}
                     >
                       {ORG_STRUCTURE.tiers[1].members[0].name}
                     </div>
-                    <div className="text-[#3A2D5C] text-sm font-medium mt-1">
+                    <div className="text-[#2D5A3D] text-sm font-medium mt-1">
                       {ORG_STRUCTURE.tiers[1].members[0].role}
                     </div>
                   </div>
@@ -372,14 +373,14 @@ export default function AboutPage() {
         {/* ====================================================
             Section 4: Tim Kepemimpinan
             ==================================================== */}
-        <section className="py-20 lg:py-28 bg-white border-y border-[#E0D8C8]" aria-labelledby="leadership-heading">
+        <section className="py-20 lg:py-28 bg-white border-y border-[#D4E0D4]" aria-labelledby="leadership-heading">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="mb-12 max-w-2xl">
                 <SectionLabel>Tim Kepemimpinan</SectionLabel>
                 <h2
                   id="leadership-heading"
-                  className="text-3xl sm:text-4xl font-bold text-[#1A1430] mt-3"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Pemimpin di Setiap Tingkat
@@ -389,10 +390,10 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {LEADERSHIP.map((leader, i) => (
                 <FadeIn key={leader.name} delay={(i % 4) * 0.05}>
-                  <div className="bg-[#F8F4ED] border border-[#E0D8C8] rounded-sm p-6 h-full flex flex-col hover:shadow-md hover:border-[#3A2D5C]/30 transition-all">
+                  <div className="bg-[#F8FAF6] border border-[#D4E0D4] rounded-sm p-6 h-full flex flex-col hover:shadow-md hover:border-[#2D5A3D]/30 transition-all">
                     <div className="flex items-center justify-between mb-4">
                       <div
-                        className="w-12 h-12 rounded-sm bg-[#3A2D5C] text-white font-bold flex items-center justify-center text-sm"
+                        className="w-12 h-12 rounded-sm bg-[#2D5A3D] text-white font-bold flex items-center justify-center text-sm"
                         style={{ fontFamily: PUBLIC_DESIGN.serif }}
                         aria-hidden="true"
                       >
@@ -404,18 +405,18 @@ export default function AboutPage() {
                       </div>
                     </div>
                     <h3
-                      className="text-base font-bold text-[#1A1430] mb-1 leading-tight"
+                      className="text-base font-bold text-[#1A3D2A] mb-1 leading-tight"
                       style={{ fontFamily: PUBLIC_DESIGN.serif }}
                     >
                       {leader.name}
                     </h3>
-                    <div className="text-[#3A2D5C] text-sm font-medium mb-3">{leader.position}</div>
-                    <p className="text-sm text-[#6B5E80] leading-relaxed mb-4 flex-1">{leader.bio}</p>
+                    <div className="text-[#2D5A3D] text-sm font-medium mb-3">{leader.position}</div>
+                    <p className="text-sm text-[#5A7A6A] leading-relaxed mb-4 flex-1">{leader.bio}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {leader.focus.map(f => (
                         <span
                           key={f}
-                          className="px-2.5 py-1 bg-white border border-[#E0D8C8] text-[10px] text-[#6B5E80] rounded-sm"
+                          className="px-2.5 py-1 bg-white border border-[#D4E0D4] text-[10px] text-[#5A7A6A] rounded-sm"
                         >
                           {f}
                         </span>
@@ -438,7 +439,7 @@ export default function AboutPage() {
                 <SectionLabel>Sejarah &amp; Tonggak</SectionLabel>
                 <h2
                   id="sejarah-heading"
-                  className="text-3xl sm:text-4xl font-bold text-[#1A1430] mt-3"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Perjalanan PT Jiwa Abdi Cinta
@@ -449,7 +450,7 @@ export default function AboutPage() {
               <div className="relative max-w-4xl mx-auto">
                 {/* Vertical line */}
                 <div
-                  className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-[#3A2D5C]/20 -translate-x-1/2"
+                  className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-[#2D5A3D]/20 -translate-x-1/2"
                   aria-hidden="true"
                 />
                 <div className="space-y-6 sm:space-y-0">
@@ -459,7 +460,7 @@ export default function AboutPage() {
                       <div key={i} className="relative sm:grid sm:grid-cols-2">
                         {/* Dot */}
                         <div
-                          className="absolute left-4 sm:left-1/2 top-7 w-3.5 h-3.5 rounded-full bg-[#C9A961] ring-4 ring-[#F8F4ED] -translate-x-1/2 z-10"
+                          className="absolute left-4 sm:left-1/2 top-7 w-3.5 h-3.5 rounded-full bg-[#C9A961] ring-4 ring-[#F8FAF6] -translate-x-1/2 z-10"
                           aria-hidden="true"
                         />
                         {/* Card */}
@@ -470,26 +471,26 @@ export default function AboutPage() {
                               : 'sm:col-start-2 sm:pl-10'
                           }`}
                         >
-                          <div className="bg-white border border-[#E0D8C8] rounded-sm p-6 mb-6 sm:mb-12 hover:shadow-md transition-shadow">
+                          <div className="bg-white border border-[#D4E0D4] rounded-sm p-6 mb-6 sm:mb-12 hover:shadow-md transition-shadow">
                             <div
                               className={`flex items-center gap-3 mb-3 ${
                                 isLeft ? 'sm:justify-end' : ''
                               }`}
                             >
-                              <span className="text-[#8B7FA3] text-[10px] uppercase tracking-wider">
+                              <span className="text-[#8B9A8B] text-[10px] uppercase tracking-wider">
                                 Tonggak {i + 1}
                               </span>
-                              <span className="px-3 py-1 bg-[#3A2D5C] text-white text-xs font-bold tracking-wider rounded-sm">
+                              <span className="px-3 py-1 bg-[#2D5A3D] text-white text-xs font-bold tracking-wider rounded-sm">
                                 {item.year}
                               </span>
                             </div>
                             <h3
-                              className="text-base font-bold text-[#1A1430] mb-2"
+                              className="text-base font-bold text-[#1A3D2A] mb-2"
                               style={{ fontFamily: PUBLIC_DESIGN.serif }}
                             >
                               {item.title}
                             </h3>
-                            <p className="text-sm text-[#6B5E80] leading-relaxed">{item.description}</p>
+                            <p className="text-sm text-[#5A7A6A] leading-relaxed">{item.description}</p>
                           </div>
                         </div>
                       </div>
@@ -502,9 +503,9 @@ export default function AboutPage() {
         </section>
 
         {/* ====================================================
-            Section 6: Landasan Hukum (dark green)
+            Section 6: Landasan Hukum (light creamWarm)
             ==================================================== */}
-        <section className="py-20 lg:py-28 bg-[#3A2D5C]" aria-labelledby="legal-heading">
+        <section className="py-20 lg:py-28 bg-[#F5F0E8]" aria-labelledby="legal-heading">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="mb-12 text-center">
@@ -513,26 +514,26 @@ export default function AboutPage() {
                 </span>
                 <h2
                   id="legal-heading"
-                  className="text-3xl sm:text-4xl font-bold text-white mt-3"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Dasar Hukum &amp; Identitas Perseroan
                 </h2>
-                <p className="text-white/60 max-w-2xl mx-auto mt-4 leading-relaxed">
+                <p className="text-[#5A7A6A] max-w-2xl mx-auto mt-4 leading-relaxed">
                   Perseroan berbadan hukum dengan Akta Notaris No. {LEGAL_FOUNDATION.aktaNumber} tanggal{' '}
                   {LEGAL_FOUNDATION.aktaDate}, didirikan di {LEGAL_FOUNDATION.location}.
                 </p>
               </div>
             </FadeIn>
             <FadeIn delay={0.1}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 rounded-sm overflow-hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#D4E0D4] border border-[#D4E0D4] rounded-sm overflow-hidden">
                 {legalItems.map((item, i) => (
-                  <div key={i} className="bg-[#2A1F4A] p-6 hover:bg-[#3A2D5C] transition-colors">
+                  <div key={i} className="bg-white p-6 hover:bg-[#F8FAF6] transition-colors">
                     <div className="text-[#C9A961] text-xs uppercase tracking-[0.15em] mb-2 font-semibold">
                       {item.label}
                     </div>
                     <div
-                      className="text-white text-lg font-semibold"
+                      className="text-[#1A3D2A] text-lg font-semibold"
                       style={{ fontFamily: PUBLIC_DESIGN.serif }}
                     >
                       {item.value}
@@ -554,7 +555,7 @@ export default function AboutPage() {
                 <SectionLabel>Mengapa JAC</SectionLabel>
                 <h2
                   id="differentiators-heading"
-                  className="text-3xl sm:text-4xl font-bold text-[#1A1430] mt-3"
+                  className="text-3xl sm:text-4xl font-bold text-[#1A3D2A] mt-3"
                   style={{ fontFamily: PUBLIC_DESIGN.serif }}
                 >
                   Empat Pembeda Utama
@@ -564,7 +565,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {DIFFERENTIATORS.map((d, i) => (
                 <FadeIn key={d.id} delay={(i % 4) * 0.05}>
-                  <div className="bg-white border border-[#E0D8C8] rounded-sm p-7 h-full relative hover:shadow-md hover:border-[#3A2D5C]/30 transition-all">
+                  <div className="bg-white border border-[#D4E0D4] rounded-sm p-7 h-full relative hover:shadow-md hover:border-[#2D5A3D]/30 transition-all">
                     <div
                       className="text-[#C9A961] text-xs font-bold tracking-wider mb-4"
                       style={{ fontFamily: PUBLIC_DESIGN.serif }}
@@ -572,18 +573,18 @@ export default function AboutPage() {
                       0{i + 1}
                     </div>
                     <div
-                      className="w-11 h-11 rounded-sm bg-[#3A2D5C] text-white flex items-center justify-center mb-4"
+                      className="w-11 h-11 rounded-sm bg-[#2D5A3D] text-white flex items-center justify-center mb-4"
                       aria-hidden="true"
                     >
                       {diffIcons[d.icon]}
                     </div>
                     <h3
-                      className="text-base font-bold text-[#1A1430] mb-2"
+                      className="text-base font-bold text-[#1A3D2A] mb-2"
                       style={{ fontFamily: PUBLIC_DESIGN.serif }}
                     >
                       {d.title}
                     </h3>
-                    <p className="text-sm text-[#6B5E80] leading-relaxed">{d.description}</p>
+                    <p className="text-sm text-[#5A7A6A] leading-relaxed">{d.description}</p>
                   </div>
                 </FadeIn>
               ))}

@@ -17,20 +17,20 @@ interface NeonButtonProps {
 export function NeonButton({ children, onClick, variant = 'gold', size = 'md', disabled, loading, className }: NeonButtonProps) {
   const colors = {
     gold: {
-      bg: 'bg-[#d4a843]',
-      text: 'text-[#0a0a0f]',
+      bg: 'bg-[#5A8A6A]',
+      text: 'text-[#1A3D2A]',
       hover: 'hover:bg-[#e0b853]',
       shadow: 'hover:shadow-[0_0_20px_rgba(212,168,67,0.4)]',
     },
     green: {
-      bg: 'bg-[#4ade80]',
-      text: 'text-[#0a0a0f]',
+      bg: 'bg-[#8FB89B]',
+      text: 'text-[#1A3D2A]',
       hover: 'hover:bg-[#5aee90]',
       shadow: 'hover:shadow-[0_0_20px_rgba(74,222,128,0.4)]',
     },
     outline: {
       bg: 'bg-transparent',
-      text: 'text-[#d4a843]',
+      text: 'text-[#5A8A6A]',
       hover: 'hover:bg-[rgba(212,168,67,0.1)]',
       shadow: 'hover:shadow-[0_0_15px_rgba(212,168,67,0.2)]',
     },
@@ -55,7 +55,7 @@ export function NeonButton({ children, onClick, variant = 'gold', size = 'md', d
         colors[variant].hover,
         colors[variant].shadow,
         sizes[size],
-        variant === 'outline' && 'border-[#d4a843]/30',
+        variant === 'outline' && 'border-[#5A8A6A]/30',
         variant !== 'outline' && 'border-transparent',
         disabled && 'opacity-50 cursor-not-allowed',
         className
